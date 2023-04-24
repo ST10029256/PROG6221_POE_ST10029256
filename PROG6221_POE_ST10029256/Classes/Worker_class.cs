@@ -16,6 +16,8 @@ namespace PROG6221_POE_ST10029256
 
         public Steps_class[] stepsArray;
 
+        public int listerner;
+
         /// <summary>
         /// Default constructor
         /// </summary>
@@ -50,6 +52,9 @@ namespace PROG6221_POE_ST10029256
 
         }
 
+        /// <summary>
+        /// method will display user input
+        /// </summary>
         public void Display()
         {
             for (int i = 0; i < ingredientsArray.Length; i++)
