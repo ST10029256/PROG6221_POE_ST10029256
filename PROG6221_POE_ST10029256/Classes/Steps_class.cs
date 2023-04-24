@@ -31,7 +31,7 @@ namespace PROG6221_POE_ST10029256
 
         public string GetIngredientSteps(int counter)
         {
-            Console.Write("\r\nStep " +  counter + ":");
+            Console.Write("Step " +  counter + ": ");
             this.ingredientSteps = Console.ReadLine();
 
             return this.ingredientSteps;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,7 +17,6 @@ namespace PROG6221_POE_ST10029256
 
         public Steps_class[] stepsArray;
 
-        public int listerner;
 
         /// <summary>
         /// Default constructor
@@ -37,6 +37,8 @@ namespace PROG6221_POE_ST10029256
                 ingredientsArray[i].unitOfIngredient = ingredients.GetUnitOfIngredient();
                 ingredientsArray[i].ingredientName = ingredients.GetingredientName();
 
+                Console.WriteLine("---------------------------------");
+
             }
 
             stepsArray = new Steps_class[steps.GetNumberOfSteps()];
@@ -52,6 +54,38 @@ namespace PROG6221_POE_ST10029256
 
         }
 
+        public void ScalingCalc()
+        {
+            
+            var half = 0.5;
+            
+        }
+
+        /// <summary>
+        /// Scaling half, double or tripple
+        /// </summary>
+        public void Scaling()
+        {
+
+            var choice = string.Empty;
+
+            Console.Write("Would youlike to scale your recipe? (YES/NO: )");
+            choice =  (Console.ReadLine()).ToUpper();
+
+            if(choice == "YES")
+            {
+                Console.WriteLine("Please choose one of the following by entering the number: ");
+                Console.WriteLine("1: (Half) ");
+                Console.WriteLine("2: (Doubble) ");
+                Console.WriteLine("3: (Tripple) ");
+            }
+            else
+            {
+                Display();
+            }
+
+        }
+
         /// <summary>
         /// method will display user input
         /// </summary>
@@ -59,6 +93,7 @@ namespace PROG6221_POE_ST10029256
         {
             for (int i = 0; i < ingredientsArray.Length; i++)
             {
+                Console.WriteLine("-------------------------------");
                 Console.WriteLine(ingredientsArray[i].quantityOfIngredient+" "+ ingredientsArray[i].unitOfIngredient+
                     " of " + ingredientsArray[i].ingredientName);
             }
@@ -67,7 +102,7 @@ namespace PROG6221_POE_ST10029256
 
             for (int j = 0; j < stepsArray.Length; j++)
             {
-                Console.WriteLine((j + 1) + "\t" + stepsArray[j].ingredientSteps);
+                Console.WriteLine((j + 1) + "." + "\t" + stepsArray[j].ingredientSteps);
             }
 
             Console.ReadLine();

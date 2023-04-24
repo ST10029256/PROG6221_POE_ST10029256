@@ -33,7 +33,7 @@ namespace PROG6221_POE_ST10029256
         public string GetingredientName() 
         {
 
-            Console.Write("\r\nEnter name of Ingredient: ");
+            Console.Write("Enter name of Ingredient: ");
             this.ingredientName = Console.ReadLine();
 
             return this.ingredientName;
@@ -42,7 +42,7 @@ namespace PROG6221_POE_ST10029256
         public float GetQuantityOfIngredient() 
         {
 
-            Console.Write("\r\nEnter the quantity of the ingredient: ");
+            Console.Write("Enter the quantity of the ingredient: ");
             this.quantityOfIngredient = float.Parse(Console.ReadLine());
 
             return this.quantityOfIngredient;
@@ -50,7 +50,7 @@ namespace PROG6221_POE_ST10029256
 
         public string GetUnitOfIngredient()
         {
-            Console.Write("\r\nEnter the unit of mesurement: ");
+            Console.Write("Enter the unit of mesurement: ");
             this.unitOfIngredient= Console.ReadLine();
 
             return this.unitOfIngredient;
