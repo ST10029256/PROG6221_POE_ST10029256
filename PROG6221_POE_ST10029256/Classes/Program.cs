@@ -12,6 +12,7 @@ namespace PROG6221_POE_ST10029256
         {
             Worker_class worker = new Worker_class();
             worker.StoreDataInArray();
+            worker.Scaling();
             worker.Display();
 
         }

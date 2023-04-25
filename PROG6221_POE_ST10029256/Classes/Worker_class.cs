@@ -58,6 +58,9 @@ namespace PROG6221_POE_ST10029256
         {
             
             var half = 0.5;
+            int double1 = 2;
+            int tripple = 3;
+
             
         }
 
@@ -66,7 +69,7 @@ namespace PROG6221_POE_ST10029256
         /// </summary>
         public void Scaling()
         {
-
+            int num = 0;
             var choice = string.Empty;
 
             Console.Write("Would youlike to scale your recipe? (YES/NO: )");
@@ -76,8 +79,17 @@ namespace PROG6221_POE_ST10029256
             {
                 Console.WriteLine("Please choose one of the following by entering the number: ");
                 Console.WriteLine("1: (Half) ");
-                Console.WriteLine("2: (Doubble) ");
+                Console.WriteLine("2: (Double) ");
                 Console.WriteLine("3: (Tripple) ");
+                Console.WriteLine("4: (Reset) ");
+
+                switch (num)
+                {
+                    case 0:
+
+
+                }
+
             }
             else
             {
