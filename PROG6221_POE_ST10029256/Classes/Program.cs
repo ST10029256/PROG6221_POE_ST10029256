@@ -14,7 +14,8 @@ namespace PROG6221_POE_ST10029256
             worker.StoreDataInArray();
             worker.Scaling();
             worker.Display();
-
+            worker.Scaling();
+            worker.Display();
         }
     }
 }

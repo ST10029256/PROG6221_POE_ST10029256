@@ -17,6 +17,7 @@ namespace PROG6221_POE_ST10029256
 
         public Steps_class[] stepsArray;
 
+        public float[] resetIngredientQuantity;
 
         /// <summary>
         /// Default constructor
@@ -28,12 +29,15 @@ namespace PROG6221_POE_ST10029256
 
         public void StoreDataInArray()
         {
-            ingredientsArray = new Ingredient_class[ingredients.GetNumberOfIngredients()];
+            int numberOfIngredients = ingredients.GetNumberOfIngredients();
+            ingredientsArray = new Ingredient_class[numberOfIngredients];
+            resetIngredientQuantity = new float[numberOfIngredients]; 
 
             for (int i = 0; i < ingredientsArray.Length; i++)
             {
                 ingredientsArray[i] = new Ingredient_class();
                 ingredientsArray[i].quantityOfIngredient = ingredients.GetQuantityOfIngredient();
+                resetIngredientQuantity[i] = ingredientsArray[i].quantityOfIngredient;
                 ingredientsArray[i].unitOfIngredient = ingredients.GetUnitOfIngredient();
                 ingredientsArray[i].ingredientName = ingredients.GetingredientName();
 
@@ -54,14 +58,38 @@ namespace PROG6221_POE_ST10029256
 
         }
 
-        public void ScalingCalc()
+        public float ScalingCalc(int i, int num)
         {
             
-            var half = 0.5;
+            var half = 0.5f;
             int double1 = 2;
             int tripple = 3;
+            float final = 0.0f;
 
-            
+            if(num == 1)
+            {       
+                final = half * ingredientsArray[i].quantityOfIngredient;
+            }
+            else
+            {
+                if(num == 2)
+                {
+                    final = double1 * ingredientsArray[i].quantityOfIngredient;
+                }
+                else
+                {
+                    if(num == 3)
+                    {
+                        final = tripple * ingredientsArray[i].quantityOfIngredient;
+                    }
+                    else 
+                    { 
+
+                    }
+                }
+            }
+
+            return final;
         }
 
         /// <summary>
@@ -72,7 +100,7 @@ namespace PROG6221_POE_ST10029256
             int num = 0;
             var choice = string.Empty;
 
-            Console.Write("Would youlike to scale your recipe? (YES/NO: )");
+            Console.Write("Would youlike to scale your recipe? (YES/NO): ");
             choice =  (Console.ReadLine()).ToUpper();
 
             if(choice == "YES")
@@ -82,12 +110,33 @@ namespace PROG6221_POE_ST10029256
                 Console.WriteLine("2: (Double) ");
                 Console.WriteLine("3: (Tripple) ");
                 Console.WriteLine("4: (Reset) ");
+                num = Convert.ToInt32(Console.ReadLine());
 
-                switch (num)
+                for (int i = 0; i < ingredientsArray.Length; i++)
                 {
-                    case 0:
+                    switch (num)
+                    {
+                        case 1:
+                            ingredientsArray[i].quantityOfIngredient = ScalingCalc(i, num);
+                            break;
 
+                        case 2:
+                            ingredientsArray[i].quantityOfIngredient = ScalingCalc(i, num);
+                            break;
 
+                        case 3:
+                            ingredientsArray[i].quantityOfIngredient = ScalingCalc(i, num);
+                            break;
+
+                        case 4:
+                            ingredientsArray[i].quantityOfIngredient = resetIngredientQuantity[i];
+                            break;
+
+                        default:
+                            Console.WriteLine();
+                            break;
+
+                    }
                 }
 
             }
@@ -103,18 +152,25 @@ namespace PROG6221_POE_ST10029256
         /// </summary>
         public void Display()
         {
+
+            Console.WriteLine("-------------------------------");
+            Console.WriteLine("Ingredients:\r\n");
+
             for (int i = 0; i < ingredientsArray.Length; i++)
             {
-                Console.WriteLine("-------------------------------");
-                Console.WriteLine(ingredientsArray[i].quantityOfIngredient+" "+ ingredientsArray[i].unitOfIngredient+
+
+                Console.WriteLine(ingredientsArray[i].quantityOfIngredient + " " + ingredientsArray[i].unitOfIngredient +
                     " of " + ingredientsArray[i].ingredientName);
             }
 
             Console.WriteLine();
 
+            Console.WriteLine("-------------------------------");
+            Console.WriteLine("Steps:\r\n");
+
             for (int j = 0; j < stepsArray.Length; j++)
             {
-                Console.WriteLine((j + 1) + "." + "\t" + stepsArray[j].ingredientSteps);
+                Console.WriteLine((j + 1) + ". " +  stepsArray[j].ingredientSteps);
             }
 
             Console.ReadLine();
