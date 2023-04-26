@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PROG6221_POE_ST10029256
 {
     public class Worker_class
     {
         public Ingredient_class ingredients = new Ingredient_class();
-        
+
         public Steps_class steps = new Steps_class();
 
         public Ingredient_class[] ingredientsArray;
@@ -22,16 +17,16 @@ namespace PROG6221_POE_ST10029256
         /// <summary>
         /// Default constructor
         /// </summary>
-        public Worker_class() 
-        { 
-        
+        public Worker_class()
+        {
+
         }
 
         public void StoreDataInArray()
         {
             int numberOfIngredients = ingredients.GetNumberOfIngredients();
             ingredientsArray = new Ingredient_class[numberOfIngredients];
-            resetIngredientQuantity = new float[numberOfIngredients]; 
+            resetIngredientQuantity = new float[numberOfIngredients];
 
             for (int i = 0; i < ingredientsArray.Length; i++)
             {
@@ -51,7 +46,7 @@ namespace PROG6221_POE_ST10029256
             {
 
                 stepsArray[j] = new Steps_class();
-                stepsArray[j].ingredientSteps = steps.GetIngredientSteps(j+1);
+                stepsArray[j].ingredientSteps = steps.GetIngredientSteps(j + 1);
 
             }
 
@@ -60,30 +55,30 @@ namespace PROG6221_POE_ST10029256
 
         public float ScalingCalc(int i, int num)
         {
-            
+
             var half = 0.5f;
             int double1 = 2;
             int tripple = 3;
             float final = 0.0f;
 
-            if(num == 1)
-            {       
+            if (num == 1)
+            {
                 final = half * ingredientsArray[i].quantityOfIngredient;
             }
             else
             {
-                if(num == 2)
+                if (num == 2)
                 {
                     final = double1 * ingredientsArray[i].quantityOfIngredient;
                 }
                 else
                 {
-                    if(num == 3)
+                    if (num == 3)
                     {
                         final = tripple * ingredientsArray[i].quantityOfIngredient;
                     }
-                    else 
-                    { 
+                    else
+                    {
 
                     }
                 }
@@ -99,18 +94,89 @@ namespace PROG6221_POE_ST10029256
         {
             int num = 0;
             var choice = string.Empty;
+            bool reAsk = false;
 
-            Console.Write("Would youlike to scale your recipe? (YES/NO): ");
-            choice =  (Console.ReadLine()).ToUpper();
+            Console.Write("Would you like to scale your recipe? (YES/NO): ");
+            choice = (Console.ReadLine()).ToUpper();
 
-            if(choice == "YES")
+            do
+            {
+
+                if((choice.Equals("YES")) || (choice.Equals("NO")))
+                {
+                    reAsk = true;
+                }
+                else
+                {
+                    Console.Write("Would you like to scale your recipe? (YES/NO): ");
+                    choice = (Console.ReadLine()).ToUpper();
+                    reAsk = false;
+                }
+
+            } while (reAsk == false);
+
+            if (choice == "YES")
             {
                 Console.WriteLine("Please choose one of the following by entering the number: ");
                 Console.WriteLine("1: (Half) ");
                 Console.WriteLine("2: (Double) ");
                 Console.WriteLine("3: (Tripple) ");
                 Console.WriteLine("4: (Reset) ");
-                num = Convert.ToInt32(Console.ReadLine());
+                string input = Console.ReadLine();
+
+                int option = 0;
+                bool reloop = false;
+
+                do
+                {
+                    try
+                    {
+
+                        if (Int32.TryParse(input, out option))
+                        {
+                            option = Convert.ToInt32(input);
+
+                            if ((option > 0) && (option < 5))
+                            {
+
+                                reloop = true;
+                                num = option;
+
+                            }
+                            else
+                            {
+                                Console.WriteLine("Please choose one of the following by re-entering the number: ");
+                                Console.WriteLine("1: (Half) ");
+                                Console.WriteLine("2: (Double) ");
+                                Console.WriteLine("3: (Tripple) ");
+                                Console.WriteLine("4: (Reset) ");
+                                input = Console.ReadLine();
+                                reloop = false;
+                            }
+
+                        }
+                        else
+                        {
+                            Console.WriteLine("Please choose one of the following by re-entering the number: ");
+                            Console.WriteLine("1: (Half) ");
+                            Console.WriteLine("2: (Double) ");
+                            Console.WriteLine("3: (Tripple) ");
+                            Console.WriteLine("4: (Reset) ");
+                            input = Console.ReadLine();
+                            reloop = false;
+                        }
+
+                    }
+                    catch (Exception ex)
+                    {
+                        if (reloop != false)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
+
+                    }
+
+                } while (reloop == false);
 
                 for (int i = 0; i < ingredientsArray.Length; i++)
                 {
@@ -128,12 +194,8 @@ namespace PROG6221_POE_ST10029256
                             ingredientsArray[i].quantityOfIngredient = ScalingCalc(i, num);
                             break;
 
-                        case 4:
-                            ingredientsArray[i].quantityOfIngredient = resetIngredientQuantity[i];
-                            break;
-
                         default:
-                            Console.WriteLine();
+                            ingredientsArray[i].quantityOfIngredient = resetIngredientQuantity[i];
                             break;
 
                     }
@@ -142,9 +204,108 @@ namespace PROG6221_POE_ST10029256
             }
             else
             {
-                Display();
+                MainMenu();
             }
 
+        }
+
+        public void MainMenu()
+        {
+            Console.WriteLine("\r\nPlease choose one of the folling by entering the number:");
+            Console.WriteLine("1: Enter a recipe");
+            Console.WriteLine("2: Display recipe");
+            Console.WriteLine("3: Scale recipe");
+            Console.WriteLine("4: Enter a new recipe");
+            Console.WriteLine("5: Exit application");
+
+            string input = Console.ReadLine();
+            int option = 0;
+            bool reloop = false;
+
+            do
+            {
+                try
+                {
+
+                    if (Int32.TryParse(input, out option))
+                    {
+                        option = Convert.ToInt32(input);
+
+                        if((option > 0) && (option < 6))
+                        {
+
+                            reloop = true;
+
+                        }
+                        else
+                        {
+                            Console.WriteLine("\r\nPlease choose one of the folling by re-entering the number:");
+                            Console.WriteLine("1: Enter a recipe");
+                            Console.WriteLine("2: Display recipe");
+                            Console.WriteLine("3: Scale recipe");
+                            Console.WriteLine("4: Enter a new recipe");
+                            Console.WriteLine("5: Exit application");
+
+                            input = Console.ReadLine();
+                            reloop = false;
+                        }
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("\r\nPlease choose one of the folling by re-entering the number:");
+                        Console.WriteLine("1: Enter a recipe");
+                        Console.WriteLine("2: Display recipe");
+                        Console.WriteLine("3: Scale recipe");
+                        Console.WriteLine("4: Enter a new recipe");
+                        Console.WriteLine("5: Exit application");
+
+                        input = Console.ReadLine();
+                        reloop = false;
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    if(reloop != false)
+                    {
+                       Console.WriteLine(ex.Message); 
+                    }
+               
+                }
+
+            } while (reloop == false);
+
+            switch (option)
+            {
+                case 1:
+                    StoreDataInArray();
+                    MainMenu();
+                    break;
+
+                case 2:
+                    Display();
+                    MainMenu();
+                    break;
+
+                case 3:
+                    Scaling();
+                    MainMenu();
+                    break;
+
+                case 4:
+                    Array.Clear(ingredientsArray, 0, ingredientsArray.Length);
+                    Array.Clear(stepsArray, 0, stepsArray.Length);
+                    Array.Clear(resetIngredientQuantity, 0, resetIngredientQuantity.Length);
+                    StoreDataInArray();
+                    MainMenu();
+                    break;
+                    
+                default:
+                    Environment.Exit(0);
+                    break;
+
+            }
         }
 
         /// <summary>

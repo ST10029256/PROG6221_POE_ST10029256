@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace PROG6221_POE_ST10029256
 {
@@ -25,8 +26,37 @@ namespace PROG6221_POE_ST10029256
         {
 
             Console.Write("Please enter the number of ingredients: ");
-            this.numberOfIngredients = Convert.ToInt32(Console.ReadLine());
+            string input = Console.ReadLine();
+            int num = 0;
+            bool reloop = false;
 
+            do 
+            {
+                try
+                {
+
+                    if (Int32.TryParse(input, out num))
+                    {
+                        num = Convert.ToInt32(input);
+                        this.numberOfIngredients = num;
+                        reloop = true;
+                    }
+                    else
+                    {
+                        Console.Write("Please re-enter the number of ingredients: ");
+                        input = Console.ReadLine();
+                    }
+
+                }
+                catch (Exception ex)
+                {
+
+                    Console.WriteLine(ex.Message);
+
+                }
+
+            } while (reloop == false);
+     
             return this.numberOfIngredients;
         }
 
@@ -34,7 +64,35 @@ namespace PROG6221_POE_ST10029256
         {
 
             Console.Write("Enter name of Ingredient: ");
-            this.ingredientName = Console.ReadLine();
+            string name = Console.ReadLine();
+
+            bool reloop = false;
+
+            do
+            {
+                try
+                {
+
+                    if ((!name.Equals(null)) && (!name.Equals(string.Empty))) 
+                    {
+                        this.ingredientName = name;
+                        reloop = true;
+                    }
+                    else
+                    {
+                        Console.Write("Re-enter name of Ingredient: ");
+                        name = Console.ReadLine();
+                    }
+
+                }
+                catch (Exception ex)
+                {
+
+                    Console.WriteLine(ex.Message);
+
+                }
+
+            } while (reloop == false);
 
             return this.ingredientName;
         }
@@ -43,15 +101,87 @@ namespace PROG6221_POE_ST10029256
         {
 
             Console.Write("Enter the quantity of the ingredient: ");
-            this.quantityOfIngredient = float.Parse(Console.ReadLine());
+            string quantity = Console.ReadLine();
+
+            float num = 0;
+            bool reloop = false;
+
+            do
+            {
+                try
+                {
+
+                    if (float.TryParse(quantity, out num))
+                    {
+                        num = float.Parse(quantity);
+                        this.quantityOfIngredient = num;
+                        reloop = true;
+                    }
+                    else
+                    {
+                        Console.Write("Re-enter the quantity of the ingredient: ");
+                        quantity = Console.ReadLine();
+                    }
+
+                }
+                catch (Exception ex)
+                {
+
+                    Console.WriteLine(ex.Message);
+
+                }
+
+            } while (reloop == false);
 
             return this.quantityOfIngredient;
         }
 
         public string GetUnitOfIngredient()
         {
+            string[] units = {"cups", "cup", "tablespoons", "tablespoon", "teaspoons" , "teaspoon", "ml", "l", "g", "kg", "gallon", "gallons"};
+
+
             Console.Write("Enter the unit of mesurement: ");
-            this.unitOfIngredient= Console.ReadLine();
+            string unit = Console.ReadLine();
+
+            bool reloop = false;
+
+            do
+            {
+                try
+                {
+
+                    if ((!unit.Equals(null)) && (!unit.Equals(string.Empty)))
+                    {
+                        this.unitOfIngredient = unit;
+
+                        if (units.Contains(unit))
+                        {
+                            reloop = true;
+                        }
+                        else
+                        {
+                            Console.Write("Re-enter the unit of mesurement: ");
+                            unit = Console.ReadLine();
+                            reloop = false;
+                        }
+                        
+                    }
+                    else
+                    {
+                        Console.Write("Re-enter the unit of mesurement: ");
+                        unit = Console.ReadLine();
+                    }
+
+                }
+                catch (Exception ex)
+                {
+
+                    Console.WriteLine(ex.Message);
+
+                }
+
+            } while (reloop == false);
 
             return this.unitOfIngredient;
         }
