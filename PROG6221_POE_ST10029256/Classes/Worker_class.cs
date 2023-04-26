@@ -14,6 +14,8 @@ namespace PROG6221_POE_ST10029256
 
         public float[] resetIngredientQuantity;
 
+        public string[] resetIngredientUnits;
+
         /// <summary>
         /// Default constructor
         /// </summary>
@@ -27,6 +29,7 @@ namespace PROG6221_POE_ST10029256
             int numberOfIngredients = ingredients.GetNumberOfIngredients();
             ingredientsArray = new Ingredient_class[numberOfIngredients];
             resetIngredientQuantity = new float[numberOfIngredients];
+            resetIngredientUnits = new string[numberOfIngredients];
 
             for (int i = 0; i < ingredientsArray.Length; i++)
             {
@@ -34,6 +37,7 @@ namespace PROG6221_POE_ST10029256
                 ingredientsArray[i].quantityOfIngredient = ingredients.GetQuantityOfIngredient();
                 resetIngredientQuantity[i] = ingredientsArray[i].quantityOfIngredient;
                 ingredientsArray[i].unitOfIngredient = ingredients.GetUnitOfIngredient();
+                resetIngredientUnits[i] = ingredientsArray[i].unitOfIngredient;
                 ingredientsArray[i].ingredientName = ingredients.GetingredientName();
 
                 Console.WriteLine("---------------------------------");
@@ -184,18 +188,22 @@ namespace PROG6221_POE_ST10029256
                     {
                         case 1:
                             ingredientsArray[i].quantityOfIngredient = ScalingCalc(i, num);
+                            ingredientsArray[i].unitOfIngredient = ChangeUnits(i, num);
                             break;
 
                         case 2:
                             ingredientsArray[i].quantityOfIngredient = ScalingCalc(i, num);
+                            ingredientsArray[i].unitOfIngredient = ChangeUnits(i, num);
                             break;
 
                         case 3:
                             ingredientsArray[i].quantityOfIngredient = ScalingCalc(i, num);
+                            ingredientsArray[i].unitOfIngredient = ChangeUnits(i, num);
                             break;
 
                         default:
                             ingredientsArray[i].quantityOfIngredient = resetIngredientQuantity[i];
+                            ingredientsArray[i].unitOfIngredient = resetIngredientUnits[i];
                             break;
 
                     }
@@ -207,6 +215,16 @@ namespace PROG6221_POE_ST10029256
                 MainMenu();
             }
 
+        }
+
+        public string ChangeUnits(int i, int num)
+        {
+            string newUnit = string.Empty;
+
+
+
+
+            return newUnit;
         }
 
         public void MainMenu()

@@ -138,8 +138,7 @@ namespace PROG6221_POE_ST10029256
 
         public string GetUnitOfIngredient()
         {
-            string[] units = {"cups", "cup", "tablespoons", "tablespoon", "teaspoons" , "teaspoon", "ml", "l", "g", "kg", "gallon", "gallons"};
-
+            string[] units = {"cups", "cup", "tablespoons", "tablespoon", "teaspoons" , "teaspoon", "ml", "l", "gallon", "gallons"};
 
             Console.Write("Enter the unit of mesurement: ");
             string unit = Console.ReadLine();
