@@ -43,7 +43,9 @@ namespace PROG6221_POE_ST10029256
                     }
                     else
                     {
+                        Console.ForegroundColor = ConsoleColor.Red;
                         Console.Write("Re-enter number of steps: ");
+                        Console.ForegroundColor = ConsoleColor.Black;
                         input = Console.ReadLine();
                     }
 

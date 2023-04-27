@@ -43,7 +43,9 @@ namespace PROG6221_POE_ST10029256
                     }
                     else
                     {
+                        Console.ForegroundColor = ConsoleColor.Red;
                         Console.Write("Please re-enter the number of ingredients: ");
+                        Console.ForegroundColor = ConsoleColor.Black;
                         input = Console.ReadLine();
                     }
 
@@ -73,15 +75,18 @@ namespace PROG6221_POE_ST10029256
                 try
                 {
 
-                    if ((!name.Equals(null)) && (!name.Equals(string.Empty))) 
+                    if ((!name.Equals(null)) && (!name.Equals(string.Empty)))
                     {
                         this.ingredientName = name;
                         reloop = true;
                     }
                     else
                     {
+                        Console.ForegroundColor = ConsoleColor.Red;
                         Console.Write("Re-enter name of Ingredient: ");
+                        Console.ForegroundColor = ConsoleColor.Black;
                         name = Console.ReadLine();
+
                     }
 
                 }
@@ -119,7 +124,9 @@ namespace PROG6221_POE_ST10029256
                     }
                     else
                     {
+                        Console.ForegroundColor = ConsoleColor.Red;
                         Console.Write("Re-enter the quantity of the ingredient: ");
+                        Console.ForegroundColor = ConsoleColor.Black;
                         quantity = Console.ReadLine();
                     }
 
@@ -160,7 +167,9 @@ namespace PROG6221_POE_ST10029256
                         }
                         else
                         {
+                            Console.ForegroundColor = ConsoleColor.Red;
                             Console.Write("Re-enter the unit of mesurement: ");
+                            Console.ForegroundColor = ConsoleColor.Black;
                             unit = Console.ReadLine();
                             reloop = false;
                         }
@@ -168,7 +177,9 @@ namespace PROG6221_POE_ST10029256
                     }
                     else
                     {
+                        Console.ForegroundColor = ConsoleColor.Red;
                         Console.Write("Re-enter the unit of mesurement: ");
+                        Console.ForegroundColor = ConsoleColor.Black;
                         unit = Console.ReadLine();
                     }
 

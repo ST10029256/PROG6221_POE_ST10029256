@@ -149,11 +149,13 @@ namespace PROG6221_POE_ST10029256
                             }
                             else
                             {
+                                Console.ForegroundColor = ConsoleColor.Red;
                                 Console.WriteLine("Please choose one of the following by re-entering the number: ");
                                 Console.WriteLine("1: (Half) ");
                                 Console.WriteLine("2: (Double) ");
                                 Console.WriteLine("3: (Tripple) ");
                                 Console.WriteLine("4: (Reset) ");
+                                Console.ForegroundColor = ConsoleColor.Black;
                                 input = Console.ReadLine();
                                 reloop = false;
                             }
@@ -161,11 +163,13 @@ namespace PROG6221_POE_ST10029256
                         }
                         else
                         {
+                            Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine("Please choose one of the following by re-entering the number: ");
                             Console.WriteLine("1: (Half) ");
                             Console.WriteLine("2: (Double) ");
                             Console.WriteLine("3: (Tripple) ");
                             Console.WriteLine("4: (Reset) ");
+                            Console.ForegroundColor = ConsoleColor.Black;
                             input = Console.ReadLine();
                             reloop = false;
                         }
@@ -337,7 +341,7 @@ namespace PROG6221_POE_ST10029256
     
        public void MainMenu()
         {
-            Console.WriteLine("\r\nPlease choose one of the folling by entering the number:");
+            Console.WriteLine("Please choose one of the folling by entering the number:");
             Console.WriteLine("1: Enter a recipe");
             Console.WriteLine("2: Display recipe");
             Console.WriteLine("3: Scale recipe");
@@ -365,12 +369,14 @@ namespace PROG6221_POE_ST10029256
                         }
                         else
                         {
+                            Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine("\r\nPlease choose one of the folling by re-entering the number:");
                             Console.WriteLine("1: Enter a recipe");
                             Console.WriteLine("2: Display recipe");
                             Console.WriteLine("3: Scale recipe");
                             Console.WriteLine("4: Enter a new recipe");
                             Console.WriteLine("5: Exit application");
+                            Console.ForegroundColor = ConsoleColor.Black;
 
                             input = Console.ReadLine();
                             reloop = false;
@@ -379,12 +385,14 @@ namespace PROG6221_POE_ST10029256
                     }
                     else
                     {
+                        Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("\r\nPlease choose one of the folling by re-entering the number:");
                         Console.WriteLine("1: Enter a recipe");
                         Console.WriteLine("2: Display recipe");
                         Console.WriteLine("3: Scale recipe");
                         Console.WriteLine("4: Enter a new recipe");
                         Console.WriteLine("5: Exit application");
+                        Console.ForegroundColor = ConsoleColor.Black;
 
                         input = Console.ReadLine();
                         reloop = false;
