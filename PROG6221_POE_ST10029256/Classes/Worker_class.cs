@@ -473,9 +473,6 @@ namespace PROG6221_POE_ST10029256
             {
                 Console.WriteLine((j + 1) + ". " +  stepsArray[j].ingredientSteps);
             }
-
-            Console.ReadLine();
-
         }
     }
 }
