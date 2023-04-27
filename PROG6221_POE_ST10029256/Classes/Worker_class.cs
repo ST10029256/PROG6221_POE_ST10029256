@@ -106,7 +106,7 @@ namespace PROG6221_POE_ST10029256
             do
             {
 
-                if((choice.Equals("YES")) || (choice.Equals("NO")))
+                if ((choice.Equals("YES")) || (choice.Equals("NO")))
                 {
                     reAsk = true;
                 }
@@ -188,17 +188,17 @@ namespace PROG6221_POE_ST10029256
                     {
                         case 1:
                             ingredientsArray[i].quantityOfIngredient = ScalingCalc(i, num);
-                            ingredientsArray[i].unitOfIngredient = ChangeUnits(i, num);
+                            ChangeUnits(i, num);
                             break;
 
                         case 2:
                             ingredientsArray[i].quantityOfIngredient = ScalingCalc(i, num);
-                            ingredientsArray[i].unitOfIngredient = ChangeUnits(i, num);
+                            ChangeUnits(i, num);
                             break;
 
                         case 3:
                             ingredientsArray[i].quantityOfIngredient = ScalingCalc(i, num);
-                            ingredientsArray[i].unitOfIngredient = ChangeUnits(i, num);
+                            ChangeUnits(i, num);
                             break;
 
                         default:
@@ -217,17 +217,125 @@ namespace PROG6221_POE_ST10029256
 
         }
 
-        public string ChangeUnits(int i, int num)
+        public void ChangeUnits(int i, int num)
         {
             string newUnit = string.Empty;
 
+            if (ingredientsArray[i].unitOfIngredient == "l")
+            {
+                ingredientsArray[i].quantityOfIngredient = ingredientsArray[i].quantityOfIngredient * 1000;
+                ingredientsArray[i].unitOfIngredient = "ml";
+            }
+            if (ingredientsArray[i].unitOfIngredient == "ml")
+            {
+                if (ingredientsArray[i].quantityOfIngredient >= 3785)
+                {
+                    ingredientsArray[i].quantityOfIngredient = (float)Math.Round((double)(ingredientsArray[i].quantityOfIngredient / 3785), 1);
+                    ingredientsArray[i].unitOfIngredient = "gallon";
+                }
+                else
+                {
+                    if (ingredientsArray[i].quantityOfIngredient >= 240)
+                    {
+                        ingredientsArray[i].quantityOfIngredient = (float)Math.Round((double)(ingredientsArray[i].quantityOfIngredient / 240),1);
+                        ingredientsArray[i].unitOfIngredient = "cups";
+                    }
+                    else
+                    {
+                        if (ingredientsArray[i].quantityOfIngredient >= 15)
+                        {
+                            ingredientsArray[i].quantityOfIngredient = (float)Math.Round((double)(ingredientsArray[i].quantityOfIngredient / 15), 1);
+                            ingredientsArray[i].unitOfIngredient = "tablespoons";
+                        }
+                        else
+                        {
+                            if (ingredientsArray[i].quantityOfIngredient >= 5)
+                            {
+                                ingredientsArray[i].quantityOfIngredient = (float)Math.Round((double)(ingredientsArray[i].quantityOfIngredient / 5),1);
+                                ingredientsArray[i].unitOfIngredient = "teaspoons";
+                            }
+                            else
+                            {
+                                ingredientsArray[i].unitOfIngredient = "ml";
+                            }
+                        }
+                    }
+                }
+            }
 
+            if ((ingredientsArray[i].unitOfIngredient == "teaspoon") || ingredientsArray[i].unitOfIngredient == "teaspoons")
+            {
+                if (ingredientsArray[i].quantityOfIngredient >= 3)
+                {
+                    ingredientsArray[i].quantityOfIngredient = (float)Math.Round((double)(ingredientsArray[i].quantityOfIngredient / 3),1);
+                    ingredientsArray[i].unitOfIngredient = "tablespoons";
+                }
+                else
+                {
+                    if (ingredientsArray[i].quantityOfIngredient == 1)
+                    {
+                        ingredientsArray[i].unitOfIngredient = "teaspoon";
+                    }
+                }
+            }
+            else
+            {
+                if ((ingredientsArray[i].unitOfIngredient == "tablespoon") || ingredientsArray[i].unitOfIngredient == "tablespoons")
+                {
+                    if (ingredientsArray[i].quantityOfIngredient >= 16)
+                    {
+                        ingredientsArray[i].quantityOfIngredient = (float)Math.Round((double)(ingredientsArray[i].quantityOfIngredient / 16),1);
+                        ingredientsArray[i].unitOfIngredient = "cups";
+                    }
+                    else
+                    {
+                        if (ingredientsArray[i].quantityOfIngredient == 1)
+                        {
+                            ingredientsArray[i].unitOfIngredient = "tablespoon";
+                        }
+                    }
 
+                }
 
-            return newUnit;
+                if ((ingredientsArray[i].unitOfIngredient == "cup") || ingredientsArray[i].unitOfIngredient == "cups")
+                {
+                    if (ingredientsArray[i].quantityOfIngredient >= 16)
+                    {
+                        ingredientsArray[i].quantityOfIngredient = (float)Math.Round((double)(ingredientsArray[i].quantityOfIngredient / 16),1);
+                        ingredientsArray[i].unitOfIngredient = "gallons";
+                    }
+                    else
+                    {
+                        if (ingredientsArray[i].quantityOfIngredient == 1)
+                        {
+                            ingredientsArray[i].unitOfIngredient = "cup";
+                        }
+                        else
+                        {
+                            if (ingredientsArray[i].quantityOfIngredient < 16)
+                            {
+                                ingredientsArray[i].unitOfIngredient = "cups";
+                            }
+                        }
+                    }
+                }
+
+            }
+
+            if ((ingredientsArray[i].unitOfIngredient == "gallon") || ingredientsArray[i].unitOfIngredient == "gallons")
+            {
+                if (ingredientsArray[i].quantityOfIngredient == 1)
+                {
+                    ingredientsArray[i].unitOfIngredient = "gallon";
+                }
+                else
+                {
+                    ingredientsArray[i].unitOfIngredient = "gallons";
+                }
+            }
         }
-
-        public void MainMenu()
+    
+       public void MainMenu()
         {
             Console.WriteLine("\r\nPlease choose one of the folling by entering the number:");
             Console.WriteLine("1: Enter a recipe");
