@@ -24,7 +24,7 @@ namespace PROG6221_POE_ST10029256
 
         public int GetNumberOfIngredients()//1
         {
-
+            Console.WriteLine("---------------------------------------------------------");
             Console.Write("Please enter the number of ingredients: ");
             string input = Console.ReadLine();
             int num = 0;

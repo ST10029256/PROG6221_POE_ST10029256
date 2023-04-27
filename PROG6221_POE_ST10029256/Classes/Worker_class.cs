@@ -40,7 +40,7 @@ namespace PROG6221_POE_ST10029256
                 resetIngredientUnits[i] = ingredientsArray[i].unitOfIngredient;
                 ingredientsArray[i].ingredientName = ingredients.GetingredientName();
 
-                Console.WriteLine("---------------------------------");
+                Console.WriteLine("---------------------------------------------------------");
 
             }
 
@@ -100,6 +100,8 @@ namespace PROG6221_POE_ST10029256
             var choice = string.Empty;
             bool reAsk = false;
 
+
+            Console.WriteLine("---------------------------------------------------------");
             Console.Write("Would you like to scale your recipe? (YES/NO): ");
             choice = (Console.ReadLine()).ToUpper();
 
@@ -112,8 +114,11 @@ namespace PROG6221_POE_ST10029256
                 }
                 else
                 {
-                    Console.Write("Would you like to scale your recipe? (YES/NO): ");
+                    Console.WriteLine("---------------------------------------------------------");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("Please enter YES or NO: ");
                     choice = (Console.ReadLine()).ToUpper();
+                    Console.ForegroundColor = ConsoleColor.Black;
                     reAsk = false;
                 }
 
@@ -341,6 +346,7 @@ namespace PROG6221_POE_ST10029256
     
        public void MainMenu()
         {
+            Console.WriteLine("--------------------------------------------------------");
             Console.WriteLine("Please choose one of the folling by entering the number:");
             Console.WriteLine("1: Enter a recipe");
             Console.WriteLine("2: Display recipe");
@@ -448,7 +454,7 @@ namespace PROG6221_POE_ST10029256
         public void Display()
         {
 
-            Console.WriteLine("-------------------------------");
+            Console.WriteLine("---------------------------------------------------------");
             Console.WriteLine("Ingredients:\r\n");
 
             for (int i = 0; i < ingredientsArray.Length; i++)
@@ -460,7 +466,7 @@ namespace PROG6221_POE_ST10029256
 
             Console.WriteLine();
 
-            Console.WriteLine("-------------------------------");
+            Console.WriteLine("---------------------------------------------------------");
             Console.WriteLine("Steps:\r\n");
 
             for (int j = 0; j < stepsArray.Length; j++)

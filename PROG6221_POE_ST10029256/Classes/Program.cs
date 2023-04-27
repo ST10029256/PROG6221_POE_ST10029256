@@ -12,12 +12,12 @@ namespace PROG6221_POE_ST10029256
     {
         static void Main(string[] args)
         {
-            Console.BackgroundColor = ConsoleColor.DarkGray;
+            Console.BackgroundColor = ConsoleColor.Gray;
             Console.ForegroundColor = ConsoleColor.Black;
             Console.Clear();
 
             Music();
- 
+            
             Worker_class worker = new Worker_class();
             worker.MainMenu();
     
@@ -26,7 +26,7 @@ namespace PROG6221_POE_ST10029256
 
         private static void Music()
         {
-            Console.Write("Would you like to listern to music? (YES/NO) ");
+            Console.Write("Would you like to listern to music? (YES/NO): ");
             string choice = (Console.ReadLine()).ToUpper();
             bool reAsk = false;
             do
