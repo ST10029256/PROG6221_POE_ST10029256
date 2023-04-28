@@ -23,6 +23,9 @@ namespace PROG6221_POE_ST10029256
     
         }
 
+        /// <summary>
+        /// This method will ask the user if the user wants to listern to music
+        /// </summary>
 
         private static void Music()
         {
@@ -49,10 +52,15 @@ namespace PROG6221_POE_ST10029256
 
             if (choice.Equals("YES"))
             {
+                //Calling the method PlaySong, and sending the songs file name as a parameter
                 PlaySong("Sunrise-_Original-Mix_.wav");
             }
         }
 
+        /// <summary>
+        /// This method will play the song
+        /// </summary>
+        /// <param name="song"></param>
         private static void PlaySong(string song)
         {
 

@@ -22,6 +22,12 @@ namespace PROG6221_POE_ST10029256
         
         }
 
+        /// <summary>
+        /// This method asks the user to enter the number of ingredients and if the user input is a string
+        /// the text will turn red and ask the user to re-ener with an integer
+        /// </summary>
+        /// <returns></returns>
+
         public int GetNumberOfIngredients()//1
         {
             Console.WriteLine("---------------------------------------------------------");
@@ -30,7 +36,9 @@ namespace PROG6221_POE_ST10029256
             int num = 0;
             bool reloop = false;
 
-            do 
+            //this do while loop will run until the user enters a valid integer
+
+            do
             {
                 try
                 {
@@ -62,6 +70,10 @@ namespace PROG6221_POE_ST10029256
             return this.numberOfIngredients;
         }
 
+        /// <summary>
+        /// This method asks the user to enter a name for the ingredient
+        /// </summary>
+        /// <returns></returns>
         public string GetingredientName() 
         {
 
@@ -70,12 +82,14 @@ namespace PROG6221_POE_ST10029256
 
             bool reloop = false;
 
+            //this do while loop will run until the user enters a valid string
+
             do
             {
                 try
                 {
 
-                    if ((!name.Equals(null)) && (!name.Equals(string.Empty)))
+                    if ((!name.Equals(null)) && (!name.Equals(string.Empty))) //Checks if the string is not empty and not null
                     {
                         this.ingredientName = name;
                         reloop = true;
@@ -102,6 +116,11 @@ namespace PROG6221_POE_ST10029256
             return this.ingredientName;
         }
 
+        /// <summary>
+        /// This method asks the user to enter the quantity of the desired ingredient and will only be valid if the user enters
+        /// a integer not a string and if the user entrs a string the text will turn red and re-ask the user to enter a integer
+        /// </summary>
+        /// <returns></returns>
         public float GetQuantityOfIngredient() 
         {
 
@@ -110,6 +129,8 @@ namespace PROG6221_POE_ST10029256
 
             float num = 0;
             bool reloop = false;
+
+            //this do while loop will run until the user enters a valid integer
 
             do
             {
@@ -143,6 +164,13 @@ namespace PROG6221_POE_ST10029256
             return this.quantityOfIngredient;
         }
 
+        /// <summary>
+        /// This method will get the users unit of measurement input and check if the users input is a valid string and within
+        /// the units array otherwise the text will turn red by reasking the user to re-enter a string containing the element 
+        /// within the array
+        /// </summary>
+        /// <returns></returns>
+
         public string GetUnitOfIngredient()
         {
             string[] units = {"cups", "cup", "tablespoons", "tablespoon", "teaspoons" , "teaspoon", "ml", "l", "gallon", "gallons"};
@@ -152,12 +180,14 @@ namespace PROG6221_POE_ST10029256
 
             bool reloop = false;
 
+            //this do while loop will run until the user enters a valid string containg one of the elements within the array
+
             do
             {
                 try
                 {
 
-                    if ((!unit.Equals(null)) && (!unit.Equals(string.Empty)))
+                    if ((!unit.Equals(null)) && (!unit.Equals(string.Empty))) //Checks if the string is not empty and not null
                     {
                         this.unitOfIngredient = unit;
 

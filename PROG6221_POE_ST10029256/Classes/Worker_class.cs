@@ -4,15 +4,38 @@ namespace PROG6221_POE_ST10029256
 {
     public class Worker_class
     {
+        /// <summary>
+        /// Instantiate ingredient class
+        /// </summary>
         public Ingredient_class ingredients = new Ingredient_class();
+
+        /// <summary>
+        /// Instantiate step class
+        /// </summary>
 
         public Steps_class steps = new Steps_class();
 
+        /// <summary>
+        /// Array holds ingredient data
+        /// </summary>
+
         public Ingredient_class[] ingredientsArray;
+
+        /// <summary>
+        /// Array holds steps data
+        /// </summary>
 
         public Steps_class[] stepsArray;
 
+        /// <summary>
+        /// Array Holds the reset ingredient quantity data
+        /// </summary>
+
         public float[] resetIngredientQuantity;
+
+        /// <summary>
+        /// Array Holds the ingredient mesurement data
+        /// </summary>
 
         public string[] resetIngredientUnits;
 
@@ -24,6 +47,10 @@ namespace PROG6221_POE_ST10029256
 
         }
 
+        /// <summary>
+        /// This method stores data into all arrays
+        /// </summary>
+
         public void StoreDataInArray()
         {
             int numberOfIngredients = ingredients.GetNumberOfIngredients();
@@ -31,7 +58,8 @@ namespace PROG6221_POE_ST10029256
             resetIngredientQuantity = new float[numberOfIngredients];
             resetIngredientUnits = new string[numberOfIngredients];
 
-            for (int i = 0; i < ingredientsArray.Length; i++)
+            for (int i = 0; i < ingredientsArray.Length; i++) //This will loop through the total numberOfIngredients and get the users input for all the ingredient
+                                                              //data and stores the data into the arrays 
             {
                 ingredientsArray[i] = new Ingredient_class();
                 ingredientsArray[i].quantityOfIngredient = ingredients.GetQuantityOfIngredient();
@@ -46,16 +74,22 @@ namespace PROG6221_POE_ST10029256
 
             stepsArray = new Steps_class[steps.GetNumberOfSteps()];
 
-            for (int j = 0; j < stepsArray.Length; j++)
+            for (int j = 0; j < stepsArray.Length; j++) //This will loop through the total numberOfSteps and get the users input for all the steps
+                                                        //data and stores the data into the arrays
             {
 
                 stepsArray[j] = new Steps_class();
                 stepsArray[j].ingredientSteps = steps.GetIngredientSteps(j + 1);
 
             }
-
-
         }
+
+        /// <summary>
+        /// This method scales the ingredient quantity according to the users input
+        /// </summary>
+        /// <param name="i"></param>
+        /// <param name="num"></param>
+        /// <returns></returns>
 
         public float ScalingCalc(int i, int num)
         {
@@ -105,10 +139,13 @@ namespace PROG6221_POE_ST10029256
             Console.Write("Would you like to scale your recipe? (YES/NO): ");
             choice = (Console.ReadLine()).ToUpper();
 
+            //this do while loop will run until the user enters YES or NO in caps or lowercase
+
             do
             {
 
-                if ((choice.Equals("YES")) || (choice.Equals("NO")))
+                if ((choice.Equals("YES")) || (choice.Equals("NO"))) //if the user enters Yes the user will be asked to half, double or tripple the quantity
+                                                                     //of the ingredient
                 {
                     reAsk = true;
                 }
@@ -139,9 +176,11 @@ namespace PROG6221_POE_ST10029256
                 int option = 0;
                 bool reloop = false;
 
+                //this do while loop will run until the user enters a integer number between 0 and 5
+
                 do
                 {
-                    try
+                    try //This will try to convert the string to a integer and if not able to it will re-ask the user to enter a intager between 0 and 5
                     {
 
                         if (Int32.TryParse(input, out option))
@@ -194,9 +233,10 @@ namespace PROG6221_POE_ST10029256
 
                 } while (reloop == false);
 
-                for (int i = 0; i < ingredientsArray.Length; i++)
+
+                for (int i = 0; i < ingredientsArray.Length; i++) //Calls the ScalingCalc method and the ChangeUnits method
                 {
-                    switch (num)
+                    switch (num) //runs if the users input is 1,2,3 or 4 
                     {
                         case 1:
                             ingredientsArray[i].quantityOfIngredient = ScalingCalc(i, num);
@@ -229,6 +269,13 @@ namespace PROG6221_POE_ST10029256
 
         }
 
+        /// <summary>
+        /// This method will convert the quantity within the array to the correct unit of which the users would like to scale the recipe to.
+        /// The data will then be rounded to the nearest 1 decimal place. If the quantity of the ingredient is 1 the word will be displayed 
+        /// in a singular form and if more than one it will be dispalyed in a plural form.
+        /// </summary>
+        /// <param name="i"></param>
+        /// <param name="num"></param>
         public void ChangeUnits(int i, int num)
         {
             string newUnit = string.Empty;
@@ -347,6 +394,9 @@ namespace PROG6221_POE_ST10029256
             }
         }
     
+        /// <summary>
+        /// This method is where the application starts and will be called in the main.
+        /// </summary>
        public void MainMenu()
         {
             Console.WriteLine("--------------------------------------------------------");
@@ -360,6 +410,8 @@ namespace PROG6221_POE_ST10029256
             string input = Console.ReadLine();
             int option = 0;
             bool reloop = false;
+
+            //this do while loop will run until the user enters a integer number between 0 and 6
 
             do
             {
@@ -419,7 +471,7 @@ namespace PROG6221_POE_ST10029256
 
             } while (reloop == false);
 
-            switch (option)
+            switch (option) //Depending on what the users enter different methods will be called 
             {
                 case 1:
                     StoreDataInArray();
@@ -437,6 +489,7 @@ namespace PROG6221_POE_ST10029256
                     break;
 
                 case 4:
+                    //This clears the array
                     Array.Clear(ingredientsArray, 0, ingredientsArray.Length);
                     Array.Clear(stepsArray, 0, stepsArray.Length);
                     Array.Clear(resetIngredientQuantity, 0, resetIngredientQuantity.Length);
@@ -445,6 +498,7 @@ namespace PROG6221_POE_ST10029256
                     break;
                     
                 default:
+                    //If user input is 5 the application will close
                     Environment.Exit(0);
                     break;
 
@@ -460,7 +514,8 @@ namespace PROG6221_POE_ST10029256
             Console.WriteLine("---------------------------------------------------------");
             Console.WriteLine("Ingredients:\r\n");
 
-            for (int i = 0; i < ingredientsArray.Length; i++)
+            for (int i = 0; i < ingredientsArray.Length; i++) //loops through and display each element in the array in the format of
+                                                              //quantity space unit space of space name
             {
 
                 Console.WriteLine(ingredientsArray[i].quantityOfIngredient + " " + ingredientsArray[i].unitOfIngredient +
@@ -472,7 +527,8 @@ namespace PROG6221_POE_ST10029256
             Console.WriteLine("---------------------------------------------------------");
             Console.WriteLine("Steps:\r\n");
 
-            for (int j = 0; j < stepsArray.Length; j++)
+            for (int j = 0; j < stepsArray.Length; j++) //loops through and display each element in the array in the format of
+                                                        //1. discription of the step
             {
                 Console.WriteLine((j + 1) + ". " +  stepsArray[j].ingredientSteps);
             }

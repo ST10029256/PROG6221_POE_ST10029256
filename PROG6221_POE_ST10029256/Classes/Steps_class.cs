@@ -10,9 +10,15 @@ namespace PROG6221_POE_ST10029256
 {
     public class Steps_class
     {
-
+        /// <summary>
+        /// This will hold the step
+        /// </summary>
         public string ingredientSteps = string.Empty;
-        public int numberOfSteps { get; private set; } = 0;
+
+        /// <summary>
+        /// this will hold the number of steps
+        /// </summary>
+        public int numberOfSteps { get; private set; } = 0; 
 
         /// <summary>
         /// Default constructor
@@ -23,12 +29,21 @@ namespace PROG6221_POE_ST10029256
         
         }
 
+        /// <summary>
+        /// This method asks the user to enter the number of steps and if the user input is a string
+        /// the text will turn red and ask the user to re-ener with an integer
+        /// </summary>
+        /// <returns></returns>
         public int GetNumberOfSteps()
         {
+
+            
             Console.Write("Enter number of steps: ");
             string input = Console.ReadLine();
             int num = 0;
             bool reloop = false;
+
+            //this do while loop will run until the user enters a valid integer
 
             do
             {
@@ -63,6 +78,11 @@ namespace PROG6221_POE_ST10029256
             return this.numberOfSteps;
         }
 
+        /// <summary>
+        /// This method gets the users input 
+        /// </summary>
+        /// <param name="counter"></param>
+        /// <returns></returns>
         public string GetIngredientSteps(int counter)
         {
             Console.Write("Step " +  counter + ": ");
@@ -70,12 +90,14 @@ namespace PROG6221_POE_ST10029256
 
             bool reloop = false;
 
+            //this do while loop will run until the user enters a string
+
             do
             {
                 try
                 {
 
-                    if ((!step.Equals(null)) && (!step.Equals(string.Empty)))
+                    if ((!step.Equals(null)) && (!step.Equals(string.Empty))) //Checks if the string is not empty and not null
                     {
                         this.ingredientSteps = step;
                         reloop = true;
