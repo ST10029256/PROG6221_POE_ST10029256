@@ -12,7 +12,7 @@ namespace PROG6221_POE_ST10029256
     {
         static void Main(string[] args)
         {
-            Console.BackgroundColor = ConsoleColor.Gray;
+            Console.BackgroundColor = ConsoleColor.DarkGray;
             Console.ForegroundColor = ConsoleColor.Black;
             Console.Clear();
 
@@ -42,7 +42,7 @@ namespace PROG6221_POE_ST10029256
                 else
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.Write("Please provide a YES or NO to listern to music ");
+                    Console.Write("Please provide a YES or NO to listern to music: ");
                     Console.ForegroundColor = ConsoleColor.Black;
                     choice = (Console.ReadLine()).ToUpper();
                     reAsk = false;

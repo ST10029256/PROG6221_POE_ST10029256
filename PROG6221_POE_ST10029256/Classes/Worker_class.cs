@@ -151,13 +151,12 @@ namespace PROG6221_POE_ST10029256
                 }
                 else
                 {
-                    Console.WriteLine("---------------------------------------------------------");
+                   
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write("Please enter YES or NO: ");
                     Console.ForegroundColor = ConsoleColor.Black;
                     choice = (Console.ReadLine()).ToUpper();
                     
-                    Console.WriteLine("---------------------------------------------------------");
                     Console.ForegroundColor = ConsoleColor.Black;
                     reAsk = false;
                 }
@@ -197,7 +196,7 @@ namespace PROG6221_POE_ST10029256
                             else
                             {
                                 Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine("Please choose one of the following by re-entering the number: ");
+                                Console.WriteLine("\r\nPlease choose one of the following by re-entering the number: ");
                                 Console.WriteLine("1: (Half) ");
                                 Console.WriteLine("2: (Double) ");
                                 Console.WriteLine("3: (Tripple) ");
@@ -211,7 +210,7 @@ namespace PROG6221_POE_ST10029256
                         else
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine("Please choose one of the following by re-entering the number: ");
+                            Console.WriteLine("\r\nPlease choose one of the following by re-entering the number: ");
                             Console.WriteLine("1: (Half) ");
                             Console.WriteLine("2: (Double) ");
                             Console.WriteLine("3: (Tripple) ");
@@ -518,11 +517,9 @@ namespace PROG6221_POE_ST10029256
                                                               //quantity space unit space of space name
             {
 
-                Console.WriteLine(ingredientsArray[i].quantityOfIngredient + " " + ingredientsArray[i].unitOfIngredient +
+                Console.WriteLine((i + 1) + ". " +ingredientsArray[i].quantityOfIngredient + " " + ingredientsArray[i].unitOfIngredient +
                     " of " + ingredientsArray[i].ingredientName);
             }
-
-            Console.WriteLine();
 
             Console.WriteLine("---------------------------------------------------------");
             Console.WriteLine("Steps:\r\n");
