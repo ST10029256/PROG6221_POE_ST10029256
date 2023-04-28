@@ -117,7 +117,10 @@ namespace PROG6221_POE_ST10029256
                     Console.WriteLine("---------------------------------------------------------");
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write("Please enter YES or NO: ");
+                    Console.ForegroundColor = ConsoleColor.Black;
                     choice = (Console.ReadLine()).ToUpper();
+                    
+                    Console.WriteLine("---------------------------------------------------------");
                     Console.ForegroundColor = ConsoleColor.Black;
                     reAsk = false;
                 }
