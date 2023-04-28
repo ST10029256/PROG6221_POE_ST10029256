@@ -53,7 +53,7 @@ namespace PROG6221_POE_ST10029256
             if (choice.Equals("YES"))
             {
                 //Calling the method PlaySong, and sending the songs file name as a parameter
-                PlaySong("Sunrise-_Original-Mix_.wav");
+                PlaySong("Sunrise.wav");
             }
         }
 
