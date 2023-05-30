@@ -37,7 +37,7 @@ namespace PROG6221_POE_ST10029256
         public int GetNumberOfSteps()
         {
 
-            
+            Console.ForegroundColor = ConsoleColor.Black;
             Console.Write("Enter number of steps: ");
             string input = Console.ReadLine();
             int num = 0;
@@ -85,6 +85,7 @@ namespace PROG6221_POE_ST10029256
         /// <returns></returns>
         public string GetIngredientSteps(int counter)
         {
+            Console.ForegroundColor = ConsoleColor.Black;
             Console.Write("Step " +  counter + ": ");
             string step = Console.ReadLine();
 
@@ -104,6 +105,7 @@ namespace PROG6221_POE_ST10029256
                     }
                     else
                     {
+                        Console.ForegroundColor = ConsoleColor.Black;
                         Console.Write("Step " + counter + ": ");
                         step = Console.ReadLine();
                     }

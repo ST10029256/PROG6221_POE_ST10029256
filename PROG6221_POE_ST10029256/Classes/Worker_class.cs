@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace PROG6221_POE_ST10029256
 {
@@ -47,6 +48,81 @@ namespace PROG6221_POE_ST10029256
 
         }
 
+        public void PrintWelcomeMessage()
+        {
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.Clear();
+
+            Console.WriteLine("W       W  EEEEE  L       CCCCC  OOOOO  M     M  EEEEE");
+            Console.WriteLine("W       W  E      L      C       O   O  MM   MM  E    ");
+            Console.WriteLine("W   W   W  EEEEE  L      C       O   O  M M M M  EEEEE");
+            Console.WriteLine("W  W W  W  E      L      C       O   O  M  M  M  E    ");
+            Console.WriteLine("W W   W W  EEEEE  LLLLL   CCCCC  OOOOO  M     M  EEEEE");
+
+            Console.WriteLine();
+
+            Console.WriteLine("  TTTTTTTTT  OOOOOO         TTTTTTTTT  H    H  EEEEE");
+            Console.WriteLine("      T      O    O             T      H    H  E");
+            Console.WriteLine("      T      O    O             T      HHHHHH  EEEEE");
+            Console.WriteLine("      T      0    O             T      H    H  E");
+            Console.WriteLine("      T      OOOO O             T      H    H  EEEEE");
+
+            Console.WriteLine();
+
+            Console.WriteLine("AAAAAA   PPPPPP   PPPPP  L      IIIII   CCCC  AAAAAA  TTTTTT  IIIII  OOOOO  N   N");
+            Console.WriteLine("A    A   P    P   P   P  L        I    C      A    A     T      I    O   O  NN  N");
+            Console.WriteLine("AAAAAA   PPPPPP   PPPPP  L        I    C      AAAAAA     T      I    O   O  N N N");
+            Console.WriteLine("A    A   P        P      L        I    C      A    A     T      I    O   O  N  NN");
+            Console.WriteLine("A    A   P        P      LLLLL  IIIII   CCCC  A    A     T    IIIII  OOOOO  N   N");
+
+            Console.WriteLine();
+            Console.WriteLine("Please press the ENTER key to continue: ");
+            Console.ReadLine();
+        }
+
+        public void PrintThankYouMessage()
+        {
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.Clear();
+
+            Console.WriteLine("TTTTT H    H  AAAAA  N   N  K   K     Y   Y  OOOOO  U   U");
+            Console.WriteLine("  T   H    H  A   A  NN  N  K  K       Y Y   O   O  U   U");
+            Console.WriteLine("  T   HHHHHH  AAAAA  N N N  K K         Y    O   O  U   U");
+            Console.WriteLine("  T   H    H  A   A  N  NN  K  K        Y    O   O  U   U");
+            Console.WriteLine("  T   H    H  A   A  N   N  K   K       Y    OOOOO  UUUUU");
+
+            Console.WriteLine();
+
+            Console.WriteLine("FFFFF  OOOOO  RRRRR      U   U   SSSS  IIIII  N   N  GGGGG");
+            Console.WriteLine("F      O   O  R   R      U   U  S        I    NN  N  G");
+            Console.WriteLine("FFFFF  O   O  RRRRR      U   U   SSS     I    N N N  GGGGG");
+            Console.WriteLine("F      O   O  R  R       U   U      S    I    N  NN  G   G");
+            Console.WriteLine("F      OOOOO  R   R      UUUUU  SSSS   IIIII  N   N  GGGGG");
+
+            Console.WriteLine();
+
+            Console.WriteLine("              TTTTTTTTT  H    H  EEEEE");
+            Console.WriteLine("                  T      H    H  E");
+            Console.WriteLine("                  T      HHHHHH  EEEEE");
+            Console.WriteLine("                  T      H    H  E");
+            Console.WriteLine("                  T      H    H  EEEEE");
+
+            Console.WriteLine();
+
+            Console.WriteLine("AAAAAA   PPPPPP   PPPPP  L      IIIII   CCCC  AAAAAA  TTTTTT  IIIII  OOOOO  N   N");
+            Console.WriteLine("A    A   P    P   P   P  L        I    C      A    A     T      I    O   O  NN  N");
+            Console.WriteLine("AAAAAA   PPPPPP   PPPPP  L        I    C      AAAAAA     T      I    O   O  N N N");
+            Console.WriteLine("A    A   P        P      L        I    C      A    A     T      I    O   O  N  NN");
+            Console.WriteLine("A    A   P        P      LLLLL  IIIII   CCCC  A    A     T    IIIII  OOOOO  N   N");
+
+            Console.WriteLine();
+            Console.WriteLine("Please press the ENTER key to Exit: ");
+            Console.ReadLine();
+
+        }
+
         /// <summary>
         /// This method stores data into all arrays
         /// </summary>
@@ -68,6 +144,7 @@ namespace PROG6221_POE_ST10029256
                 resetIngredientUnits[i] = ingredientsArray[i].unitOfIngredient;
                 ingredientsArray[i].ingredientName = ingredients.GetingredientName();
 
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("---------------------------------------------------------");
 
             }
@@ -134,8 +211,9 @@ namespace PROG6221_POE_ST10029256
             var choice = string.Empty;
             bool reAsk = false;
 
-
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("---------------------------------------------------------");
+            Console.ForegroundColor = ConsoleColor.Black;
             Console.Write("Would you like to scale your recipe? (YES/NO): ");
             choice = (Console.ReadLine()).ToUpper();
 
@@ -398,7 +476,9 @@ namespace PROG6221_POE_ST10029256
         /// </summary>
        public void MainMenu()
         {
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("--------------------------------------------------------");
+            Console.ForegroundColor = ConsoleColor.Black;
             Console.WriteLine("Please choose one of the folling by entering the number:");
             Console.WriteLine("1: Enter a recipe");
             Console.WriteLine("2: Display recipe");
@@ -497,10 +577,49 @@ namespace PROG6221_POE_ST10029256
                     break;
                     
                 default:
-                    //If user input is 5 the application will close
-                    Environment.Exit(0);
-                    break;
+                    
+                    //If user input is 5 the user would be asked to enter yes or no to leave the application
 
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine("--------------------------------------------------------");
+                    Console.ForegroundColor = ConsoleColor.Black;
+                    Console.Write("Are you sure you want to exit the application? (Yes or No): ");
+                    input = (Console.ReadLine()).ToUpper();
+
+                    //if the user enters Yes the application will close, but if the user enters no the MainMenu metod will be called
+                    //if the user enters anything than yes or no the user will be re-asked to enter yes or no
+
+                    do
+                    {
+
+                        if ((input.Equals("YES")) || (input.Equals("NO"))) 
+                                                                             
+                        { 
+                            if(input == "YES")
+                            {
+                                PrintThankYouMessage();
+                                Environment.Exit(0);
+                            }
+                            else
+                            {
+                                MainMenu();
+                            }
+                            reloop = true;
+                        }
+                        else
+                        { 
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.Write("Please enter YES or NO: ");
+                            Console.ForegroundColor = ConsoleColor.Black;
+                            input = (Console.ReadLine()).ToUpper();
+
+                            Console.ForegroundColor = ConsoleColor.Black;
+                            reloop = false;
+                        }
+
+                    } while (reloop == false);
+
+                 break;
             }
         }
 
@@ -509,8 +628,9 @@ namespace PROG6221_POE_ST10029256
         /// </summary>
         public void Display()
         {
-
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("---------------------------------------------------------");
+            Console.ForegroundColor = ConsoleColor.Black;
             Console.WriteLine("Ingredients:\r\n");
 
             for (int i = 0; i < ingredientsArray.Length; i++) //loops through and display each element in the array in the format of
@@ -521,7 +641,9 @@ namespace PROG6221_POE_ST10029256
                     " of " + ingredientsArray[i].ingredientName);
             }
 
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("---------------------------------------------------------");
+            Console.ForegroundColor = ConsoleColor.Black;
             Console.WriteLine("Steps:\r\n");
 
             for (int j = 0; j < stepsArray.Length; j++) //loops through and display each element in the array in the format of
