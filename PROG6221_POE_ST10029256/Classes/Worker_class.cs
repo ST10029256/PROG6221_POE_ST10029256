@@ -76,8 +76,9 @@ namespace PROG6221_POE_ST10029256
             Console.WriteLine("A    A   P        P      L        I    C      A    A     T      I    O   O  N  NN");
             Console.WriteLine("A    A   P        P      LLLLL  IIIII   CCCC  A    A     T    IIIII  OOOOO  N   N");
 
-            Console.WriteLine();
-            Console.WriteLine("Please press the ENTER key to continue: ");
+            Console.WriteLine(); 
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write("Please press the ENTER key to continue: ");
             Console.ReadLine();
         }
 
@@ -118,7 +119,8 @@ namespace PROG6221_POE_ST10029256
             Console.WriteLine("A    A   P        P      LLLLL  IIIII   CCCC  A    A     T    IIIII  OOOOO  N   N");
 
             Console.WriteLine();
-            Console.WriteLine("Please press the ENTER key to Exit: ");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write("Please press the ENTER key to Exit: ");
             Console.ReadLine();
 
         }
