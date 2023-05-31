@@ -48,3 +48,10 @@ The following is the process of installing the application:
 14. You will once again be able to display the new recipe with the quantity scale or default value if chosen option 4 in the previous step.
 15. You are able to continue with repeating the steps or choose a new recipe if wanting to start over.
 16. If not so, you can choose option 5 to exit the application
+
+## Feedback changes and why:
+
+1. Added more info on what unit of measurement the user can enter, I've added this as this makes it more understandible for the user on what to enter.
+2. Added a welcome, thank you and other display features like the "-", I've done this to improve my overall program experience and over all look of the application.
+3. Added the user to confirm if the user wants to clear the data, I've done this to handle entering of data better.
+4. Added more comments, I've done this to help others understand the logic and flow of my code better.
