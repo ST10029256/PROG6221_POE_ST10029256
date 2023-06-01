@@ -705,7 +705,6 @@ namespace PROG6221_POE_ST10029256
                 Console.WriteLine("---------------------------------------------------------");
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.WriteLine("Steps:\r\n");
-
                 for (int j = 0; j < stepsArray.Length; j++) //loops through and display each element in the array in the format of
                                                             //1. discription of the step
                 {
