@@ -146,6 +146,7 @@ namespace PROG6221_POE_ST10029256
                 ingredientsArray[i].unitOfIngredient = ingredients.GetUnitOfIngredient();
                 resetIngredientUnits[i] = ingredientsArray[i].unitOfIngredient;
                 ingredientsArray[i].ingredientName = ingredients.GetingredientName();
+                ingredientsArray[i].numberOfCalories = ingredients.GetNumberOfCalories();
 
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("---------------------------------------------------------");
@@ -698,7 +699,7 @@ namespace PROG6221_POE_ST10029256
                 {
 
                     Console.WriteLine((i + 1) + ". " + ingredientsArray[i].quantityOfIngredient + " " + ingredientsArray[i].unitOfIngredient +
-                        " of " + ingredientsArray[i].ingredientName);
+                        " of " + ingredientsArray[i].ingredientName + " " + "(" + ingredientsArray[i].numberOfCalories + " " + "calories )");
                 }
 
                 Console.ForegroundColor = ConsoleColor.White;
