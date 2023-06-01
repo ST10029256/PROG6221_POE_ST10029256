@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 
 namespace PROG6221_POE_ST10029256
@@ -215,7 +216,7 @@ namespace PROG6221_POE_ST10029256
 
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("---------------------------------------------------------");
-            Console.ForegroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.Magenta;
             Console.Write("Would you like to scale your recipe? (YES/NO): ");
             choice = (Console.ReadLine()).ToUpper();
 
@@ -234,10 +235,10 @@ namespace PROG6221_POE_ST10029256
                    
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write("Please enter YES or NO: ");
-                    Console.ForegroundColor = ConsoleColor.Black;
+                    Console.ForegroundColor = ConsoleColor.Magenta;
                     choice = (Console.ReadLine()).ToUpper();
                     
-                    Console.ForegroundColor = ConsoleColor.Black;
+                    Console.ForegroundColor = ConsoleColor.Magenta;
                     reAsk = false;
                 }
 
@@ -281,7 +282,7 @@ namespace PROG6221_POE_ST10029256
                                 Console.WriteLine("2: (Double) ");
                                 Console.WriteLine("3: (Tripple) ");
                                 Console.WriteLine("4: (Reset) ");
-                                Console.ForegroundColor = ConsoleColor.Black;
+                                Console.ForegroundColor = ConsoleColor.Magenta;
                                 input = Console.ReadLine();
                                 reloop = false;
                             }
@@ -295,7 +296,7 @@ namespace PROG6221_POE_ST10029256
                             Console.WriteLine("2: (Double) ");
                             Console.WriteLine("3: (Tripple) ");
                             Console.WriteLine("4: (Reset) ");
-                            Console.ForegroundColor = ConsoleColor.Black;
+                            Console.ForegroundColor = ConsoleColor.Magenta;
                             input = Console.ReadLine();
                             reloop = false;
                         }
@@ -479,13 +480,13 @@ namespace PROG6221_POE_ST10029256
        public void MainMenu()
         {
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("--------------------------------------------------------");
-            Console.ForegroundColor = ConsoleColor.Black;
+            Console.WriteLine("---------------------------------------------------------");
+            Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("Please choose one of the folling by entering the number:");
             Console.WriteLine("1: Enter a recipe");
             Console.WriteLine("2: Display recipe");
             Console.WriteLine("3: Scale recipe");
-            Console.WriteLine("4: Enter a new recipe");
+            Console.WriteLine("4: Clear recipe");
             Console.WriteLine("5: Exit application");
 
             string input = Console.ReadLine();
@@ -498,7 +499,6 @@ namespace PROG6221_POE_ST10029256
             {
                 try
                 {
-
                     if (Int32.TryParse(input, out option))
                     {
                         option = Convert.ToInt32(input);
@@ -518,7 +518,7 @@ namespace PROG6221_POE_ST10029256
                             Console.WriteLine("3: Scale recipe");
                             Console.WriteLine("4: Enter a new recipe");
                             Console.WriteLine("5: Exit application");
-                            Console.ForegroundColor = ConsoleColor.Black;
+                            Console.ForegroundColor = ConsoleColor.Magenta;
 
                             input = Console.ReadLine();
                             reloop = false;
@@ -534,7 +534,7 @@ namespace PROG6221_POE_ST10029256
                         Console.WriteLine("3: Scale recipe");
                         Console.WriteLine("4: Enter a new recipe");
                         Console.WriteLine("5: Exit application");
-                        Console.ForegroundColor = ConsoleColor.Black;
+                        Console.ForegroundColor = ConsoleColor.Magenta;
 
                         input = Console.ReadLine();
                         reloop = false;
@@ -570,12 +570,67 @@ namespace PROG6221_POE_ST10029256
                     break;
 
                 case 4:
-                    //This clears the array
-                    Array.Clear(ingredientsArray, 0, ingredientsArray.Length);
-                    Array.Clear(stepsArray, 0, stepsArray.Length);
-                    Array.Clear(resetIngredientQuantity, 0, resetIngredientQuantity.Length);
-                    StoreDataInArray();
-                    MainMenu();
+
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine("---------------------------------------------------------");
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    Console.Write("Would you like to clear your recipe? (YES/NO): ");
+                    input = (Console.ReadLine()).ToUpper();
+
+                    //this do while loop will run until the user enters YES or NO in caps or lowercase
+
+                    do
+                    {
+
+                        if ((input.Equals("YES")) || (input.Equals("NO")))
+                        {
+                            if (input == "YES")
+                            {
+                                //This clears the array
+                                Array.Clear(ingredientsArray, 0, ingredientsArray.Length);
+                                Array.Clear(stepsArray, 0, stepsArray.Length);
+                                Array.Clear(resetIngredientQuantity, 0, resetIngredientQuantity.Length);
+                                Array.Clear(resetIngredientUnits, 0, resetIngredientUnits.Length);
+                                ingredientsArray = null;
+                                stepsArray = null;
+                                resetIngredientQuantity = null;
+                                resetIngredientUnits = null;
+
+                                if (ingredientsArray == null && stepsArray == null & resetIngredientQuantity == null
+                                    && resetIngredientUnits == null)
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.WriteLine("Successfully cleared");
+                                    Console.ForegroundColor = ConsoleColor.Magenta;
+                                }
+                                else
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.WriteLine("Not successfully cleared");
+                                    Console.ForegroundColor = ConsoleColor.Magenta;
+                                }
+                            }
+                            else
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine("Clearing request canceled");
+                                Console.ForegroundColor = ConsoleColor.Magenta;
+                            }
+                            reloop = true;
+                            MainMenu();
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.Write("Please enter YES or NO: ");
+                            Console.ForegroundColor = ConsoleColor.Magenta;
+                            input = (Console.ReadLine()).ToUpper();
+
+                            Console.ForegroundColor = ConsoleColor.Magenta;
+                            reloop = false;
+                        }
+                    } while (reloop == false);
+                   
                     break;
                     
                 default:
@@ -584,7 +639,7 @@ namespace PROG6221_POE_ST10029256
 
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine("--------------------------------------------------------");
-                    Console.ForegroundColor = ConsoleColor.Black;
+                    Console.ForegroundColor = ConsoleColor.Magenta;
                     Console.Write("Are you sure you want to exit the application? (Yes or No): ");
                     input = (Console.ReadLine()).ToUpper();
 
@@ -612,10 +667,10 @@ namespace PROG6221_POE_ST10029256
                         { 
                             Console.ForegroundColor = ConsoleColor.Red;
                             Console.Write("Please enter YES or NO: ");
-                            Console.ForegroundColor = ConsoleColor.Black;
+                            Console.ForegroundColor = ConsoleColor.Magenta;
                             input = (Console.ReadLine()).ToUpper();
 
-                            Console.ForegroundColor = ConsoleColor.Black;
+                            Console.ForegroundColor = ConsoleColor.Magenta;
                             reloop = false;
                         }
 
@@ -630,29 +685,42 @@ namespace PROG6221_POE_ST10029256
         /// </summary>
         public void Display()
         {
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("---------------------------------------------------------");
-            Console.ForegroundColor = ConsoleColor.Black;
-            Console.WriteLine("Ingredients:\r\n");
-
-            for (int i = 0; i < ingredientsArray.Length; i++) //loops through and display each element in the array in the format of
-                                                              //quantity space unit space of space name
+            if (ingredientsArray != null && stepsArray != null && resetIngredientQuantity != null
+                && resetIngredientUnits!= null)
             {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("---------------------------------------------------------");
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("Ingredients:\r\n");
 
-                Console.WriteLine((i + 1) + ". " +ingredientsArray[i].quantityOfIngredient + " " + ingredientsArray[i].unitOfIngredient +
-                    " of " + ingredientsArray[i].ingredientName);
+                for (int i = 0; i < ingredientsArray.Length; i++) //loops through and display each element in the array in the format of
+                                                                  //quantity space unit space of space name
+                {
+
+                    Console.WriteLine((i + 1) + ". " + ingredientsArray[i].quantityOfIngredient + " " + ingredientsArray[i].unitOfIngredient +
+                        " of " + ingredientsArray[i].ingredientName);
+                }
+
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("---------------------------------------------------------");
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("Steps:\r\n");
+
+                for (int j = 0; j < stepsArray.Length; j++) //loops through and display each element in the array in the format of
+                                                            //1. discription of the step
+                {
+                    Console.WriteLine((j + 1) + ". " + stepsArray[j].ingredientSteps);
+                }
+
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("---------------------------------------------------------");
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("No recipes to display.");
             }
 
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("---------------------------------------------------------");
-            Console.ForegroundColor = ConsoleColor.Black;
-            Console.WriteLine("Steps:\r\n");
-
-            for (int j = 0; j < stepsArray.Length; j++) //loops through and display each element in the array in the format of
-                                                        //1. discription of the step
-            {
-                Console.WriteLine((j + 1) + ". " +  stepsArray[j].ingredientSteps);
-            }
         }
     }
 }

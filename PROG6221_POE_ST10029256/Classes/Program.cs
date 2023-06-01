@@ -15,8 +15,8 @@ namespace PROG6221_POE_ST10029256
             Worker_class worker = new Worker_class();
             worker.PrintWelcomeMessage();
 
-            Console.BackgroundColor = ConsoleColor.DarkGray;
-            Console.ForegroundColor = ConsoleColor.Black;
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.Magenta;
             Console.Clear();
 
             Music();
@@ -30,7 +30,7 @@ namespace PROG6221_POE_ST10029256
 
         private static void Music()
         {
-            Console.ForegroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.Magenta;
             Console.Write("Would you like to listern to music? (YES/NO): ");
             string choice = (Console.ReadLine()).ToUpper();
             bool reAsk = false;
@@ -45,7 +45,7 @@ namespace PROG6221_POE_ST10029256
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write("Please provide a YES or NO to listern to music: ");
-                    Console.ForegroundColor = ConsoleColor.Black;
+                    Console.ForegroundColor = ConsoleColor.Magenta;
                     choice = (Console.ReadLine()).ToUpper();
                     reAsk = false;
                 }

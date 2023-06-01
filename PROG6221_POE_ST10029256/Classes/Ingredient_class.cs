@@ -32,7 +32,7 @@ namespace PROG6221_POE_ST10029256
         {
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("---------------------------------------------------------");
-            Console.ForegroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.Magenta;
             Console.Write("Please enter the number of ingredients: ");
             string input = Console.ReadLine();
             int num = 0;
@@ -55,7 +55,7 @@ namespace PROG6221_POE_ST10029256
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.Write("Please re-enter the number of ingredients: ");
-                        Console.ForegroundColor = ConsoleColor.Black;
+                        Console.ForegroundColor = ConsoleColor.Magenta;
                         input = Console.ReadLine();
                     }
 
@@ -78,7 +78,7 @@ namespace PROG6221_POE_ST10029256
         /// <returns></returns>
         public string GetingredientName() 
         {
-            Console.ForegroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.Magenta;
             Console.Write("Enter name of Ingredient: ");
             string name = Console.ReadLine();
 
@@ -100,7 +100,7 @@ namespace PROG6221_POE_ST10029256
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.Write("Re-enter name of Ingredient: ");
-                        Console.ForegroundColor = ConsoleColor.Black;
+                        Console.ForegroundColor = ConsoleColor.Magenta;
                         name = Console.ReadLine();
 
                     }
@@ -125,7 +125,7 @@ namespace PROG6221_POE_ST10029256
         /// <returns></returns>
         public float GetQuantityOfIngredient() 
         {
-            Console.ForegroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.Magenta;
             Console.Write("Enter the quantity of the ingredient: ");
             string quantity = Console.ReadLine();
 
@@ -149,7 +149,7 @@ namespace PROG6221_POE_ST10029256
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.Write("Re-enter the quantity of the ingredient: ");
-                        Console.ForegroundColor = ConsoleColor.Black;
+                        Console.ForegroundColor = ConsoleColor.Magenta;
                         quantity = Console.ReadLine();
                     }
 
@@ -177,8 +177,8 @@ namespace PROG6221_POE_ST10029256
         {
             string[] units = {"cups", "cup", "tablespoons", "tablespoon", "teaspoons" , "teaspoon", "ml", "l", "gallon", "gallons"};
 
-            Console.ForegroundColor = ConsoleColor.Black;
-            Console.Write("Enter the unit of mesurement: (ml,l,tablesppon,etc) ");
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.Write("Enter the unit of mesurement (ml,l,tablesppon,etc): ");
             string unit = Console.ReadLine();
 
             bool reloop = false;
@@ -202,7 +202,7 @@ namespace PROG6221_POE_ST10029256
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
                             Console.Write("Re-enter the unit of mesurement: ");
-                            Console.ForegroundColor = ConsoleColor.Black;
+                            Console.ForegroundColor = ConsoleColor.Magenta;
                             unit = Console.ReadLine();
                             reloop = false;
                         }
@@ -212,7 +212,7 @@ namespace PROG6221_POE_ST10029256
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.Write("Re-enter the unit of mesurement: ");
-                        Console.ForegroundColor = ConsoleColor.Black;
+                        Console.ForegroundColor = ConsoleColor.Magenta;
                         unit = Console.ReadLine();
                     }
 
