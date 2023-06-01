@@ -55,3 +55,8 @@ The following is the process of installing the application:
 2. Added a welcome, thank you and other display features like the "-", I've done this to improve my overall program experience and over all look of the application.
 3. Added the user to confirm if the user wants to clear the data, I've done this to handle entering of data better.
 4. Added more comments, I've done this to help others understand the logic and flow of my code better.
+5. I added code to ensure that the program doesnt end after scaling, for the user to re-select an option from the menu.
+6. I added code to the menu that will give the user an option to 'clear' a recipe, for the user to successfully clear the data and add a new recipe.
+7. I lost marks for my ReadMe file, I dont agree with this statement as the feedback said "excellent" but 3 marks were deducted.
+8. I lost marks for logical classes. I dont agree with this, as I made use of a step classto retrieve the steps, ingredient class to retrieve the ingredient details and worker class where all the calculations and displays are coded.
+9. I lost marks by making use of gallons, I disagree, as why I made use of gallons is to convert the unit of measurement one step further. (12 teaspoons) x 2 = (8 tablespoons) x 2 = (1 Cup), but if the user enters (8 Cups) x 2 = (1 gallon).
