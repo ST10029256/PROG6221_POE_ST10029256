@@ -15,6 +15,7 @@ namespace PROG6221_POE_ST10029256
         public float quantityOfIngredient = 0.0f;
         public string unitOfIngredient  = string.Empty;
         public double numberOfCalories = 0.0f;
+        public string FoodGroup {  get; set; } = string.Empty;
        
         /// <summary>
         /// Default constructor
@@ -22,6 +23,70 @@ namespace PROG6221_POE_ST10029256
         public Ingredient_class() 
         { 
         
+        }
+
+        public List<string> FoodGroups { get; set; } = new List<string>
+        {
+            "Starchy foods",
+            "Vegetables and fruits",
+            "Dry beans, peas, lentils and soya",
+            "Chicken, fish, meat and eggs",
+            "Milk and dairy products",
+            "Fats and oil",
+            "Water"
+        };
+
+        public string GetFoodGroup()
+            
+        {
+            bool reloop = false;
+            string input = string.Empty;
+            int index = 0;
+
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("---------------------------------------------------------");
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine("Please select a food group from the list below: ");
+
+            do
+            {
+                for (int i = 0; i < FoodGroups.Count; i++)
+                {
+                    Console.WriteLine((i + 1) + ": " + FoodGroups[i]);
+                }
+
+                Console.WriteLine((FoodGroups.Count + 1) + ". " + "More information on a specific food group");
+                Console.Write(">");
+
+                input = Console.ReadLine();
+
+                if (int.TryParse(input, out int choice))
+                {
+                    if (choice >= 1 && choice <= FoodGroups.Count)
+                    {
+                        index = choice - 1;
+                    }
+                    if (FoodGroups.Count >= 0 && index < FoodGroups.Count)
+                    {
+                        reloop = true;
+                        FoodGroup = FoodGroups[index];
+                    }
+                    else if (choice == FoodGroups.Count + 1)
+                    {
+                        /////////
+                    }
+                }
+                if (!reloop)
+                {
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine("---------------------------------------------------------");
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    Console.Write("Please re-select a food group from the list below: ");
+                }
+
+            } while (!reloop); 
+            
+            return FoodGroup;
         }
 
     /// <summary>

@@ -147,6 +147,7 @@ namespace PROG6221_POE_ST10029256
                 resetIngredientUnits[i] = ingredientsArray[i].unitOfIngredient;
                 ingredientsArray[i].ingredientName = ingredients.GetingredientName();
                 ingredientsArray[i].numberOfCalories = ingredients.GetNumberOfCalories();
+                ingredientsArray[i].FoodGroup = ingredients.GetFoodGroup();
 
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("---------------------------------------------------------");
@@ -699,7 +700,12 @@ namespace PROG6221_POE_ST10029256
                 {
 
                     Console.WriteLine((i + 1) + ". " + ingredientsArray[i].quantityOfIngredient + " " + ingredientsArray[i].unitOfIngredient +
-                        " of " + ingredientsArray[i].ingredientName + " " + "(" + ingredientsArray[i].numberOfCalories + " " + "calories )");
+                        " of " + ingredientsArray[i].ingredientName + " " + "(" + ingredientsArray[i].numberOfCalories + " " + "calories)");
+
+                    Console.WriteLine("(Food group: " + ingredientsArray[i].FoodGroup + ") ");
+
+                    Console.WriteLine();
+                        
                 }
 
                 Console.ForegroundColor = ConsoleColor.White;
