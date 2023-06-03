@@ -1,5 +1,8 @@
-﻿using System;
+﻿using PROG6221_POE_ST10029256.Classes;
+using System;
+using System.Collections.Generic;
 using System.Net.NetworkInformation;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 
 namespace PROG6221_POE_ST10029256
@@ -9,25 +12,30 @@ namespace PROG6221_POE_ST10029256
         /// <summary>
         /// Instantiate ingredient class
         /// </summary>
-        public Ingredient_class ingredients = new Ingredient_class();
+       public Ingredient_class ingredient_class = new Ingredient_class();
 
+        public List<Ingredient_class> ingredientsList { get; set; }
         /// <summary>
         /// Instantiate step class
         /// </summary>
 
-        public Steps_class steps = new Steps_class();
+        public Steps_class steps_class = new Steps_class();
 
+        public List<Steps_class> stepsList { get; set; }
+
+
+        public List<Recipe_class> recipeList { get; set; }
         /// <summary>
         /// Array holds ingredient data
         /// </summary>
 
-        public Ingredient_class[] ingredientsArray;
+        //public Ingredient_class[] ingredientsArray;
 
         /// <summary>
         /// Array holds steps data
         /// </summary>
 
-        public Steps_class[] stepsArray;
+        //public Steps_class[] stepsArray;
 
         /// <summary>
         /// Array Holds the reset ingredient quantity data
@@ -40,6 +48,8 @@ namespace PROG6221_POE_ST10029256
         /// </summary>
 
         public string[] resetIngredientUnits;
+
+        public Recipe_class recipe_Class = new Recipe_class();
 
         /// <summary>
         /// Default constructor
@@ -132,38 +142,67 @@ namespace PROG6221_POE_ST10029256
 
         public void StoreDataInArray()
         {
-            int numberOfIngredients = ingredients.GetNumberOfIngredients();
-            ingredientsArray = new Ingredient_class[numberOfIngredients];
-            resetIngredientQuantity = new float[numberOfIngredients];
-            resetIngredientUnits = new string[numberOfIngredients];
+            var ingredients = new Ingredient_class();
 
-            for (int i = 0; i < ingredientsArray.Length; i++) //This will loop through the total numberOfIngredients and get the users input for all the ingredient
+            int numberOfIngredients = ingredients.GetNumberOfIngredients();
+            //ingredientsArray = new Ingredient_class[numberOfIngredients];
+            //resetIngredientQuantity = new float[numberOfIngredients];
+            //resetIngredientUnits = new string[numberOfIngredients];
+
+            recipeList = new List<Recipe_class>();
+
+            var recipes = new Recipe_class
+            {
+                RecipeName = recipe_Class.GetRecipeName()
+            };
+
+
+            recipeList.Add(recipes);
+
+            ingredientsList = new List<Ingredient_class>();
+
+            for (int i = 0; i < numberOfIngredients; i++) //This will loop through the total numberOfIngredients and get the users input for all the ingredient
                                                               //data and stores the data into the arrays 
             {
-                ingredientsArray[i] = new Ingredient_class();
-                ingredientsArray[i].quantityOfIngredient = ingredients.GetQuantityOfIngredient();
-                resetIngredientQuantity[i] = ingredientsArray[i].quantityOfIngredient;
-                ingredientsArray[i].unitOfIngredient = ingredients.GetUnitOfIngredient();
-                resetIngredientUnits[i] = ingredientsArray[i].unitOfIngredient;
-                ingredientsArray[i].ingredientName = ingredients.GetingredientName();
-                ingredientsArray[i].numberOfCalories = ingredients.GetNumberOfCalories();
-                ingredientsArray[i].FoodGroup = ingredients.GetFoodGroup();
+                var ingredient = new Ingredient_class
+                {
+                    quantityOfIngredient = ingredient_class.GetQuantityOfIngredient(),
+                    unitOfIngredient = ingredient_class.GetUnitOfIngredient(),
+                    ingredientName = ingredient_class.GetingredientName(),
+                    numberOfCalories = ingredient_class.GetNumberOfCalories(),
+                    FoodGroup = ingredient_class.GetFoodGroup()
+                };
+
+                ingredientsList.Add(ingredient);
 
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("---------------------------------------------------------");
 
             }
+            var step = new Steps_class();
+            stepsList = new List<Steps_class>();
 
-            stepsArray = new Steps_class[steps.GetNumberOfSteps()];
+            int numberOfSteps = steps_class.GetNumberOfSteps();
 
-            for (int j = 0; j < stepsArray.Length; j++) //This will loop through the total numberOfSteps and get the users input for all the steps
+            for (int j = 0; j <numberOfSteps; j++) //This will loop through the total numberOfSteps and get the users input for all the steps
                                                         //data and stores the data into the arrays
             {
+                var steps = new Steps_class
+                {
+                    ingredientSteps = steps_class.GetIngredientSteps(j + 1)
+                };
 
-                stepsArray[j] = new Steps_class();
-                stepsArray[j].ingredientSteps = steps.GetIngredientSteps(j + 1);
+            stepsList.Add(steps);
 
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void WriteReipeToList()
+        {
+            
         }
 
         /// <summary>
@@ -183,19 +222,19 @@ namespace PROG6221_POE_ST10029256
 
             if (num == 1)
             {
-                final = half * ingredientsArray[i].quantityOfIngredient;
+                final = half * ingredientsList[i].quantityOfIngredient;
             }
             else
             {
                 if (num == 2)
                 {
-                    final = double1 * ingredientsArray[i].quantityOfIngredient;
+                    final = double1 * ingredientsList[i].quantityOfIngredient;
                 }
                 else
                 {
                     if (num == 3)
                     {
-                        final = tripple * ingredientsArray[i].quantityOfIngredient;
+                        final = tripple * ingredientsList[i].quantityOfIngredient;
                     }
                     else
                     {
@@ -316,28 +355,28 @@ namespace PROG6221_POE_ST10029256
                 } while (reloop == false);
 
 
-                for (int i = 0; i < ingredientsArray.Length; i++) //Calls the ScalingCalc method and the ChangeUnits method
+                for (int i = 0; i < ingredientsList.Count; i++) //Calls the ScalingCalc method and the ChangeUnits method
                 {
                     switch (num) //runs if the users input is 1,2,3 or 4 
                     {
                         case 1:
-                            ingredientsArray[i].quantityOfIngredient = ScalingCalc(i, num);
+                            ingredientsList[i].quantityOfIngredient = ScalingCalc(i, num);
                             ChangeUnits(i, num);
                             break;
 
                         case 2:
-                            ingredientsArray[i].quantityOfIngredient = ScalingCalc(i, num);
+                            ingredientsList[i].quantityOfIngredient = ScalingCalc(i, num);
                             ChangeUnits(i, num);
                             break;
 
                         case 3:
-                            ingredientsArray[i].quantityOfIngredient = ScalingCalc(i, num);
+                            ingredientsList[i].quantityOfIngredient = ScalingCalc(i, num);
                             ChangeUnits(i, num);
                             break;
 
                         default:
-                            ingredientsArray[i].quantityOfIngredient = resetIngredientQuantity[i];
-                            ingredientsArray[i].unitOfIngredient = resetIngredientUnits[i];
+                            ingredientsList[i].quantityOfIngredient = resetIngredientQuantity[i];
+                            ingredientsList[i].unitOfIngredient = resetIngredientUnits[i];
                             break;
 
                     }
@@ -362,100 +401,100 @@ namespace PROG6221_POE_ST10029256
         {
             string newUnit = string.Empty;
 
-            if (ingredientsArray[i].unitOfIngredient == "l")
+            if (ingredientsList[i].unitOfIngredient == "l")
             {
-                ingredientsArray[i].quantityOfIngredient = ingredientsArray[i].quantityOfIngredient * 1000;
-                ingredientsArray[i].unitOfIngredient = "ml";
+                ingredientsList[i].quantityOfIngredient = ingredientsList[i].quantityOfIngredient * 1000;
+                ingredientsList[i].unitOfIngredient = "ml";
             }
-            if (ingredientsArray[i].unitOfIngredient == "ml")
+            if (ingredientsList[i].unitOfIngredient == "ml")
             {
-                if (ingredientsArray[i].quantityOfIngredient >= 3785)
+                if (ingredientsList[i].quantityOfIngredient >= 3785)
                 {
-                    ingredientsArray[i].quantityOfIngredient = (float)Math.Round((double)(ingredientsArray[i].quantityOfIngredient / 3785), 1);
-                    ingredientsArray[i].unitOfIngredient = "gallon";
+                    ingredientsList[i].quantityOfIngredient = (float)Math.Round((double)(ingredientsList[i].quantityOfIngredient / 3785), 1);
+                    ingredientsList[i].unitOfIngredient = "gallon";
                 }
                 else
                 {
-                    if (ingredientsArray[i].quantityOfIngredient >= 240)
+                    if (ingredientsList[i].quantityOfIngredient >= 240)
                     {
-                        ingredientsArray[i].quantityOfIngredient = (float)Math.Round((double)(ingredientsArray[i].quantityOfIngredient / 240),1);
-                        ingredientsArray[i].unitOfIngredient = "cups";
+                        ingredientsList[i].quantityOfIngredient = (float)Math.Round((double)(ingredientsList[i].quantityOfIngredient / 240),1);
+                        ingredientsList[i].unitOfIngredient = "cups";
                     }
                     else
                     {
-                        if (ingredientsArray[i].quantityOfIngredient >= 15)
+                        if (ingredientsList[i].quantityOfIngredient >= 15)
                         {
-                            ingredientsArray[i].quantityOfIngredient = (float)Math.Round((double)(ingredientsArray[i].quantityOfIngredient / 15), 1);
-                            ingredientsArray[i].unitOfIngredient = "tablespoons";
+                            ingredientsList[i].quantityOfIngredient = (float)Math.Round((double)(ingredientsList[i].quantityOfIngredient / 15), 1);
+                            ingredientsList[i].unitOfIngredient = "tablespoons";
                         }
                         else
                         {
-                            if (ingredientsArray[i].quantityOfIngredient >= 5)
+                            if (ingredientsList[i].quantityOfIngredient >= 5)
                             {
-                                ingredientsArray[i].quantityOfIngredient = (float)Math.Round((double)(ingredientsArray[i].quantityOfIngredient / 5),1);
-                                ingredientsArray[i].unitOfIngredient = "teaspoons";
+                                ingredientsList[i].quantityOfIngredient = (float)Math.Round((double)(ingredientsList[i].quantityOfIngredient / 5),1);
+                                ingredientsList[i].unitOfIngredient = "teaspoons";
                             }
                             else
                             {
-                                ingredientsArray[i].unitOfIngredient = "ml";
+                                ingredientsList[i].unitOfIngredient = "ml";
                             }
                         }
                     }
                 }
             }
 
-            if ((ingredientsArray[i].unitOfIngredient == "teaspoon") || ingredientsArray[i].unitOfIngredient == "teaspoons")
+            if ((ingredientsList[i].unitOfIngredient == "teaspoon") || ingredientsList[i].unitOfIngredient == "teaspoons")
             {
-                if (ingredientsArray[i].quantityOfIngredient >= 3)
+                if (ingredientsList[i].quantityOfIngredient >= 3)
                 {
-                    ingredientsArray[i].quantityOfIngredient = (float)Math.Round((double)(ingredientsArray[i].quantityOfIngredient / 3),1);
-                    ingredientsArray[i].unitOfIngredient = "tablespoons";
+                    ingredientsList[i].quantityOfIngredient = (float)Math.Round((double)(ingredientsList[i].quantityOfIngredient / 3),1);
+                    ingredientsList[i].unitOfIngredient = "tablespoons";
                 }
                 else
                 {
-                    if (ingredientsArray[i].quantityOfIngredient == 1)
+                    if (ingredientsList[i].quantityOfIngredient == 1)
                     {
-                        ingredientsArray[i].unitOfIngredient = "teaspoon";
+                        ingredientsList[i].unitOfIngredient = "teaspoon";
                     }
                 }
             }
             else
             {
-                if ((ingredientsArray[i].unitOfIngredient == "tablespoon") || ingredientsArray[i].unitOfIngredient == "tablespoons")
+                if ((ingredientsList[i].unitOfIngredient == "tablespoon") || ingredientsList[i].unitOfIngredient == "tablespoons")
                 {
-                    if (ingredientsArray[i].quantityOfIngredient >= 16)
+                    if (ingredientsList[i].quantityOfIngredient >= 16)
                     {
-                        ingredientsArray[i].quantityOfIngredient = (float)Math.Round((double)(ingredientsArray[i].quantityOfIngredient / 16),1);
-                        ingredientsArray[i].unitOfIngredient = "cups";
+                        ingredientsList[i].quantityOfIngredient = (float)Math.Round((double)(ingredientsList[i].quantityOfIngredient / 16),1);
+                        ingredientsList[i].unitOfIngredient = "cups";
                     }
                     else
                     {
-                        if (ingredientsArray[i].quantityOfIngredient == 1)
+                        if (ingredientsList[i].quantityOfIngredient == 1)
                         {
-                            ingredientsArray[i].unitOfIngredient = "tablespoon";
+                            ingredientsList[i].unitOfIngredient = "tablespoon";
                         }
                     }
 
                 }
 
-                if ((ingredientsArray[i].unitOfIngredient == "cup") || ingredientsArray[i].unitOfIngredient == "cups")
+                if ((ingredientsList[i].unitOfIngredient == "cup") || ingredientsList[i].unitOfIngredient == "cups")
                 {
-                    if (ingredientsArray[i].quantityOfIngredient >= 16)
+                    if (ingredientsList[i].quantityOfIngredient >= 16)
                     {
-                        ingredientsArray[i].quantityOfIngredient = (float)Math.Round((double)(ingredientsArray[i].quantityOfIngredient / 16),1);
-                        ingredientsArray[i].unitOfIngredient = "gallons";
+                        ingredientsList[i].quantityOfIngredient = (float)Math.Round((double)(ingredientsList[i].quantityOfIngredient / 16),1);
+                        ingredientsList[i].unitOfIngredient = "gallons";
                     }
                     else
                     {
-                        if (ingredientsArray[i].quantityOfIngredient == 1)
+                        if (ingredientsList [i].quantityOfIngredient == 1)
                         {
-                            ingredientsArray[i].unitOfIngredient = "cup";
+                                ingredientsList[i].unitOfIngredient = "cup";
                         }
                         else
                         {
-                            if (ingredientsArray[i].quantityOfIngredient < 16)
+                            if (ingredientsList[i].quantityOfIngredient < 16)
                             {
-                                ingredientsArray[i].unitOfIngredient = "cups";
+                                ingredientsList[i].unitOfIngredient = "cups";
                             }
                         }
                     }
@@ -463,15 +502,15 @@ namespace PROG6221_POE_ST10029256
 
             }
 
-            if ((ingredientsArray[i].unitOfIngredient == "gallon") || ingredientsArray[i].unitOfIngredient == "gallons")
+            if ((ingredientsList[i].unitOfIngredient == "gallon") || ingredientsList[i].unitOfIngredient == "gallons")
             {
-                if (ingredientsArray[i].quantityOfIngredient == 1)
+                if (ingredientsList[i].quantityOfIngredient == 1)
                 {
-                    ingredientsArray[i].unitOfIngredient = "gallon";
+                    ingredientsList[i].unitOfIngredient = "gallon";
                 }
                 else
                 {
-                    ingredientsArray[i].unitOfIngredient = "gallons";
+                    ingredientsList[i].unitOfIngredient = "gallons";
                 }
             }
         }
@@ -518,7 +557,7 @@ namespace PROG6221_POE_ST10029256
                             Console.WriteLine("1: Enter a recipe");
                             Console.WriteLine("2: Display recipe");
                             Console.WriteLine("3: Scale recipe");
-                            Console.WriteLine("4: Enter a new recipe");
+                            Console.WriteLine("4: Clear recipe");
                             Console.WriteLine("5: Exit application");
                             Console.ForegroundColor = ConsoleColor.Magenta;
 
@@ -534,7 +573,7 @@ namespace PROG6221_POE_ST10029256
                         Console.WriteLine("1: Enter a recipe");
                         Console.WriteLine("2: Display recipe");
                         Console.WriteLine("3: Scale recipe");
-                        Console.WriteLine("4: Enter a new recipe");
+                        Console.WriteLine("4: Clear recipe");
                         Console.WriteLine("5: Exit application");
                         Console.ForegroundColor = ConsoleColor.Magenta;
 
@@ -558,7 +597,7 @@ namespace PROG6221_POE_ST10029256
             {
                 case 1:
                     StoreDataInArray();
-                    MainMenu();
+                    AddRecipe();
                     break;
 
                 case 2:
@@ -589,17 +628,11 @@ namespace PROG6221_POE_ST10029256
                             if (input == "YES")
                             {
                                 //This clears the array
-                                Array.Clear(ingredientsArray, 0, ingredientsArray.Length);
-                                Array.Clear(stepsArray, 0, stepsArray.Length);
-                                Array.Clear(resetIngredientQuantity, 0, resetIngredientQuantity.Length);
-                                Array.Clear(resetIngredientUnits, 0, resetIngredientUnits.Length);
-                                ingredientsArray = null;
-                                stepsArray = null;
-                                resetIngredientQuantity = null;
-                                resetIngredientUnits = null;
+                                ingredientsList.Clear();
+                                ingredientsList = null;
+                                stepsList = null;
 
-                                if (ingredientsArray == null && stepsArray == null & resetIngredientQuantity == null
-                                    && resetIngredientUnits == null)
+                                if (ingredientsList == null && stepsList == null)
                                 {
                                     Console.ForegroundColor = ConsoleColor.Red;
                                     Console.WriteLine("Successfully cleared");
@@ -682,42 +715,95 @@ namespace PROG6221_POE_ST10029256
             }
         }
 
+        public void AddRecipe()
+        {
+            bool anotherRecipe = true;
+            bool reloop = true;
+            
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("---------------------------------------------------------");
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.Write("Would you like to add a recipe? (YES/NO): ");
+            string answer = (Console.ReadLine()).ToUpper();
+
+            do
+            {
+                if (answer == "YES" || answer == "NO")
+                {
+                    reloop = true;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("Please enter YES or NO: ");
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    answer = (Console.ReadLine()).ToUpper();
+
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    reloop = false;
+                }
+            } while (reloop == false);
+
+
+            do
+            {
+
+                if (answer.Equals("YES"))
+                {
+                    StoreDataInArray();
+                    anotherRecipe = true;
+                    AddRecipe();
+                }
+                else
+                {
+                    anotherRecipe = false;
+                }
+
+            } while (anotherRecipe == true);
+
+            MainMenu();
+        }
         /// <summary>
         /// method will display user input
         /// </summary>
         public void Display()
         {
-            if (ingredientsArray != null && stepsArray != null && resetIngredientQuantity != null
-                && resetIngredientUnits!= null)
+            int index = -1;
+
+            if (ingredientsList != null && stepsList != null)
             {
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("---------------------------------------------------------");
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine("Ingredients:\r\n");
-
-                for (int i = 0; i < ingredientsArray.Length; i++) //loops through and display each element in the array in the format of
-                                                                  //quantity space unit space of space name
+                foreach (var recipe in recipeList)
                 {
+                    index++;
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine("---------------------------------------------------------");
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.WriteLine("Recipe: " + recipeList[index].RecipeName);   //code for name display 
+                    Console.WriteLine("Ingredients:\r\n");
 
-                    Console.WriteLine((i + 1) + ". " + ingredientsArray[i].quantityOfIngredient + " " + ingredientsArray[i].unitOfIngredient +
-                        " of " + ingredientsArray[i].ingredientName + " " + "(" + ingredientsArray[i].numberOfCalories + " " + "calories)");
+                    for (int i = 0; i < ingredientsList.Count; i++) //loops through and display each element in the array in the format of
+                                                                    //quantity space unit space of space name
+                    {
 
-                    Console.WriteLine("(Food group: " + ingredientsArray[i].FoodGroup + ") ");
+                        Console.WriteLine((i + 1) + ". " + ingredientsList[i].quantityOfIngredient + " " + ingredientsList[i].unitOfIngredient +
+                            " of " + ingredientsList[i].ingredientName + " " + "(" + ingredientsList[i].numberOfCalories + " " + "calories)");
 
-                    Console.WriteLine();
-                        
+                        Console.WriteLine("(Food group: " + ingredientsList[i].FoodGroup + ") ");
+
+                        Console.WriteLine();
+
+                    }
+
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine("---------------------------------------------------------");
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.WriteLine("Steps:\r\n");
+                    for (int j = 0; j < stepsList.Count; j++) //loops through and display each element in the array in the format of
+                                                              //1. discription of the step
+                    {
+                        Console.WriteLine((j + 1) + ". " + stepsList[j].ingredientSteps);
+                    }
                 }
-
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("---------------------------------------------------------");
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine("Steps:\r\n");
-                for (int j = 0; j < stepsArray.Length; j++) //loops through and display each element in the array in the format of
-                                                            //1. discription of the step
-                {
-                    Console.WriteLine((j + 1) + ". " + stepsArray[j].ingredientSteps);
-                }
-
             }
             else
             {
