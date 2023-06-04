@@ -1,6 +1,7 @@
 ﻿using PROG6221_POE_ST10029256.Classes;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.NetworkInformation;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace PROG6221_POE_ST10029256
         /// <summary>
         /// Instantiate ingredient class
         /// </summary>
-       public Ingredient_class ingredient_class = new Ingredient_class();
+        public Ingredient_class ingredient_class = new Ingredient_class();
 
         public List<Ingredient_class> ingredientsList { get; set; }
         /// <summary>
@@ -87,7 +88,7 @@ namespace PROG6221_POE_ST10029256
             Console.WriteLine("A    A   P        P      L        I    C      A    A     T      I    O   O  N  NN");
             Console.WriteLine("A    A   P        P      LLLLL  IIIII   CCCC  A    A     T    IIIII  OOOOO  N   N");
 
-            Console.WriteLine(); 
+            Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.Write("Please press the ENTER key to continue: ");
             Console.ReadLine();
@@ -149,20 +150,18 @@ namespace PROG6221_POE_ST10029256
             //resetIngredientQuantity = new float[numberOfIngredients];
             //resetIngredientUnits = new string[numberOfIngredients];
 
-            recipeList = new List<Recipe_class>();
-
-            var recipes = new Recipe_class
+           
+            var recipe = new Recipe_class
             {
-                RecipeName = recipe_Class.GetRecipeName()
+                RecipeName = recipe_Class.GetRecipeName(),
             };
 
-
-            recipeList.Add(recipes);
+            recipeList.Add(recipe);
 
             ingredientsList = new List<Ingredient_class>();
 
             for (int i = 0; i < numberOfIngredients; i++) //This will loop through the total numberOfIngredients and get the users input for all the ingredient
-                                                              //data and stores the data into the arrays 
+                                                          //data and stores the data into the arrays 
             {
                 var ingredient = new Ingredient_class
                 {
@@ -184,15 +183,15 @@ namespace PROG6221_POE_ST10029256
 
             int numberOfSteps = steps_class.GetNumberOfSteps();
 
-            for (int j = 0; j <numberOfSteps; j++) //This will loop through the total numberOfSteps and get the users input for all the steps
-                                                        //data and stores the data into the arrays
+            for (int j = 0; j < numberOfSteps; j++) //This will loop through the total numberOfSteps and get the users input for all the steps
+                                                    //data and stores the data into the arrays
             {
                 var steps = new Steps_class
                 {
                     ingredientSteps = steps_class.GetIngredientSteps(j + 1)
                 };
 
-            stepsList.Add(steps);
+                stepsList.Add(steps);
 
             }
         }
@@ -202,7 +201,7 @@ namespace PROG6221_POE_ST10029256
         /// </summary>
         public void WriteReipeToList()
         {
-            
+
         }
 
         /// <summary>
@@ -273,12 +272,12 @@ namespace PROG6221_POE_ST10029256
                 }
                 else
                 {
-                   
+
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write("Please enter YES or NO: ");
                     Console.ForegroundColor = ConsoleColor.Magenta;
                     choice = (Console.ReadLine()).ToUpper();
-                    
+
                     Console.ForegroundColor = ConsoleColor.Magenta;
                     reAsk = false;
                 }
@@ -417,7 +416,7 @@ namespace PROG6221_POE_ST10029256
                 {
                     if (ingredientsList[i].quantityOfIngredient >= 240)
                     {
-                        ingredientsList[i].quantityOfIngredient = (float)Math.Round((double)(ingredientsList[i].quantityOfIngredient / 240),1);
+                        ingredientsList[i].quantityOfIngredient = (float)Math.Round((double)(ingredientsList[i].quantityOfIngredient / 240), 1);
                         ingredientsList[i].unitOfIngredient = "cups";
                     }
                     else
@@ -431,7 +430,7 @@ namespace PROG6221_POE_ST10029256
                         {
                             if (ingredientsList[i].quantityOfIngredient >= 5)
                             {
-                                ingredientsList[i].quantityOfIngredient = (float)Math.Round((double)(ingredientsList[i].quantityOfIngredient / 5),1);
+                                ingredientsList[i].quantityOfIngredient = (float)Math.Round((double)(ingredientsList[i].quantityOfIngredient / 5), 1);
                                 ingredientsList[i].unitOfIngredient = "teaspoons";
                             }
                             else
@@ -447,7 +446,7 @@ namespace PROG6221_POE_ST10029256
             {
                 if (ingredientsList[i].quantityOfIngredient >= 3)
                 {
-                    ingredientsList[i].quantityOfIngredient = (float)Math.Round((double)(ingredientsList[i].quantityOfIngredient / 3),1);
+                    ingredientsList[i].quantityOfIngredient = (float)Math.Round((double)(ingredientsList[i].quantityOfIngredient / 3), 1);
                     ingredientsList[i].unitOfIngredient = "tablespoons";
                 }
                 else
@@ -464,7 +463,7 @@ namespace PROG6221_POE_ST10029256
                 {
                     if (ingredientsList[i].quantityOfIngredient >= 16)
                     {
-                        ingredientsList[i].quantityOfIngredient = (float)Math.Round((double)(ingredientsList[i].quantityOfIngredient / 16),1);
+                        ingredientsList[i].quantityOfIngredient = (float)Math.Round((double)(ingredientsList[i].quantityOfIngredient / 16), 1);
                         ingredientsList[i].unitOfIngredient = "cups";
                     }
                     else
@@ -481,14 +480,14 @@ namespace PROG6221_POE_ST10029256
                 {
                     if (ingredientsList[i].quantityOfIngredient >= 16)
                     {
-                        ingredientsList[i].quantityOfIngredient = (float)Math.Round((double)(ingredientsList[i].quantityOfIngredient / 16),1);
+                        ingredientsList[i].quantityOfIngredient = (float)Math.Round((double)(ingredientsList[i].quantityOfIngredient / 16), 1);
                         ingredientsList[i].unitOfIngredient = "gallons";
                     }
                     else
                     {
-                        if (ingredientsList [i].quantityOfIngredient == 1)
+                        if (ingredientsList[i].quantityOfIngredient == 1)
                         {
-                                ingredientsList[i].unitOfIngredient = "cup";
+                            ingredientsList[i].unitOfIngredient = "cup";
                         }
                         else
                         {
@@ -514,11 +513,11 @@ namespace PROG6221_POE_ST10029256
                 }
             }
         }
-    
+
         /// <summary>
         /// This method is where the application starts and will be called in the main.
         /// </summary>
-       public void MainMenu()
+        public void MainMenu()
         {
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("---------------------------------------------------------");
@@ -544,7 +543,7 @@ namespace PROG6221_POE_ST10029256
                     {
                         option = Convert.ToInt32(input);
 
-                        if((option > 0) && (option < 6))
+                        if ((option > 0) && (option < 6))
                         {
 
                             reloop = true;
@@ -584,11 +583,11 @@ namespace PROG6221_POE_ST10029256
                 }
                 catch (Exception ex)
                 {
-                    if(reloop != false)
+                    if (reloop != false)
                     {
-                       Console.WriteLine(ex.Message); 
+                        Console.WriteLine(ex.Message);
                     }
-               
+
                 }
 
             } while (reloop == false);
@@ -596,6 +595,7 @@ namespace PROG6221_POE_ST10029256
             switch (option) //Depending on what the users enter different methods will be called 
             {
                 case 1:
+                    recipeList = new List<Recipe_class>();
                     StoreDataInArray();
                     AddRecipe();
                     break;
@@ -665,11 +665,11 @@ namespace PROG6221_POE_ST10029256
                             reloop = false;
                         }
                     } while (reloop == false);
-                   
+
                     break;
-                    
+
                 default:
-                    
+
                     //If user input is 5 the user would be asked to enter yes or no to leave the application
 
                     Console.ForegroundColor = ConsoleColor.White;
@@ -684,10 +684,10 @@ namespace PROG6221_POE_ST10029256
                     do
                     {
 
-                        if ((input.Equals("YES")) || (input.Equals("NO"))) 
-                                                                             
-                        { 
-                            if(input == "YES")
+                        if ((input.Equals("YES")) || (input.Equals("NO")))
+
+                        {
+                            if (input == "YES")
                             {
                                 PrintThankYouMessage();
                                 Environment.Exit(0);
@@ -699,7 +699,7 @@ namespace PROG6221_POE_ST10029256
                             reloop = true;
                         }
                         else
-                        { 
+                        {
                             Console.ForegroundColor = ConsoleColor.Red;
                             Console.Write("Please enter YES or NO: ");
                             Console.ForegroundColor = ConsoleColor.Magenta;
@@ -711,7 +711,7 @@ namespace PROG6221_POE_ST10029256
 
                     } while (reloop == false);
 
-                 break;
+                    break;
             }
         }
 
@@ -719,7 +719,7 @@ namespace PROG6221_POE_ST10029256
         {
             bool anotherRecipe = true;
             bool reloop = true;
-            
+
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("---------------------------------------------------------");
             Console.ForegroundColor = ConsoleColor.Magenta;
@@ -763,56 +763,131 @@ namespace PROG6221_POE_ST10029256
 
             MainMenu();
         }
+
+        private void DisplayRecipes(List<string> sortedNameList)
+        {
+            for (int i = 0; i < sortedNameList.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {sortedNameList[i]}");
+            }
+
+            Console.WriteLine($"{sortedNameList.Count + 1}. Back");
+            Console.Write(">");
+        }
+
         /// <summary>
         /// method will display user input
         /// </summary>
         public void Display()
         {
-            int index = -1;
+            int index = -1, recipeIndex = -1;
+            bool reloop = false;
 
-            if (ingredientsList != null && stepsList != null)
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("---------------------------------------------------------");
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine("Please choose which recipe to display: ");
+
+
+            do
             {
-                foreach (var recipe in recipeList)
+                List<string> RecipeCopy = new List<string>();
+
+                for (int i = 0; i < recipeList.Count; i++)
                 {
-                    index++;
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.WriteLine("---------------------------------------------------------");
-                    Console.ForegroundColor = ConsoleColor.Cyan;
-                    Console.WriteLine("Recipe: " + recipeList[index].RecipeName);   //code for name display 
-                    Console.WriteLine("Ingredients:\r\n");
+                    RecipeCopy.Add(recipeList[i].RecipeName);
+                }
 
-                    for (int i = 0; i < ingredientsList.Count; i++) //loops through and display each element in the array in the format of
-                                                                    //quantity space unit space of space name
+                List<string> sortedNameList = RecipeCopy.OrderBy(name => name).ToList();
+
+                DisplayRecipes(sortedNameList);
+                string input = Console.ReadLine();
+
+                if (int.TryParse(input, out int choice))
+                {
+                    if (choice >= 1 && choice <= sortedNameList.Count)
                     {
+                        recipeIndex = choice - 1;
+                        string recipeName = sortedNameList[recipeIndex];
 
-                        Console.WriteLine((i + 1) + ". " + ingredientsList[i].quantityOfIngredient + " " + ingredientsList[i].unitOfIngredient +
-                            " of " + ingredientsList[i].ingredientName + " " + "(" + ingredientsList[i].numberOfCalories + " " + "calories)");
+                        int position = recipeList.IndexOf(recipeList.Find(recipe => recipe.RecipeName == recipeName));
 
-                        Console.WriteLine("(Food group: " + ingredientsList[i].FoodGroup + ") ");
+                        if (position >= 0 && position < recipeList.Count)
+                        {
+                            if (ingredientsList != null && stepsList != null)
+                            {
+                                Console.ForegroundColor = ConsoleColor.White;
+                                Console.WriteLine("---------------------------------------------------------");
+                                Console.ForegroundColor = ConsoleColor.Cyan;
+                                Console.WriteLine("Recipe: " + RecipeCopy[position]);   //code for name display 
+                                Console.WriteLine("Ingredients:\r\n");
 
-                        Console.WriteLine();
+                                for (int i = 0; i < ingredientsList.Count; i++) //loops through and display each element in the array in the format of
+                                                                                //quantity space unit space of space name
+                                {
+
+                                    Console.WriteLine((i + 1) + ". " + ingredientsList[i].quantityOfIngredient + " " + ingredientsList[i].unitOfIngredient +
+                                        " of " + ingredientsList[i].ingredientName + " " + "(" + ingredientsList[i].numberOfCalories + " " + "calories)");
+
+                                    Console.WriteLine("(Food group: " + ingredientsList[i].FoodGroup + ") ");
+
+                                    Console.WriteLine();
+
+                                }
+
+                                Console.ForegroundColor = ConsoleColor.White;
+                                Console.WriteLine("---------------------------------------------------------");
+                                Console.ForegroundColor = ConsoleColor.Cyan;
+                                Console.WriteLine("Steps:\r\n");
+                                for (int j = 0; j < stepsList.Count; j++) //loops through and display each element in the array in the format of
+                                                                          //1. discription of the step
+                                {
+                                    Console.WriteLine((j + 1) + ". " + stepsList[j].ingredientSteps);
+                                }
+
+                                reloop = true;
+                            }
+                            else
+                            {
+                                Console.ForegroundColor = ConsoleColor.White;
+                                Console.WriteLine("---------------------------------------------------------");
+                                Console.ForegroundColor = ConsoleColor.Cyan;
+                                Console.WriteLine("No recipes to display.");
+                            }
+                            reloop = true;
+                        }
+
 
                     }
-
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.WriteLine("---------------------------------------------------------");
-                    Console.ForegroundColor = ConsoleColor.Cyan;
-                    Console.WriteLine("Steps:\r\n");
-                    for (int j = 0; j < stepsList.Count; j++) //loops through and display each element in the array in the format of
-                                                              //1. discription of the step
+                    else
                     {
-                        Console.WriteLine((j + 1) + ". " + stepsList[j].ingredientSteps);
+                        if (choice == (sortedNameList.Count + 1))
+                        {
+                            MainMenu();
+                            reloop = true;
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.White;
+                            Console.WriteLine("---------------------------------------------------------");
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("Please re-choose which recipe to display: ");
+                            Console.ForegroundColor = ConsoleColor.Magenta;
+                            reloop = false;
+                        }
                     }
                 }
-            }
-            else
-            {
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("---------------------------------------------------------");
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine("No recipes to display.");
-            }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine("---------------------------------------------------------");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Please re-choose which recipe to display: ");
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    reloop = false;
+                }
+            } while (reloop == false);
 
-        }
+        } 
     }
 }
