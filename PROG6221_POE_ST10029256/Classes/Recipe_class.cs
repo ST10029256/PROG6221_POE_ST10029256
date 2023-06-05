@@ -8,6 +8,12 @@ namespace PROG6221_POE_ST10029256.Classes
 {
     public class Recipe_class
     {
+
+        public List<Steps_class> stepsList  =new List<Steps_class>();
+
+        public List<Ingredient_class> ingredientsList =  new List<Ingredient_class>();
+        //public List<Recipe_class> recipeList  =new List<Recipe_class>();
+
         public string RecipeName = string.Empty;
         /// <summary>
         /// Default constructor

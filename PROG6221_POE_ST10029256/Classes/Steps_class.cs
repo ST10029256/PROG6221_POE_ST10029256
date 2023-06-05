@@ -13,7 +13,7 @@ namespace PROG6221_POE_ST10029256
         /// <summary>
         /// This will hold the step
         /// </summary>
-        public string ingredientSteps = string.Empty;
+        public string ingredientSteps { get;  set; } = string.Empty;
 
         /// <summary>
         /// this will hold the number of steps
