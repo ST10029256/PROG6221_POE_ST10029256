@@ -44,7 +44,6 @@ namespace PROG6221_POE_ST10029256
             bool reloop = false;
 
             //this do while loop will run until the user enters a valid integer
-
             do
             {
                 try
@@ -92,13 +91,12 @@ namespace PROG6221_POE_ST10029256
             bool reloop = false;
 
             //this do while loop will run until the user enters a string
-
             do
             {
                 try
                 {
-
-                    if ((!step.Equals(null)) && (!step.Equals(string.Empty))) //Checks if the string is not empty and not null
+                    //Checks if the string is not empty and not null
+                    if ((!step.Equals(null)) && (!step.Equals(string.Empty))) 
                     {
                         this.ingredientSteps = step;
                         reloop = true;

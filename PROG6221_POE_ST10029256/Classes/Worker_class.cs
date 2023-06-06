@@ -185,23 +185,37 @@ namespace PROG6221_POE_ST10029256
 
         public void AddRecipeToList()
         {
+            // Create a new instance of the Recipe_class
             Recipe_class rc = new Recipe_class();
 
+            // Get the name of the new recipe from the user
             string newRecipeName = rc.GetRecipeName();
 
+            // Store the ingredients in a list
             StoreIngredientsInList();
 
+            // Store the steps in a list
             StoreStepsInList();
 
+            // Add the new recipe name to the recipeNames list
             recipeNames.Add(newRecipeName);
+
+            // Add the ingredient steps to the RecipesStepsList
             RecipesStepsList.Add(StepsListWorker.Select(step => step.ingredientSteps).ToList());
+
+            // Add the ingredients to the RecipesIngredientsList
             RecipesIngredientsList.Add(IngredientsListWorker.Select(ingredient => ingredient).ToList());
 
+            // Calculate the total number of calories for the recipe
             double totalCalories = CalcTotalCalories(RecipesIngredientsList);
 
+            // Add the total number of calories to the TotalNumberOfCaloriesList
             TotalNumberOfCaloriesList.Add(totalCalories);
+
+            // Make a copy of the total number of calories list
             CopyOfTotalNumberOfCaloriesList.Add(totalCalories);
 
+            // Store the recipe in a suitable format
             StoreRecipe(RecipesStepsList, RecipesIngredientsList);
         }
 
@@ -239,6 +253,7 @@ namespace PROG6221_POE_ST10029256
 
                 var newIngredient = new Ingredient_class
                 {
+                    // Create a new instance of Ingredient_class and assign the property values
                     quantityOfIngredient = ingredient_class.GetQuantityOfIngredient(),
                     unitOfIngredient = ingredient_class.GetUnitOfIngredient(),
                     ingredientName = ingredient_class.GetingredientName(),
@@ -248,9 +263,10 @@ namespace PROG6221_POE_ST10029256
                     CopyOfQuantityOfIngredient = ingredient_class.quantityOfIngredient,
                     CopyOfUnitOfIngredient = ingredient_class.unitOfIngredient
                 };
-
+                // Add the new ingredient to IngredientsListWorker
                 IngredientsListWorker.Add(newIngredient);
 
+                // Display separator line
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("---------------------------------------------------------");
             }
@@ -278,29 +294,39 @@ namespace PROG6221_POE_ST10029256
             //resetIngredientQuantity = new float[numberOfIngredients];
             //resetIngredientUnits = new string[numberOfIngredients];
 
+            // Get the list of recipe names
             recipeNames = GetRecipeNames();
-          
+
+            // Iterate over each recipe name
             for (int i = 0; i < recipeNames.Count; i++)
             {
+                // Create a new Recipe_class instance for the current recipe
                 var recipe = new Recipe_class
                 {
                     RecipeName = recipeNames[i]
                 };
 
+                // Check if there are corresponding steps and ingredients for the current recipe
                 if (i < RecipesStepsList.Count && i < RecipesIngredientsList.Count)
                 {
+                    // Get the list of steps for the current recipe
                     List<string> S = RecipesStepsList[i];
+
+                    // Get the list of ingredients for the current recipe
                     List<Ingredient_class> I = RecipesIngredientsList[i];
+
+                    // Iterate over each step in the list of steps
                     foreach (var step in S)
                     {
+                        // Create a Steps_class instance and add it to the recipe's stepsList
                         Steps_class steps = new Steps_class { ingredientSteps = step };
-
                         recipe.stepsList.Add(steps);
                     }
 
-
+                    // Iterate over each ingredient in the list of ingredients
                     foreach (var ingredient in I)
                     {
+                        // Create an Ingredient_class instance and add it to the recipe's ingredientsList
                         Ingredient_class ingredients = new Ingredient_class
                         {
                             ingredientName = ingredient.ingredientName,
@@ -317,6 +343,7 @@ namespace PROG6221_POE_ST10029256
                 {
                     //Error handeling
                 }
+                // Add the completed recipe to the recipeList
                 recipeList.Add(recipe);
             }
         }
@@ -350,19 +377,23 @@ namespace PROG6221_POE_ST10029256
 
             switch (num)
             {
-                case 1:
+                case 1:// Scaling factor of 1 (half)
                     final = half * recipeList[position].ingredientsList[i].quantityOfIngredient;
                     recipeList[position].ingredientsList[i].numberOfCalories = half * recipeList[position].ingredientsList[i].numberOfCalories;
                     break;
-                case 2:
+
+                case 2:// Scaling factor of 2 (double)
                     final = double1 * recipeList[position].ingredientsList[i].quantityOfIngredient;
                     recipeList[position].ingredientsList[i].numberOfCalories = double1 * recipeList[position].ingredientsList[i].numberOfCalories;
                     break;
-                case 3:
+
+                case 3:// Scaling factor of 3 (triple)
                     final = tripple * recipeList[position].ingredientsList[i].quantityOfIngredient;
                     recipeList[position].ingredientsList[i].numberOfCalories = tripple * recipeList[position].ingredientsList[i].numberOfCalories;
                     break;
             }
+
+            // Return the final scaled value
             return final;
         }
 
@@ -919,6 +950,7 @@ namespace PROG6221_POE_ST10029256
             string input2;
             string input;
 
+            // Display prompt for choosing a recipe to clear
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("---------------------------------------------------------");
             Console.ForegroundColor = ConsoleColor.Magenta;
@@ -934,7 +966,8 @@ namespace PROG6221_POE_ST10029256
             List<string> sortedNameList = copyOfNameList.OrderBy(name => name).ToList();
             do
             {
-                DisplayRecipes(sortedNameList);
+                DisplayRecipes(sortedNameList); // Display the available recipes
+
                 input2 = Console.ReadLine();
 
 
@@ -947,6 +980,7 @@ namespace PROG6221_POE_ST10029256
 
                         int position = recipeList.IndexOf(recipeList.Find(recipe => recipe.RecipeName == recipeName));
 
+                        // Ask the user if they want to clear the selected recipe
                         Console.ForegroundColor = ConsoleColor.White;
                         Console.WriteLine("---------------------------------------------------------");
                         Console.ForegroundColor = ConsoleColor.Magenta;
@@ -954,15 +988,15 @@ namespace PROG6221_POE_ST10029256
                         input = (Console.ReadLine()).ToUpper();
 
                         //this do while loop will run until the user enters YES or NO in caps or lowercase
-
                         do
                         {
 
                             if ((input.Equals("YES")) || (input.Equals("NO")))
                             {
+                                // Clear the recipe from the array
                                 if (input == "YES")
                                 {
-                                    //This clears the array
+                                    // Clearing request successfull
                                     recipeList.RemoveAt(position);
                                     TotalNumberOfCaloriesList.RemoveAt(position);
                                     CopyOfTotalNumberOfCaloriesList.RemoveAt(position);
@@ -971,7 +1005,8 @@ namespace PROG6221_POE_ST10029256
                                     Console.ForegroundColor = ConsoleColor.Magenta;
                                 }
                                 else
-                                {
+                                { 
+                                    // Clearing request canceled
                                     Console.ForegroundColor = ConsoleColor.Red;
                                     Console.WriteLine("Clearing request canceled");
                                     Console.ForegroundColor = ConsoleColor.Magenta;
@@ -980,6 +1015,7 @@ namespace PROG6221_POE_ST10029256
                             }
                             else
                             {
+                                // Invalid input, prompt user to re-enter
                                 Console.ForegroundColor = ConsoleColor.Red;
                                 Console.Write("Please enter YES or NO: ");
                                 Console.ForegroundColor = ConsoleColor.Magenta;
@@ -992,12 +1028,15 @@ namespace PROG6221_POE_ST10029256
                     }
                     else
                     {
+                        // Check if the user wants to clear another recipe or exit
                         if (choice == (sortedNameList.Count + 1))
                         {
+                            // User chose to exit
                             reloop = true;
                         }
                         else
                         {
+                            // User needs to re-choose which recipe to clear
                             Console.ForegroundColor = ConsoleColor.White;
                             Console.WriteLine("---------------------------------------------------------");
                             Console.ForegroundColor = ConsoleColor.Red;
@@ -1016,39 +1055,43 @@ namespace PROG6221_POE_ST10029256
                     Console.ForegroundColor = ConsoleColor.Magenta;
                     reloop = false;
                 }
+                // Continue the loop until a valid recipe is chosen or user chooses to exit
             } while (reloop == false);
         }
 
         public void AddRecipe()
         {
-            bool anotherRecipe = true;
-            bool reloop = true;
+            bool anotherRecipe = true; // Flag to determine if the user wants to add another recipe
+            bool reloop = true; // Flag for input validation loop
 
+            // Prompt the user to add a recipe
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("---------------------------------------------------------");
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.Write("Would you like to add a recipe? (YES/NO): ");
             string answer = (Console.ReadLine()).ToUpper();
 
+            // Validate the user input
             do
             {
                 if (answer == "YES" || answer == "NO")
                 {
-                    reloop = true;
+                    reloop = true; // Valid input, exit the loop
                 }
                 else
                 {
+                    // Invalid input, prompt the user to re-enter
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write("Please enter YES or NO: ");
                     Console.ForegroundColor = ConsoleColor.Magenta;
                     answer = (Console.ReadLine()).ToUpper();
 
                     Console.ForegroundColor = ConsoleColor.Magenta;
-                    reloop = false;
+                    reloop = false; // Set the flag to continue the loop
                 }
             } while (reloop == false);
 
-
+            // Loop to add recipes
             do
             {
 
@@ -1057,18 +1100,18 @@ namespace PROG6221_POE_ST10029256
                     recipeNames = new List<string>();
                     RecipesStepsList = new List<List<string>>();
                     RecipesIngredientsList = new List<List<Ingredient_class>>();
-                    AddRecipeToList();
-                    anotherRecipe = true;
-                    AddRecipe();
+                    AddRecipeToList(); // Call the method to add a recipe to the lists
+                    anotherRecipe = true; // User wants to add another recipe
+                    AddRecipe(); // Recursively call the AddRecipe method for the next recipe
                 }
                 else
                 {
-                    anotherRecipe = false;
+                    anotherRecipe = false; // User does not want to add another recipe
                 }
 
             } while (anotherRecipe == true);
 
-            MainMenu();
+            MainMenu(); // Return to the main menu
         }
 
         private void DisplayRecipes(List<string> sortedNameList)
@@ -1087,37 +1130,40 @@ namespace PROG6221_POE_ST10029256
         /// </summary>
         public void Display()
         {
-            int recipeIndex = -1;
-            bool reloop = false;
+            int recipeIndex = -1; // Index of the selected recipe
+            bool reloop = false; // Flag for input validation loop
 
+            // Prompt the user to choose a recipe to display
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("---------------------------------------------------------");
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("Please choose which recipe to display: ");
 
-            //
-
+            ///Loop to handle user input and display the recipe
             do
             {
                 List<string> copyOfNameList = new List<string>();
 
-                for(int k = 0; k < recipeList.Count; k++)
+                // Create a copy of the recipe names list
+                for (int k = 0; k < recipeList.Count; k++)
                 {
                     copyOfNameList.Add(recipeList[k].RecipeName);
                 }
 
+                // Sort the recipe names list alphabetically
                 List<string> sortedNameList = copyOfNameList.OrderBy(name => name).ToList();
 
-                DisplayRecipes(sortedNameList);
+                DisplayRecipes(sortedNameList); // Display the sorted recipe names
                 string input = Console.ReadLine();
 
                 if (int.TryParse(input, out int choice))
                 {
                     if (choice >= 1 && choice <= sortedNameList.Count)
                     {
-                        recipeIndex = choice - 1;
+                        recipeIndex = choice - 1; // Adjust the index based on user choice
                         string recipeName = sortedNameList[recipeIndex];
 
+                        // Find the position of the selected recipe in the recipeList
                         int position = recipeList.IndexOf(recipeList.Find(recipe => recipe.RecipeName == recipeName));
 
                         if (position >= 0 && position < recipeList.Count)
@@ -1129,10 +1175,11 @@ namespace PROG6221_POE_ST10029256
                                 List<Steps_class> S = recipeList[position].stepsList;
                                 List<Ingredient_class> I = recipeList[position].ingredientsList;
 
+                                // Display recipe name and ingredients
                                 Console.ForegroundColor = ConsoleColor.White;
                                 Console.WriteLine("---------------------------------------------------------");
                                 Console.ForegroundColor = ConsoleColor.Cyan;
-                                Console.WriteLine("Recipe: " + recipeName);   //code for name display 
+                                Console.WriteLine("Recipe: " + recipeName); //code for name display 
                                 Console.WriteLine("Ingredients:\r\n");
 
                                 
@@ -1140,6 +1187,7 @@ namespace PROG6221_POE_ST10029256
                                 for (int i = 0; i < I.Count; i++) 
                                 {
 
+                                    // Display each ingredient with quantity, unit, name, calories, and food group
                                     Console.WriteLine((i + 1) + ". " + I[i].quantityOfIngredient + " " + I[i].unitOfIngredient +
                                         " of " + I[i].ingredientName + " " + "(" + I[i].numberOfCalories + " " + "calories)");
 
@@ -1148,7 +1196,7 @@ namespace PROG6221_POE_ST10029256
                                     Console.WriteLine();
 
                                 }
-
+                                // Display recipe steps
                                 Console.ForegroundColor = ConsoleColor.White;
                                 Console.WriteLine("---------------------------------------------------------");
                                 Console.ForegroundColor = ConsoleColor.Cyan;
@@ -1156,34 +1204,38 @@ namespace PROG6221_POE_ST10029256
                                 for (int j = 0; j < S.Count; j++) //loops through and display each element in the array in the format of
                                                                           //1. discription of the step
                                 {
+                                    // Display each step with a step number and description
                                     Console.WriteLine((j + 1) + ". " + S[j].ingredientSteps);
                                 }
+                                // Display total calories of the recipe
                                 Console.ForegroundColor = ConsoleColor.White;
                                 Console.WriteLine("---------------------------------------------------------");
                                 Console.ForegroundColor = ConsoleColor.Cyan;
                                 Console.WriteLine("Total calories:\t "+ TotalNumberOfCaloriesList[position]);//display the total number of calories
 
-                                reloop = true;
+                                reloop = true; // Valid input, exit the loop
                             }
                             else
                             {
+                                // No recipes to display
                                 Console.ForegroundColor = ConsoleColor.White;
                                 Console.WriteLine("---------------------------------------------------------");
                                 Console.ForegroundColor = ConsoleColor.Cyan;
                                 Console.WriteLine("No recipes to display.");
                             }
-                            reloop = true;
+                            reloop = true; // Valid input, exit
                         }
                     }
                     else
                     {
                         if (choice == (sortedNameList.Count + 1))
                         {
-                            MainMenu();
+                            MainMenu(); // Go back to the main menu
                             reloop = true;
                         }
                         else
                         {
+                            // Invalid input, ask the user to re-choose a recipe to display
                             Console.ForegroundColor = ConsoleColor.White;
                             Console.WriteLine("---------------------------------------------------------");
                             Console.ForegroundColor = ConsoleColor.Red;

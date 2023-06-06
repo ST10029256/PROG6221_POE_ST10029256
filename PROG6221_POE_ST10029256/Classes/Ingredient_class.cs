@@ -252,7 +252,6 @@ namespace PROG6221_POE_ST10029256
             bool reloop = false;
 
             //this do while loop will run until the user enters a valid integer
-
             do
             {
                 try
@@ -303,13 +302,12 @@ namespace PROG6221_POE_ST10029256
             bool reloop = false;
 
             //this do while loop will run until the user enters a valid string containg one of the elements within the array
-
             do
             {
                 try
                 {
-
-                    if ((!unit.Equals(null)) && (!unit.Equals(string.Empty))) //Checks if the string is not empty and not null
+                    //Checks if the string is not empty and not null
+                    if ((!unit.Equals(null)) && (!unit.Equals(string.Empty))) 
                     {
                         this.unitOfIngredient = unit;
 
@@ -427,7 +425,7 @@ namespace PROG6221_POE_ST10029256
         }
 
 
-        private void DisplayCalorieInformation()
+        private void DisplayCalorieInformation()//code in the get calorie method so that the user can display the info. ooo and ranges!
         {   //general information about what calories are
             Console.WriteLine("");
         }

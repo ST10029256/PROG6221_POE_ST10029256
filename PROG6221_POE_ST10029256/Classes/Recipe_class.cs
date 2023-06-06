@@ -57,6 +57,7 @@ namespace PROG6221_POE_ST10029256.Classes
                     }
 
                 }
+                // Exception handling
                 catch (Exception ex)
                 {
 
@@ -66,6 +67,7 @@ namespace PROG6221_POE_ST10029256.Classes
 
             } while (reloop == false);
 
+            // Returns the recipe name
             return this.RecipeName;
         }
     }
