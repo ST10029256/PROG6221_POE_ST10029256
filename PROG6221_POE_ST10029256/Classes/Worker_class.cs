@@ -1097,6 +1097,10 @@ namespace PROG6221_POE_ST10029256
                                 {
                                     Console.WriteLine((j + 1) + ". " + S[j].ingredientSteps);
                                 }
+                                Console.ForegroundColor = ConsoleColor.White;
+                                Console.WriteLine("---------------------------------------------------------");
+                                Console.ForegroundColor = ConsoleColor.Cyan;
+                                Console.WriteLine("Total calories:\t "+ TotalNumberOfCaloriesList[position]);//display the total number of calories
 
                                 reloop = true;
                             }
@@ -1109,8 +1113,6 @@ namespace PROG6221_POE_ST10029256
                             }
                             reloop = true;
                         }
-
-
                     }
                     else
                     {
