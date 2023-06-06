@@ -16,7 +16,11 @@ namespace PROG6221_POE_ST10029256
         public string unitOfIngredient  = string.Empty;
         public double numberOfCalories = 0.0f;
         public string FoodGroup {  get; set; } = string.Empty;
-       
+
+        public  float CopyOfQuantityOfIngredient = 0.0f;
+        public string CopyOfUnitOfIngredient = string.Empty;
+        public double CopyOfNnumberOfCalories = 0.0f;
+
         /// <summary>
         /// Default constructor
         /// </summary>
@@ -62,21 +66,26 @@ namespace PROG6221_POE_ST10029256
 
                 if (int.TryParse(input, out int choice))
                 {
-                    if (choice >= 1 && choice <= FoodGroups.Count)
+                    if ((choice >= 1 && choice <= FoodGroups.Count) && (FoodGroups.Count >= 0 && index < FoodGroups.Count))
                     {
                         index = choice - 1;
-                    }
-                    if (FoodGroups.Count >= 0 && index < FoodGroups.Count)
-                    {
                         reloop = true;
                         FoodGroup = FoodGroups[index];
                     }
-                    else if (choice == FoodGroups.Count + 1)
+                    else
                     {
-                        /////////
+                        if (choice == FoodGroups.Count + 1)
+                        {
+                            reloop = true;
+                            DisplayFoodGroupInformation();
+                        }
+                        else
+                        {
+                            reloop = false;
+                        }
                     }
                 }
-                if (!reloop)
+                if (reloop == false)
                 {
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine("---------------------------------------------------------");
@@ -84,7 +93,7 @@ namespace PROG6221_POE_ST10029256
                     Console.Write("Please re-select a food group from the list below: ");
                 }
 
-            } while (!reloop); 
+            } while (reloop == false); 
             
             return FoodGroup;
         }
@@ -339,6 +348,88 @@ namespace PROG6221_POE_ST10029256
             return this.unitOfIngredient;
         }
 
+        private void DisplayFoodGroupInformation()
+        {
+            bool reloop = false;
+            string input = string.Empty;
+            int index = 0;
 
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("---------------------------------------------------------");
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine("Please select a food group from the list below to view: ");
+
+            do
+            {
+                for (int i = 0; i < FoodGroups.Count; i++)
+                {
+                    Console.WriteLine((i + 1) + ": " + FoodGroups[i]);
+                }
+
+                Console.WriteLine((FoodGroups.Count + 1) + ". " + "Back");
+                Console.Write(">");
+
+                input = Console.ReadLine();
+
+                if (int.TryParse(input, out int choice))
+                {
+                    if (choice >= 1 && choice <= FoodGroups.Count)
+                    {
+                        index = choice - 1;
+
+                        switch (index)
+                        {
+                            case 0://this will be Starchy foods
+                                Console.WriteLine("");
+                                break;
+                            case 1: // this will be Vegetables and fruits
+                                Console.WriteLine("");
+                                break;
+                            case 2://this will be Dry beans, peas, lentils and soya
+                                Console.WriteLine("");
+                                break;
+                            case 3://this will be Chicken, fish, meat and eggs
+                                Console.WriteLine("");
+                                break;
+                            case 4://this will be Milk and dairy products
+                                Console.WriteLine("");
+                                break;
+                            case 5://this will be  Fats and oil
+                                Console.WriteLine("");
+                                break;
+                            case 6://this will be Water
+                                Console.WriteLine("");
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        if (choice == FoodGroups.Count + 1)
+                        {
+                            GetFoodGroup();
+                            reloop = true;
+                        }
+                        else
+                        {
+                            reloop = false;
+                        }
+                    }
+                }
+                if (reloop == false)
+                {
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine("---------------------------------------------------------");
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    Console.Write("Please re-select a food group from the list below to view: ");
+                }
+
+            } while (reloop == false);
+        }
+
+
+        private void DisplayCalorieInformation()
+        {   //general information about what calories are
+            Console.WriteLine("");
+        }
     }
 }

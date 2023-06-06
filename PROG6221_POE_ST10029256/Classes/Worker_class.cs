@@ -48,7 +48,7 @@ namespace PROG6221_POE_ST10029256
 
         public Recipe_class recipe_Class = new Recipe_class();
         private List<Recipe_class> recipeList = new List<Recipe_class>();
-        private List<Recipe_class> CopyOfRecipeList = new List<Recipe_class>();
+ 
         private List<string> recipeNames { get; set; }
         public List<Steps_class> StepsListWorker { get; set; }
         public List<List<string>> RecipesStepsList { get; set; }
@@ -96,6 +96,9 @@ namespace PROG6221_POE_ST10029256
             }
         }
 
+        /// <summary>
+        /// Displayes a welcome message to the user
+        /// </summary>
         public void PrintWelcomeMessage()
         {
             Console.BackgroundColor = ConsoleColor.Black;
@@ -130,6 +133,9 @@ namespace PROG6221_POE_ST10029256
             Console.ReadLine();
         }
 
+        /// <summary>
+        /// Displayes a thank you message to the user
+        /// </summary>
         public void PrintThankYouMessage()
         {
             Console.BackgroundColor = ConsoleColor.Black;
@@ -196,14 +202,6 @@ namespace PROG6221_POE_ST10029256
             TotalNumberOfCaloriesList.Add(totalCalories);
             CopyOfTotalNumberOfCaloriesList.Add(totalCalories);
 
-            ///make use of the delegate 
-            CalorieAllertEvent += HandleCalorieAllertEvent;
-
-            AllertUser(totalCalories);//allerts the user
-
-            CalorieAllertEvent -= HandleCalorieAllertEvent;
-
-
             StoreRecipe(RecipesStepsList, RecipesIngredientsList);
         }
 
@@ -218,6 +216,14 @@ namespace PROG6221_POE_ST10029256
                     totalCalories += calories;
                 }
             }
+
+            //make use of the delegate 
+            CalorieAllertEvent += HandleCalorieAllertEvent;
+
+            AllertUser(totalCalories);//allerts the user
+
+            CalorieAllertEvent -= HandleCalorieAllertEvent;
+
             return totalCalories;
         }
 
@@ -230,14 +236,17 @@ namespace PROG6221_POE_ST10029256
             for (int i = 0; i < numberOfIngredients; i++) //This will loop through the total numberOfIngredients and get the users input for all the ingredient
                                                           //data and stores the data into the arrays 
             {
-                
+
                 var newIngredient = new Ingredient_class
                 {
                     quantityOfIngredient = ingredient_class.GetQuantityOfIngredient(),
                     unitOfIngredient = ingredient_class.GetUnitOfIngredient(),
                     ingredientName = ingredient_class.GetingredientName(),
                     numberOfCalories = ingredient_class.GetNumberOfCalories(),
-                    FoodGroup = ingredient_class.GetFoodGroup()
+                    FoodGroup = ingredient_class.GetFoodGroup(),
+                    CopyOfNnumberOfCalories = ingredient_class.numberOfCalories,
+                    CopyOfQuantityOfIngredient = ingredient_class.quantityOfIngredient,
+                    CopyOfUnitOfIngredient = ingredient_class.unitOfIngredient
                 };
 
                 IngredientsListWorker.Add(newIngredient);
@@ -309,10 +318,7 @@ namespace PROG6221_POE_ST10029256
                     //Error handeling
                 }
                 recipeList.Add(recipe);
-                CopyOfRecipeList.Add(recipe);
             }
-
-
         }
 
         public List<string> GetRecipeNames()
@@ -347,35 +353,14 @@ namespace PROG6221_POE_ST10029256
                 case 1:
                     final = half * recipeList[position].ingredientsList[i].quantityOfIngredient;
                     recipeList[position].ingredientsList[i].numberOfCalories = half * recipeList[position].ingredientsList[i].numberOfCalories;
-                    TotalNumberOfCaloriesList[position] = half * TotalNumberOfCaloriesList[position];
-                    ///make use of the delegate 
-                    CalorieAllertEvent += HandleCalorieAllertEvent;
-
-                    AllertUser(TotalNumberOfCaloriesList[position]);//allerts the user
-
-                    CalorieAllertEvent -= HandleCalorieAllertEvent;
                     break;
                 case 2:
                     final = double1 * recipeList[position].ingredientsList[i].quantityOfIngredient;
                     recipeList[position].ingredientsList[i].numberOfCalories = double1 * recipeList[position].ingredientsList[i].numberOfCalories;
-                    TotalNumberOfCaloriesList[position] = double1 * TotalNumberOfCaloriesList[position];
-                    ///make use of the delegate 
-                    CalorieAllertEvent += HandleCalorieAllertEvent;
-
-                    AllertUser(TotalNumberOfCaloriesList[position]);//allerts the user
-
-                    CalorieAllertEvent -= HandleCalorieAllertEvent;
                     break;
                 case 3:
                     final = tripple * recipeList[position].ingredientsList[i].quantityOfIngredient;
                     recipeList[position].ingredientsList[i].numberOfCalories = tripple * recipeList[position].ingredientsList[i].numberOfCalories;
-                    TotalNumberOfCaloriesList[position] = tripple * TotalNumberOfCaloriesList[position];
-                    ///make use of the delegate 
-                    CalorieAllertEvent += HandleCalorieAllertEvent;
-
-                    AllertUser(TotalNumberOfCaloriesList[position]);//allerts the user
-
-                    CalorieAllertEvent -= HandleCalorieAllertEvent;
                     break;
             }
             return final;
@@ -390,13 +375,13 @@ namespace PROG6221_POE_ST10029256
             int index = 0;
             bool reloop = false;
             int position = 0;
+
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("---------------------------------------------------------");
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("Please choose which recipe to Scale: ");
 
-
-            //this do while loop will run until the user enters YES or NO in caps or lowercase
+            // Copy recipe names to a new list and sort them alphabetically
             List<string> copyOfNameList = new List<string>();
 
             for (int k = 0; k < recipeList.Count; k++)
@@ -405,6 +390,8 @@ namespace PROG6221_POE_ST10029256
             }
 
             List<string> sortedNameList = copyOfNameList.OrderBy(name => name).ToList();
+
+            // Loop until a valid recipe choice is made
 
             do
             {
@@ -417,6 +404,7 @@ namespace PROG6221_POE_ST10029256
                         index = choice - 1;
                         string recipeName = sortedNameList[index];
 
+                        // Find the position of the chosen recipe in the original recipe list
                         position = recipeList.IndexOf(recipeList.Find(recipe => recipe.RecipeName == recipeName));
                         reloop = true;
                     }
@@ -424,11 +412,13 @@ namespace PROG6221_POE_ST10029256
                     {
                         if (choice == sortedNameList.Count + 1)
                         {
+                            // Go back to the main menu if the user chooses to
                             reloop = true;
                             MainMenu();
                         }
                         else
                         {
+                            // Invalid choice, prompt user to reselect
                             Console.ForegroundColor = ConsoleColor.White;
                             Console.WriteLine("---------------------------------------------------------");
                             Console.ForegroundColor = ConsoleColor.Red;
@@ -440,6 +430,7 @@ namespace PROG6221_POE_ST10029256
                 }
                 else
                 {
+                    // Invalid input, prompt user to reselect
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine("---------------------------------------------------------");
                     Console.ForegroundColor = ConsoleColor.Red;
@@ -448,11 +439,10 @@ namespace PROG6221_POE_ST10029256
                     reloop = false;
                 }
             } while (reloop == false);
-            string confirm;bool reAsk = false;
+            string confirm; bool reAsk = false;
             do
             {
                 //var choice = string.Empty;
-                
                 //IngredientsListWorker = recipe_Class.ingredientsList;
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("---------------------------------------------------------");
@@ -460,8 +450,8 @@ namespace PROG6221_POE_ST10029256
                 Console.Write("Would you like to scale the recipe? (YES/NO): ");
                 confirm = (Console.ReadLine()).ToUpper();
 
-                if ((confirm.Equals("YES")) || (confirm.Equals("NO"))) //if the user enters Yes the user will be asked to half, double or tripple the quantity
-                                                                     //of the ingredient
+                //if the user enters Yes the user will be asked to half, double or tripple the quantity of the ingredient
+                if ((confirm.Equals("YES")) || (confirm.Equals("NO")))
                 {
                     reAsk = true;
                 }
@@ -492,17 +482,16 @@ namespace PROG6221_POE_ST10029256
                 bool valid = false;
 
                 //this do while loop will run until the user enters a integer number between 0 and 5
-
                 do
                 {
-                    try //This will try to convert the string to a integer and if not able to it will re-ask the user to enter a intager between 0 and 5
+                    try // Try parsing the input as an integer
                     {
 
                         if (Int32.TryParse(input, out option))
                         {
                             option = Convert.ToInt32(input);
 
-                            if ((option > 0) && (option < 5))
+                            if ((option > 0) && (option < 5)) // Check if the input is between 1 and 4
                             {
 
                                 valid = true;
@@ -511,6 +500,7 @@ namespace PROG6221_POE_ST10029256
                             }
                             else
                             {
+                                // Prompt user to re-enter a valid number
                                 Console.ForegroundColor = ConsoleColor.Red;
                                 Console.WriteLine("\r\nPlease choose one of the following by re-entering the number: ");
                                 Console.WriteLine("1: (Half) ");
@@ -525,6 +515,7 @@ namespace PROG6221_POE_ST10029256
                         }
                         else
                         {
+                            // Prompt user to re - enter a valid number
                             Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine("\r\nPlease choose one of the following by re-entering the number: ");
                             Console.WriteLine("1: (Half) ");
@@ -546,10 +537,41 @@ namespace PROG6221_POE_ST10029256
                     }
                 } while (valid == false);
 
-
-                for (int i = 0; i < recipeList[position].ingredientsList.Count; i++) //Calls the ScalingCalc method and the ChangeUnits method
+                switch (num)
                 {
-                    switch (num) //runs if the users input is 1,2,3 or 4 
+                    case 1:
+                        TotalNumberOfCaloriesList[position] = 0.5 * TotalNumberOfCaloriesList[position];
+                        ///make use of the delegate 
+                        CalorieAllertEvent += HandleCalorieAllertEvent;
+
+                        AllertUser(TotalNumberOfCaloriesList[position]);//allerts the user
+
+                        CalorieAllertEvent -= HandleCalorieAllertEvent;
+                        break;
+                    case 2:
+                        TotalNumberOfCaloriesList[position] = 2 * TotalNumberOfCaloriesList[position];
+                        ///make use of the delegate 
+                        CalorieAllertEvent += HandleCalorieAllertEvent;
+
+                        AllertUser(TotalNumberOfCaloriesList[position]);//allerts the user
+
+                        CalorieAllertEvent -= HandleCalorieAllertEvent;
+                        break;
+                    case 3:
+                        TotalNumberOfCaloriesList[position] = 3 * TotalNumberOfCaloriesList[position];
+                        ///make use of the delegate 
+                        CalorieAllertEvent += HandleCalorieAllertEvent;
+
+                        AllertUser(TotalNumberOfCaloriesList[position]);//allerts the user
+
+                        CalorieAllertEvent -= HandleCalorieAllertEvent;
+                        break;
+                }
+
+                // Iterate over the ingredients of the selected recipe
+                for (int i = 0; i < recipeList[position].ingredientsList.Count; i++)
+                {
+                    switch (num)
                     {
                         case 1:
                             recipeList[position].ingredientsList[i].quantityOfIngredient = ScalingCalc(i, num, position);
@@ -562,18 +584,25 @@ namespace PROG6221_POE_ST10029256
                             break;
 
                         case 3:
+                            // Perform scaling and unit conversion based on the chosen option
                             recipeList[position].ingredientsList[i].quantityOfIngredient = ScalingCalc(i, num, position);
                             ChangeUnits(i, position);
                             break;
 
                         case 4:
-                            recipeList[position].ingredientsList[i].quantityOfIngredient = CopyOfRecipeList[position].ingredientsList[i].quantityOfIngredient;
-                            recipeList[position].ingredientsList[i].unitOfIngredient = CopyOfRecipeList[position].ingredientsList[i].unitOfIngredient;
-                            recipeList[position].ingredientsList[i].numberOfCalories = CopyOfRecipeList[position].ingredientsList[i].numberOfCalories;
+                            // Reset the ingredient values to their original values
+                            recipeList[position].ingredientsList[i].quantityOfIngredient = recipeList[position].ingredientsList[i].CopyOfQuantityOfIngredient;
+                            recipeList[position].ingredientsList[i].unitOfIngredient = recipeList[position].ingredientsList[i].CopyOfUnitOfIngredient;
+                            recipeList[position].ingredientsList[i].numberOfCalories = recipeList[position].ingredientsList[i].CopyOfNnumberOfCalories;
                             TotalNumberOfCaloriesList[position] = CopyOfTotalNumberOfCaloriesList[position];
                             break;
                     }
                 }
+
+
+
+
+
             }
             else
             {
@@ -590,15 +619,19 @@ namespace PROG6221_POE_ST10029256
         /// <param name="num"></param>
         public void ChangeUnits(int i,int position)
         {
+            // Check if the unit is "l" (liters)
             if (recipeList[position].ingredientsList[i].unitOfIngredient == "l")
             {
+                // Convert liters to milliliters
                 recipeList[position].ingredientsList[i].quantityOfIngredient = recipeList[position].ingredientsList[i].quantityOfIngredient * 1000;
                 recipeList[position].ingredientsList[i].unitOfIngredient = "ml";
             }
+            // Check if the unit is "ml" (milliliters)
             if (recipeList[position].ingredientsList[i].unitOfIngredient == "ml")
             {
                 if (recipeList[position].ingredientsList[i].quantityOfIngredient >= 3785)
                 {
+                    // Convert milliliters to gallons
                     recipeList[position].ingredientsList[i].quantityOfIngredient = (float)Math.Round((double)(recipeList[position].ingredientsList[i].quantityOfIngredient / 3785), 1);
                     recipeList[position].ingredientsList[i].unitOfIngredient = "gallon";
                 }
@@ -606,6 +639,7 @@ namespace PROG6221_POE_ST10029256
                 {
                     if (recipeList[position].ingredientsList[i].quantityOfIngredient >= 240)
                     {
+                        // Convert milliliters to cups
                         recipeList[position].ingredientsList[i].quantityOfIngredient = (float)Math.Round((double)(recipeList[position].ingredientsList[i].quantityOfIngredient / 240), 1);
                         recipeList[position].ingredientsList[i].unitOfIngredient = "cups";
                     }
@@ -613,6 +647,7 @@ namespace PROG6221_POE_ST10029256
                     {
                         if (recipeList[position].ingredientsList[i].quantityOfIngredient >= 15)
                         {
+                            // Convert milliliters to tablespoons
                             recipeList[position].ingredientsList[i].quantityOfIngredient = (float)Math.Round((double)(recipeList[position].ingredientsList[i].quantityOfIngredient / 15), 1);
                             recipeList[position].ingredientsList[i].unitOfIngredient = "tablespoons";
                         }
@@ -620,22 +655,25 @@ namespace PROG6221_POE_ST10029256
                         {
                             if (recipeList[position].ingredientsList[i].quantityOfIngredient >= 5)
                             {
+                                // Convert milliliters to teaspoons
                                 recipeList[position].ingredientsList[i].quantityOfIngredient = (float)Math.Round((double)(recipeList[position].ingredientsList[i].quantityOfIngredient / 5), 1);
                                 recipeList[position].ingredientsList[i].unitOfIngredient = "teaspoons";
                             }
                             else
                             {
+                                // Default unit is milliliters
                                 recipeList[position].ingredientsList[i].unitOfIngredient = "ml";
                             }
                         }
                     }
                 }
             }
-
+            // Check if the unit is "teaspoon" or "teaspoons"
             if ((recipeList[position].ingredientsList[i].unitOfIngredient == "teaspoon") || recipeList[position].ingredientsList[i].unitOfIngredient == "teaspoons")
             {
                 if (recipeList[position].ingredientsList[i].quantityOfIngredient >= 3)
                 {
+                    // Convert teaspoons to tablespoons
                     recipeList[position].ingredientsList[i].quantityOfIngredient = (float)Math.Round((double)(recipeList[position].ingredientsList[i].quantityOfIngredient / 3), 1);
                     recipeList[position].ingredientsList[i].unitOfIngredient = "tablespoons";
                 }
@@ -643,16 +681,19 @@ namespace PROG6221_POE_ST10029256
                 {
                     if (recipeList[position].ingredientsList[i].quantityOfIngredient == 1)
                     {
+                        // Keep the unit as "teaspoon"
                         recipeList[position].ingredientsList[i].unitOfIngredient = "teaspoon";
                     }
                 }
             }
             else
             {
+                // Check if the unit is "tablespoon" or "tablespoons"
                 if ((recipeList[position].ingredientsList[i].unitOfIngredient == "tablespoon") || recipeList[position].ingredientsList[i].unitOfIngredient == "tablespoons")
                 {
                     if (recipeList[position].ingredientsList[i].quantityOfIngredient >= 16)
                     {
+                        // Convert tablespoons to cups
                         recipeList[position].ingredientsList[i].quantityOfIngredient = (float)Math.Round((double)(recipeList[position].ingredientsList[i].quantityOfIngredient / 16), 1);
                         recipeList[position].ingredientsList[i].unitOfIngredient = "cups";
                     }
@@ -660,16 +701,19 @@ namespace PROG6221_POE_ST10029256
                     {
                         if (recipeList[position].ingredientsList[i].quantityOfIngredient == 1)
                         {
+                            // Keep the unit as "tablespoon"
                             recipeList[position].ingredientsList[i].unitOfIngredient = "tablespoon";
                         }
                     }
 
                 }
 
+                // Check if the unit is "cup" or "cups"
                 if ((recipeList[position].ingredientsList[i].unitOfIngredient == "cup") || recipeList[position].ingredientsList[i].unitOfIngredient == "cups")
                 {
                     if (recipeList[position].ingredientsList[i].quantityOfIngredient >= 16)
                     {
+                        // Convert cups to gallons
                         recipeList[position].ingredientsList[i].quantityOfIngredient = (float)Math.Round((double)(recipeList[position].ingredientsList[i].quantityOfIngredient / 16), 1);
                         recipeList[position].ingredientsList[i].unitOfIngredient = "gallons";
                     }
@@ -677,12 +721,14 @@ namespace PROG6221_POE_ST10029256
                     {
                         if (recipeList[position].ingredientsList[i].quantityOfIngredient == 1)
                         {
+                            // Keep the unit as "cup"
                             recipeList[position].ingredientsList[i].unitOfIngredient = "cup";
                         }
                         else
                         {
                             if (recipeList[position].ingredientsList[i].quantityOfIngredient < 16)
                             {
+                                // Keep the unit as "cups"
                                 recipeList[position].ingredientsList[i].unitOfIngredient = "cups";
                             }
                         }
@@ -690,14 +736,17 @@ namespace PROG6221_POE_ST10029256
                 }
             }
 
+            // Check if the unit is "gallon" or "gallons"
             if ((recipeList[position].ingredientsList[i].unitOfIngredient == "gallon") || recipeList[position].ingredientsList[i].unitOfIngredient == "gallons")
             {
                 if (recipeList[position].ingredientsList[i].quantityOfIngredient == 1)
                 {
+                    // Keep the unit as "gallon"
                     recipeList[position].ingredientsList[i].unitOfIngredient = "gallon";
                 }
                 else
                 {
+                    // Keep the unit as "gallons"
                     recipeList[position].ingredientsList[i].unitOfIngredient = "gallons";
                 }
             }
@@ -708,6 +757,7 @@ namespace PROG6221_POE_ST10029256
         /// </summary>
         public void MainMenu()
         {
+            // Displaying menu options to the user
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("---------------------------------------------------------");
             Console.ForegroundColor = ConsoleColor.Magenta;
@@ -722,9 +772,8 @@ namespace PROG6221_POE_ST10029256
             
             int option = 0;
             bool reloop = false;
-            
-            //this do while loop will run until the user enters a integer number between 0 and 6
 
+            // This do-while loop will run until the user enters an integer number between 1 and 5
             do
             {
                 try
@@ -741,6 +790,7 @@ namespace PROG6221_POE_ST10029256
                         }
                         else
                         {
+                            // Invalid input, prompting the user to re-enter a valid option
                             Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine("\r\nPlease choose one of the folling by re-entering the number:");
                             Console.WriteLine("1: Enter a recipe");
@@ -756,6 +806,7 @@ namespace PROG6221_POE_ST10029256
                     }
                     else
                     {
+                        // Invalid input, prompting the user to re-enter a valid option
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("\r\nPlease choose one of the folling by re-entering the number:");
                         Console.WriteLine("1: Enter a recipe");
@@ -778,28 +829,34 @@ namespace PROG6221_POE_ST10029256
                 }
             } while (reloop == false);
 
-            switch (option) //Depending on what the users enter different methods will be called 
+            // Performing actions based on the user's choice using a switch statement
+            switch (option)
             {
                 case 1:
+                    // User chose to enter a recipe, calling the AddRecipe method
                     AddRecipe();
                     break;
 
                 case 2:
+                    // User chose to display a recipe, calling the Display method and then recursively calling MainMenu
                     Display();
                     MainMenu();
                     break;
 
                 case 3:
+                    // User chose to scale a recipe, calling the Scaling method and then recursively calling MainMenu
                     Scaling();
                     MainMenu();
                     break;
 
                 case 4:
+                    // User chose to clear a recipe, calling the ClearSelectedRecipe method and then recursively calling MainMenu
                     ClearSelectedRecipe();
                     MainMenu();
                     break;
 
                 default:
+                    // User chose to exit the application, calling the ExitTheApplication method
                     ExitTheApplication();
                     break;
             }
@@ -823,23 +880,26 @@ namespace PROG6221_POE_ST10029256
 
             do
             {
-
+                // Checking if the user input is either "YES" or "NO"
                 if ((input.Equals("YES")) || (input.Equals("NO")))
 
                 {
                     if (input == "YES")
                     {
+                        // User entered "YES", printing a thank you message and exiting the application
                         PrintThankYouMessage();
                         Environment.Exit(0);
                     }
                     else
                     {
+                        // User entered "NO", calling the MainMenu method to return to the main menu
                         MainMenu();
                     }
                     reloop = true;
                 }
                 else
                 {
+                    // Invalid input, prompting the user to re-enter "YES" or "NO"
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write("Please enter YES or NO: ");
                     Console.ForegroundColor = ConsoleColor.Magenta;
@@ -1035,6 +1095,7 @@ namespace PROG6221_POE_ST10029256
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("Please choose which recipe to display: ");
 
+            //
 
             do
             {
