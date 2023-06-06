@@ -3,13 +3,22 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.NetworkInformation;
+using System.Runtime.Remoting.Lifetime;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 
 namespace PROG6221_POE_ST10029256
 {
+    /// <summary>
+    /// declare delegate
+    /// </summary>
+    /// <param name="totalCalories"></param>
+    public delegate void CalorieAllertDelegate(double totalCalories);
+
     public class Worker_class
     {
+        public event CalorieAllertDelegate CalorieAllertEvent;
+
         /// <summary>
         /// Instantiate ingredient class
         /// </summary>
@@ -37,34 +46,54 @@ namespace PROG6221_POE_ST10029256
 
         //public Steps_class[] stepsArray;
 
-        /// <summary>
-        /// Array Holds the reset ingredient quantity data
-        /// </summary>
-
-        public float[] resetIngredientQuantity;
-
-        /// <summary>
-        /// Array Holds the ingredient mesurement data
-        /// </summary>
-
-        public string[] resetIngredientUnits;
-
         public Recipe_class recipe_Class = new Recipe_class();
         private List<Recipe_class> recipeList = new List<Recipe_class>();
-
+        private List<Recipe_class> CopyOfRecipeList = new List<Recipe_class>();
         private List<string> recipeNames { get; set; }
         public List<Steps_class> StepsListWorker { get; set; }
         public List<List<string>> RecipesStepsList { get; set; }
 
         public List<List<Ingredient_class>> RecipesIngredientsList { get; set; }
         public List<Ingredient_class> IngredientsListWorker { get; set; }
-        public List<Recipe_class> RecipeListWorker { get; set; }
+        //public List<Recipe_class> RecipeListWorker { get; set; }
+
+        private List<double> TotalNumberOfCaloriesList = new List<double>();
+
+        private List<double> CopyOfTotalNumberOfCaloriesList = new List<double>();
+
+        
         /// <summary>
         /// Default constructor
         /// </summary>
         public Worker_class()
         {
 
+        }
+        /// <summary>
+        /// allerts the user when limit of total calories exceed
+        /// </summary>
+        /// <param name="totalCalories"></param>
+        protected virtual void AllertUser(double totalCalories)
+        {
+            if (totalCalories > 300)
+            {
+                CalorieAllertEvent?.Invoke(totalCalories);
+            }
+        }
+        /// <summary>
+        /// handels event when limit of calories exceeds
+        /// </summary>
+        /// <param name="totalCalories"></param>
+        private void HandleCalorieAllertEvent(double totalCalories)
+        {
+            if (totalCalories > 300)
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("---------------------------------------------------------");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("\tAllert!\r\n\tThe total calories exceed 300.\r\n\tThe total calories are "+ totalCalories + ".");
+                Console.ForegroundColor = ConsoleColor.Magenta;
+            }
         }
 
         public void PrintWelcomeMessage()
@@ -162,11 +191,34 @@ namespace PROG6221_POE_ST10029256
             RecipesStepsList.Add(StepsListWorker.Select(step => step.ingredientSteps).ToList());
             RecipesIngredientsList.Add(IngredientsListWorker.Select(ingredient => ingredient).ToList());
 
-            //Call total calories
+            double totalCalories = CalcTotalCalories(RecipesIngredientsList);
 
-            //Delegate
+            TotalNumberOfCaloriesList.Add(totalCalories);
+            CopyOfTotalNumberOfCaloriesList.Add(totalCalories);
+
+            ///make use of the delegate 
+            CalorieAllertEvent += HandleCalorieAllertEvent;
+
+            AllertUser(totalCalories);//allerts the user
+
+            CalorieAllertEvent -= HandleCalorieAllertEvent;
+
 
             StoreRecipe(RecipesStepsList, RecipesIngredientsList);
+        }
+
+        public double CalcTotalCalories(List<List<Ingredient_class>> RecipesIngredientsList)
+        {
+            double totalCalories = 0;
+            foreach (var list in RecipesIngredientsList)
+            {
+                foreach (var ingredient in list)
+                {
+                    double calories = Math.Max(ingredient.numberOfCalories, 0);//make sure that there can be no negative value calories 
+                    totalCalories += calories;
+                }
+            }
+            return totalCalories;
         }
 
         public void StoreIngredientsInList()
@@ -257,7 +309,10 @@ namespace PROG6221_POE_ST10029256
                     //Error handeling
                 }
                 recipeList.Add(recipe);
+                CopyOfRecipeList.Add(recipe);
             }
+
+
         }
 
         public List<string> GetRecipeNames()
@@ -282,36 +337,47 @@ namespace PROG6221_POE_ST10029256
 
         public float ScalingCalc(int i, int num, int position)
         {
-
             var half = 0.5f;
             int double1 = 2;
             int tripple = 3;
             float final = 0.0f;
 
+            switch (num)
+            {
+                case 1:
+                    final = half * recipeList[position].ingredientsList[i].quantityOfIngredient;
+                    recipeList[position].ingredientsList[i].numberOfCalories = half * recipeList[position].ingredientsList[i].numberOfCalories;
+                    TotalNumberOfCaloriesList[position] = half * TotalNumberOfCaloriesList[position];
+                    ///make use of the delegate 
+                    CalorieAllertEvent += HandleCalorieAllertEvent;
 
-            if (num == 1)
-            {
-                final = half * recipeList[position].ingredientsList[i].quantityOfIngredient;
-            }
-            else
-            {
-                if (num == 2)
-                {
+                    AllertUser(TotalNumberOfCaloriesList[position]);//allerts the user
+
+                    CalorieAllertEvent -= HandleCalorieAllertEvent;
+                    break;
+                case 2:
                     final = double1 * recipeList[position].ingredientsList[i].quantityOfIngredient;
-                }
-                else
-                {
-                    if (num == 3)
-                    {
-                        final = tripple * recipeList[position].ingredientsList[i].quantityOfIngredient;
-                    }
-                    else
-                    {
-                        //reset of the ingredient bust still be done here 
-                    }
-                }
-            }
+                    recipeList[position].ingredientsList[i].numberOfCalories = double1 * recipeList[position].ingredientsList[i].numberOfCalories;
+                    TotalNumberOfCaloriesList[position] = double1 * TotalNumberOfCaloriesList[position];
+                    ///make use of the delegate 
+                    CalorieAllertEvent += HandleCalorieAllertEvent;
 
+                    AllertUser(TotalNumberOfCaloriesList[position]);//allerts the user
+
+                    CalorieAllertEvent -= HandleCalorieAllertEvent;
+                    break;
+                case 3:
+                    final = tripple * recipeList[position].ingredientsList[i].quantityOfIngredient;
+                    recipeList[position].ingredientsList[i].numberOfCalories = tripple * recipeList[position].ingredientsList[i].numberOfCalories;
+                    TotalNumberOfCaloriesList[position] = tripple * TotalNumberOfCaloriesList[position];
+                    ///make use of the delegate 
+                    CalorieAllertEvent += HandleCalorieAllertEvent;
+
+                    AllertUser(TotalNumberOfCaloriesList[position]);//allerts the user
+
+                    CalorieAllertEvent -= HandleCalorieAllertEvent;
+                    break;
+            }
             return final;
         }
 
@@ -477,9 +543,7 @@ namespace PROG6221_POE_ST10029256
                         {
                             Console.WriteLine(ex.Message);
                         }
-
                     }
-
                 } while (valid == false);
 
 
@@ -502,20 +566,19 @@ namespace PROG6221_POE_ST10029256
                             ChangeUnits(i, position);
                             break;
 
-                        default:
-                            recipeList[position].ingredientsList[i].quantityOfIngredient = resetIngredientQuantity[i];
-                            recipeList[position].ingredientsList[i].unitOfIngredient = resetIngredientUnits[i];
+                        case 4:
+                            recipeList[position].ingredientsList[i].quantityOfIngredient = CopyOfRecipeList[position].ingredientsList[i].quantityOfIngredient;
+                            recipeList[position].ingredientsList[i].unitOfIngredient = CopyOfRecipeList[position].ingredientsList[i].unitOfIngredient;
+                            recipeList[position].ingredientsList[i].numberOfCalories = CopyOfRecipeList[position].ingredientsList[i].numberOfCalories;
+                            TotalNumberOfCaloriesList[position] = CopyOfTotalNumberOfCaloriesList[position];
                             break;
-
                     }
                 }
-
             }
             else
             {
                 MainMenu();
             }
-
         }
 
         /// <summary>
@@ -527,8 +590,6 @@ namespace PROG6221_POE_ST10029256
         /// <param name="num"></param>
         public void ChangeUnits(int i,int position)
         {
-
-
             if (recipeList[position].ingredientsList[i].unitOfIngredient == "l")
             {
                 recipeList[position].ingredientsList[i].quantityOfIngredient = recipeList[position].ingredientsList[i].quantityOfIngredient * 1000;
@@ -627,7 +688,6 @@ namespace PROG6221_POE_ST10029256
                         }
                     }
                 }
-
             }
 
             if ((recipeList[position].ingredientsList[i].unitOfIngredient == "gallon") || recipeList[position].ingredientsList[i].unitOfIngredient == "gallons")
@@ -659,9 +719,10 @@ namespace PROG6221_POE_ST10029256
             Console.WriteLine("5: Exit application");
 
             string input = Console.ReadLine();
+            
             int option = 0;
             bool reloop = false;
-
+            
             //this do while loop will run until the user enters a integer number between 0 and 6
 
             do
@@ -692,7 +753,6 @@ namespace PROG6221_POE_ST10029256
                             input = Console.ReadLine();
                             reloop = false;
                         }
-
                     }
                     else
                     {
@@ -708,7 +768,6 @@ namespace PROG6221_POE_ST10029256
                         input = Console.ReadLine();
                         reloop = false;
                     }
-
                 }
                 catch (Exception ex)
                 {
@@ -716,9 +775,7 @@ namespace PROG6221_POE_ST10029256
                     {
                         Console.WriteLine(ex.Message);
                     }
-
                 }
-
             } while (reloop == false);
 
             switch (option) //Depending on what the users enter different methods will be called 
@@ -738,29 +795,117 @@ namespace PROG6221_POE_ST10029256
                     break;
 
                 case 4:
+                    ClearSelectedRecipe();
+                    MainMenu();
+                    break;
 
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.WriteLine("---------------------------------------------------------");
+                default:
+                    ExitTheApplication();
+                    break;
+            }
+        }
+
+        public void ExitTheApplication()
+        {
+            string input;
+            bool reloop;
+
+            //If user input is 5 the user would be asked to enter yes or no to leave the application
+
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("--------------------------------------------------------");
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.Write("Are you sure you want to exit the application? (Yes or No): ");
+            input = (Console.ReadLine()).ToUpper();
+
+            //if the user enters Yes the application will close, but if the user enters no the MainMenu metod will be called
+            //if the user enters anything than yes or no the user will be re-asked to enter yes or no
+
+            do
+            {
+
+                if ((input.Equals("YES")) || (input.Equals("NO")))
+
+                {
+                    if (input == "YES")
+                    {
+                        PrintThankYouMessage();
+                        Environment.Exit(0);
+                    }
+                    else
+                    {
+                        MainMenu();
+                    }
+                    reloop = true;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("Please enter YES or NO: ");
                     Console.ForegroundColor = ConsoleColor.Magenta;
-                    Console.Write("Would you like to clear your recipe? (YES/NO): ");
                     input = (Console.ReadLine()).ToUpper();
 
-                    //this do while loop will run until the user enters YES or NO in caps or lowercase
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    reloop = false;
+                }
 
-                    do
+            } while (reloop == false);
+        }
+
+        public void ClearSelectedRecipe()
+        {
+            bool reloop = false;
+            int recipeIndex = -1;
+            string input2;
+            string input;
+
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("---------------------------------------------------------");
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.Write("Please choose which recipe to clear: ");
+
+            List<string> copyOfNameList = new List<string>();
+
+            for (int k = 0; k < recipeList.Count; k++)
+            {
+                copyOfNameList.Add(recipeList[k].RecipeName);
+            }
+
+            List<string> sortedNameList = copyOfNameList.OrderBy(name => name).ToList();
+            do
+            {
+                DisplayRecipes(sortedNameList);
+                input2 = Console.ReadLine();
+
+
+                if (int.TryParse(input2, out int choice))
+                {
+                    if (choice >= 1 && choice <= sortedNameList.Count)
                     {
+                        recipeIndex = choice - 1;
+                        string recipeName = sortedNameList[recipeIndex];
 
-                        if ((input.Equals("YES")) || (input.Equals("NO")))
+                        int position = recipeList.IndexOf(recipeList.Find(recipe => recipe.RecipeName == recipeName));
+
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.WriteLine("---------------------------------------------------------");
+                        Console.ForegroundColor = ConsoleColor.Magenta;
+                        Console.Write("Would you like to clear the recipe? (YES/NO): ");
+                        input = (Console.ReadLine()).ToUpper();
+
+                        //this do while loop will run until the user enters YES or NO in caps or lowercase
+
+                        do
                         {
-                            if (input == "YES")
-                            {
-                                //This clears the array
-                                IngredientsListWorker.Clear();
-                                IngredientsListWorker = null;
-                                StepsListWorker = null;
 
-                                if (IngredientsListWorker == null && StepsListWorker == null)
+                            if ((input.Equals("YES")) || (input.Equals("NO")))
+                            {
+                                if (input == "YES")
                                 {
+                                    //This clears the array
+                                    recipeList.RemoveAt(position);
+                                    TotalNumberOfCaloriesList.RemoveAt(position);
+                                    CopyOfTotalNumberOfCaloriesList.RemoveAt(position);
                                     Console.ForegroundColor = ConsoleColor.Red;
                                     Console.WriteLine("Successfully cleared");
                                     Console.ForegroundColor = ConsoleColor.Magenta;
@@ -768,78 +913,50 @@ namespace PROG6221_POE_ST10029256
                                 else
                                 {
                                     Console.ForegroundColor = ConsoleColor.Red;
-                                    Console.WriteLine("Not successfully cleared");
+                                    Console.WriteLine("Clearing request canceled");
                                     Console.ForegroundColor = ConsoleColor.Magenta;
                                 }
+                                reloop = true;
                             }
                             else
                             {
                                 Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine("Clearing request canceled");
+                                Console.Write("Please enter YES or NO: ");
                                 Console.ForegroundColor = ConsoleColor.Magenta;
+                                input = (Console.ReadLine()).ToUpper();
+
+                                Console.ForegroundColor = ConsoleColor.Magenta;
+                                reloop = false;
                             }
-                            reloop = true;
-                            MainMenu();
-                        }
-                        else
-                        {
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.Write("Please enter YES or NO: ");
-                            Console.ForegroundColor = ConsoleColor.Magenta;
-                            input = (Console.ReadLine()).ToUpper();
-
-                            Console.ForegroundColor = ConsoleColor.Magenta;
-                            reloop = false;
-                        }
-                    } while (reloop == false);
-
-                    break;
-
-                default:
-
-                    //If user input is 5 the user would be asked to enter yes or no to leave the application
-
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.WriteLine("--------------------------------------------------------");
-                    Console.ForegroundColor = ConsoleColor.Magenta;
-                    Console.Write("Are you sure you want to exit the application? (Yes or No): ");
-                    input = (Console.ReadLine()).ToUpper();
-
-                    //if the user enters Yes the application will close, but if the user enters no the MainMenu metod will be called
-                    //if the user enters anything than yes or no the user will be re-asked to enter yes or no
-
-                    do
+                        } while (reloop == false);
+                    }
+                    else
                     {
-
-                        if ((input.Equals("YES")) || (input.Equals("NO")))
-
+                        if (choice == (sortedNameList.Count + 1))
                         {
-                            if (input == "YES")
-                            {
-                                PrintThankYouMessage();
-                                Environment.Exit(0);
-                            }
-                            else
-                            {
-                                MainMenu();
-                            }
                             reloop = true;
                         }
                         else
                         {
+                            Console.ForegroundColor = ConsoleColor.White;
+                            Console.WriteLine("---------------------------------------------------------");
                             Console.ForegroundColor = ConsoleColor.Red;
-                            Console.Write("Please enter YES or NO: ");
-                            Console.ForegroundColor = ConsoleColor.Magenta;
-                            input = (Console.ReadLine()).ToUpper();
-
+                            Console.WriteLine("Please re-choose which recipe to clear: ");
                             Console.ForegroundColor = ConsoleColor.Magenta;
                             reloop = false;
                         }
-
-                    } while (reloop == false);
-
-                    break;
-            }
+                    }
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine("---------------------------------------------------------");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Please re-choose which recipe to clear: ");
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    reloop = false;
+                }
+            } while (reloop == false);
         }
 
         public void AddRecipe()
@@ -959,8 +1076,7 @@ namespace PROG6221_POE_ST10029256
 
                                 
 
-                                for (int i = 0; i < I.Count; i++) //loops through and display each element in the array in the format of
-                                                                                //quantity space unit space of space name
+                                for (int i = 0; i < I.Count; i++) 
                                 {
 
                                     Console.WriteLine((i + 1) + ". " + I[i].quantityOfIngredient + " " + I[i].unitOfIngredient +
