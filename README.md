@@ -29,25 +29,31 @@ The following is the process of installing the application:
 
 ## Using the program:
 
-1. Enter if you would like to listern to music, by entering yes or no.
-2. Choose one of the 5 listed options, but in most cases you would choose option 1 to enter a recipe.
-3. Enter how many ingredients you wish to create.
-4. Enter the quantity of the number of ingredient.
-5. Enter the unit of mesurement of the ingredient by typing in one of the following:
-"cups", "cup", "tablespoons", "tablespoon", "teaspoons" , "teaspoon", "ml", "l", "gallon", "gallons".
-
-6. Enter the name of the ingredient.
-7. Enter the number of steps for your ingredient.
-8. Enter instruction/s for your ingredient.
-9. You are now able to display your ingredient by entering option 2 or scale your ingredient by choosing option 3 or enter a new recipe by entering number 4 or exit the program by entering number 5.
-10. if you chose option 2, you will see your ingredient list with the instructions printed out.
-11.if you chose option 3, you will be asked if you would like to scale the recipe 
-11. if you enter yes in caps or lowercase, you will be greeted with a menu to "Half", "Double", "Tripple" or "Reset" your current ingredient list.
-12. With choosing option 1 - 3 your ingredient/s will be converted to more accurite unit of mesurement.
-13. By choosing option 4, your ingredient/s will be reset to the defaut value.
-14. You will once again be able to display the new recipe with the quantity scale or default value if chosen option 4 in the previous step.
-15. You are able to continue with repeating the steps or choose a new recipe if wanting to start over.
-16. If not so, you can choose option 5 to exit the application
+1. You will be greeted with a "welcome to the application" message, press the Enter key to continue.
+2. Enter if you would like to listern to music, by entering yes or no.
+3. Choose one of the 5 listed options, but in most cases you would choose option 1 to enter a recipe.
+4. Enter yes or no to enter a recipe.
+5. Enter the name of the recipe.
+6. Enter how many ingredients you wish to create.
+7. Enter the quantity of the number of ingredient.
+8. Enter the unit of mesurement of the ingredient by typing in one of the following: "cups", "cup", "tablespoons", "tablespoon", "teaspoons" , "teaspoon", "ml", "l", "gallon", "gallons".
+9. Enter number of calories for the ingredient.
+10. Select a food group from the list provided by entering a number between 0 and 9.
+11. If number 8 is chosen you will be greeted with a screen to view a food group you wish to see more information on.
+12. If any other number is chosen between the numbers provided at step 10 yu can enter the number of steps for your ingredient
+13. You can add a recipe by entering yes and follow to same process as the steps provided above or you can continue by entering no.
+14. If chosen no you will then be greeted with the MainMenu and can display, scale, clear the recipe or exit the application.
+15. If option 2 is entered you will be asked to chosse which recipe you wish to display and if chosen which recipe to display your recipe will be printed out with all reletive information you entered.
+16. Once again you will be greeted with the MainMenu and can repeat the above step for other recipes or continue.
+17. If you chose option 3, you will be asked to choose which recipe to scale and to confirm if you would like to proceed scaling your recipe.
+18. If you enter yes in caps or lowercase, you will be greeted with a menu to "Half", "Double", "Tripple" or "Reset" your current ingredient list.
+19. With choosing option 1 - 3 your ingredient/s will be converted to more accurite unit of mesurement.
+20. By choosing option 4, your ingredient/s will be reset to the defaut value.
+21. You will once again be able to display the new recipe with the quantity scale or default value if chosen option 4 in the previous step.
+22. You are able to continue with repeating the steps or clear a recipe by entering option 4 in the MainMenu.
+23. If option 4 is chosen you are able to delete a recipe.
+24. You will be asked to confirm this by entering yes or no, if chosen yes your recipe will be deleted and will be confirmed by a message stating "successfully cleared" and if no "clearing request cancelled".
+25. You will then once again reverted to the MainMenu to enter a new ingredient or you can choose option 5 to exit the application and be dismisssed with a "Thank you for using the application" message.
 
 ## Feedback changes and why:
 
