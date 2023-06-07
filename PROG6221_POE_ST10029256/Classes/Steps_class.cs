@@ -23,12 +23,11 @@ namespace PROG6221_POE_ST10029256
         /// <summary>
         /// Default constructor
         /// </summary>
-
         public Steps_class() 
         { 
         
         }
-
+//-------------------------------------------------------------------------------------------------------------------------//
         /// <summary>
         /// This method asks the user to enter the number of steps and if the user input is a string
         /// the text will turn red and ask the user to re-ener with an integer
@@ -36,7 +35,6 @@ namespace PROG6221_POE_ST10029256
         /// <returns></returns>
         public int GetNumberOfSteps()
         {
-
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.Write("Enter number of steps: ");
             string input = Console.ReadLine();
@@ -49,7 +47,7 @@ namespace PROG6221_POE_ST10029256
                 try
                 {
 
-                    if (Int32.TryParse(input, out num))
+                    if (Int32.TryParse(input, out num) && num > 0)
                     {
                         num = Convert.ToInt32(input);
                         this.numberOfSteps = num;
@@ -76,12 +74,10 @@ namespace PROG6221_POE_ST10029256
 
             return this.numberOfSteps;
         }
-
+//-------------------------------------------------------------------------------------------------------------------------//
         /// <summary>
         /// This method gets the users input 
         /// </summary>
-        /// <param name="counter"></param>
-        /// <returns></returns>
         public string GetIngredientSteps(int counter)
         {
             Console.ForegroundColor = ConsoleColor.Magenta;
@@ -121,4 +117,4 @@ namespace PROG6221_POE_ST10029256
             return this.ingredientSteps;
         }
     }
-}
+}//----------------------------------------------------END OF FILE------------------------------------------------------------------//

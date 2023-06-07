@@ -23,11 +23,10 @@ namespace PROG6221_POE_ST10029256
             worker.MainMenu();
     
         }
-
+//-------------------------------------------------------------------------------------------------------------------------//
         /// <summary>
         /// This method will ask the user if the user wants to listern to music
         /// </summary>
-
         private static void Music()
         {
             Console.ForegroundColor = ConsoleColor.Magenta;
@@ -58,7 +57,7 @@ namespace PROG6221_POE_ST10029256
                 PlaySong("Sunrise.wav");
             }
         }
-
+//-------------------------------------------------------------------------------------------------------------------------//
         /// <summary>
         /// This method will play the song
         /// </summary>
@@ -72,4 +71,4 @@ namespace PROG6221_POE_ST10029256
             
         }
     }
-}
+}//----------------------------------------------------END OF FILE------------------------------------------------------------------//

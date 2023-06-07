@@ -31,36 +31,18 @@ namespace PROG6221_POE_ST10029256
 
         public Steps_class steps_class = new Steps_class();
 
-
-
-
-        /// <summary>
-        /// Array holds ingredient data
-        /// </summary>
-
-        //public Ingredient_class[] ingredientsArray;
-
-        /// <summary>
-        /// Array holds steps data
-        /// </summary>
-
-        //public Steps_class[] stepsArray;
-
         public Recipe_class recipe_Class = new Recipe_class();
+
         private List<Recipe_class> recipeList = new List<Recipe_class>();
- 
         private List<string> recipeNames { get; set; }
         public List<Steps_class> StepsListWorker { get; set; }
         public List<List<string>> RecipesStepsList { get; set; }
-
         public List<List<Ingredient_class>> RecipesIngredientsList { get; set; }
         public List<Ingredient_class> IngredientsListWorker { get; set; }
-        //public List<Recipe_class> RecipeListWorker { get; set; }
 
         private List<double> TotalNumberOfCaloriesList = new List<double>();
 
         private List<double> CopyOfTotalNumberOfCaloriesList = new List<double>();
-
         
         /// <summary>
         /// Default constructor
@@ -80,6 +62,7 @@ namespace PROG6221_POE_ST10029256
                 CalorieAllertEvent?.Invoke(totalCalories);
             }
         }
+//-------------------------------------------------------------------------------------------------------------------------//
         /// <summary>
         /// handels event when limit of calories exceeds
         /// </summary>
@@ -95,7 +78,7 @@ namespace PROG6221_POE_ST10029256
                 Console.ForegroundColor = ConsoleColor.Magenta;
             }
         }
-
+//-------------------------------------------------------------------------------------------------------------------------//
         /// <summary>
         /// Displayes a welcome message to the user
         /// </summary>
@@ -131,8 +114,8 @@ namespace PROG6221_POE_ST10029256
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.Write("Please press the ENTER key to continue: ");
             Console.ReadLine();
-        }
-
+        } 
+//-------------------------------------------------------------------------------------------------------------------------//
         /// <summary>
         /// Displayes a thank you message to the user
         /// </summary>
@@ -178,11 +161,10 @@ namespace PROG6221_POE_ST10029256
             Console.ReadLine();
 
         }
-
+//-------------------------------------------------------------------------------------------------------------------------//
         /// <summary>
         /// This method stores data into all arrays
         /// </summary>
-
         public void AddRecipeToList()
         {
             // Create a new instance of the Recipe_class
@@ -218,7 +200,7 @@ namespace PROG6221_POE_ST10029256
             // Store the recipe in a suitable format
             StoreRecipe(RecipesStepsList, RecipesIngredientsList);
         }
-
+//-------------------------------------------------------------------------------------------------------------------------//
         public double CalcTotalCalories(List<List<Ingredient_class>> RecipesIngredientsList)
         {
             double totalCalories = 0;
@@ -240,7 +222,7 @@ namespace PROG6221_POE_ST10029256
 
             return totalCalories;
         }
-
+//-------------------------------------------------------------------------------------------------------------------------//
         public void StoreIngredientsInList()
         {
             int numberOfIngredients = ingredient_class.GetNumberOfIngredients();
@@ -271,7 +253,7 @@ namespace PROG6221_POE_ST10029256
                 Console.WriteLine("---------------------------------------------------------");
             }
         }
-
+//-------------------------------------------------------------------------------------------------------------------------//
         public void StoreStepsInList()
         {
             int numberOfSteps = steps_class.GetNumberOfSteps();
@@ -287,6 +269,7 @@ namespace PROG6221_POE_ST10029256
 
             }
         }
+//-------------------------------------------------------------------------------------------------------------------------//
         public void StoreRecipe(List<List<string>> RecipesStepsList, List<List<Ingredient_class>> RecipesIngredientsList)
         {
 
@@ -347,27 +330,15 @@ namespace PROG6221_POE_ST10029256
                 recipeList.Add(recipe);
             }
         }
-
+//-------------------------------------------------------------------------------------------------------------------------//
         public List<string> GetRecipeNames()
         {
             return recipeNames;
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public void WriteReipeToList()
-        {
-
-        }
-
+//-------------------------------------------------------------------------------------------------------------------------//
         /// <summary>
         /// This method scales the ingredient quantity according to the users input
         /// </summary>
-        /// <param name="i"></param>
-        /// <param name="num"></param>
-        /// <returns></returns>
-
         public float ScalingCalc(int i, int num, int position)
         {
             var half = 0.5f;
@@ -396,7 +367,7 @@ namespace PROG6221_POE_ST10029256
             // Return the final scaled value
             return final;
         }
-
+//-------------------------------------------------------------------------------------------------------------------------//
         /// <summary>
         /// Scaling half, double or tripple
         /// </summary>
@@ -470,17 +441,19 @@ namespace PROG6221_POE_ST10029256
                     reloop = false;
                 }
             } while (reloop == false);
+
             string confirm; bool reAsk = false;
+
+            //var choice = string.Empty;
+            //IngredientsListWorker = recipe_Class.ingredientsList;
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("---------------------------------------------------------");
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.Write("Would you like to scale the recipe? (YES/NO): ");
+            confirm = (Console.ReadLine()).ToUpper();
+
             do
             {
-                //var choice = string.Empty;
-                //IngredientsListWorker = recipe_Class.ingredientsList;
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("---------------------------------------------------------");
-                Console.ForegroundColor = ConsoleColor.Magenta;
-                Console.Write("Would you like to scale the recipe? (YES/NO): ");
-                confirm = (Console.ReadLine()).ToUpper();
-
                 //if the user enters Yes the user will be asked to half, double or tripple the quantity of the ingredient
                 if ((confirm.Equals("YES")) || (confirm.Equals("NO")))
                 {
@@ -629,25 +602,18 @@ namespace PROG6221_POE_ST10029256
                             break;
                     }
                 }
-
-
-
-
-
             }
             else
             {
                 MainMenu();
             }
         }
-
+//-------------------------------------------------------------------------------------------------------------------------//
         /// <summary>
         /// This method will convert the quantity within the array to the correct unit of which the users would like to scale the recipe to.
         /// The data will then be rounded to the nearest 1 decimal place. If the quantity of the ingredient is 1 the word will be displayed 
         /// in a singular form and if more than one it will be dispalyed in a plural form.
         /// </summary>
-        /// <param name="i"></param>
-        /// <param name="num"></param>
         public void ChangeUnits(int i,int position)
         {
             // Check if the unit is "l" (liters)
@@ -782,7 +748,7 @@ namespace PROG6221_POE_ST10029256
                 }
             }
         }
-
+//-------------------------------------------------------------------------------------------------------------------------//
         /// <summary>
         /// This method is where the application starts and will be called in the main.
         /// </summary>
@@ -892,7 +858,7 @@ namespace PROG6221_POE_ST10029256
                     break;
             }
         }
-
+//-------------------------------------------------------------------------------------------------------------------------//
         public void ExitTheApplication()
         {
             string input;
@@ -942,7 +908,7 @@ namespace PROG6221_POE_ST10029256
 
             } while (reloop == false);
         }
-
+//-------------------------------------------------------------------------------------------------------------------------//
         public void ClearSelectedRecipe()
         {
             bool reloop = false;
@@ -954,7 +920,7 @@ namespace PROG6221_POE_ST10029256
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("---------------------------------------------------------");
             Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.Write("Please choose which recipe to clear: ");
+            Console.WriteLine("Please choose which recipe to clear: ");
 
             List<string> copyOfNameList = new List<string>();
 
@@ -984,7 +950,7 @@ namespace PROG6221_POE_ST10029256
                         Console.ForegroundColor = ConsoleColor.White;
                         Console.WriteLine("---------------------------------------------------------");
                         Console.ForegroundColor = ConsoleColor.Magenta;
-                        Console.Write("Would you like to clear the recipe? (YES/NO): ");
+                        Console.Write("Would you like to clear the "+ recipeName +" recipe? (YES/NO): ");
                         input = (Console.ReadLine()).ToUpper();
 
                         //this do while loop will run until the user enters YES or NO in caps or lowercase
@@ -1058,7 +1024,7 @@ namespace PROG6221_POE_ST10029256
                 // Continue the loop until a valid recipe is chosen or user chooses to exit
             } while (reloop == false);
         }
-
+//-------------------------------------------------------------------------------------------------------------------------//
         public void AddRecipe()
         {
             bool anotherRecipe = true; // Flag to determine if the user wants to add another recipe
@@ -1068,7 +1034,7 @@ namespace PROG6221_POE_ST10029256
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("---------------------------------------------------------");
             Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.Write("Would you like to add a recipe? (YES/NO): ");
+            Console.Write("Would you like to enter a recipe? (YES/NO): ");
             string answer = (Console.ReadLine()).ToUpper();
 
             // Validate the user input
@@ -1113,7 +1079,7 @@ namespace PROG6221_POE_ST10029256
 
             MainMenu(); // Return to the main menu
         }
-
+//-------------------------------------------------------------------------------------------------------------------------//
         private void DisplayRecipes(List<string> sortedNameList)
         {
             for (int i = 0; i < sortedNameList.Count; i++)
@@ -1124,7 +1090,7 @@ namespace PROG6221_POE_ST10029256
             Console.WriteLine($"{sortedNameList.Count + 1}. Back");
             Console.Write(">");
         }
-
+//-------------------------------------------------------------------------------------------------------------------------//
         /// <summary>
         /// method will display user input
         /// </summary>
@@ -1180,9 +1146,7 @@ namespace PROG6221_POE_ST10029256
                                 Console.WriteLine("---------------------------------------------------------");
                                 Console.ForegroundColor = ConsoleColor.Cyan;
                                 Console.WriteLine("Recipe: " + recipeName); //code for name display 
-                                Console.WriteLine("Ingredients:\r\n");
-
-                                
+                                Console.WriteLine("Ingredients:\r\n");                                
 
                                 for (int i = 0; i < I.Count; i++) 
                                 {
@@ -1212,6 +1176,62 @@ namespace PROG6221_POE_ST10029256
                                 Console.WriteLine("---------------------------------------------------------");
                                 Console.ForegroundColor = ConsoleColor.Cyan;
                                 Console.WriteLine("Total calories:\t "+ TotalNumberOfCaloriesList[position]);//display the total number of calories
+                                Console.WriteLine(); 
+                                switch (TotalNumberOfCaloriesList[position])
+                                {
+                                    case double n when (n >= 0 && n <= 150):
+                                        Console.WriteLine("Range: 0 - 150 calories");
+                                        Console.WriteLine("This range of calories is perfect for snacks, as this is \r\n" +
+                                                          "low in calories and are often comprised of light, nutrient \r\n" +
+                                                          "dense foods such as fruits, vegetables and low-fat dairy \r\n" +
+                                                          "products. This is suitable for those who are closely \r\n" +
+                                                          "monitoring their calorie intake or looking for minimal \r\n" +
+                                                          "calorie options.");
+                                        break;
+                                    case double n when (n > 150 && n <= 450):
+                                        Console.WriteLine("Range: 150 - 450 calories");
+                                        Console.WriteLine("This range of calories is perfect for breakfast options, \r\n" +
+                                                          "as this is lower in calories and are suitable for those \r\n" +
+                                                          "who prefer a lighter start to their day. This can include \r\n" +
+                                                          "choices like a small serving of fruit, a cup of yogurt, \r\n" +
+                                                          "a slice of toast with a light spread (e.g., jam, peanut \r\n" +
+                                                          "butter), a boiled egg, or a small bowl of oatmeal with \r\n" +
+                                                          "toppings.");
+                                        break;
+                                    case double n when (n > 450 && n <= 750):
+                                        Console.WriteLine("Range: 450 - 750 calories");
+                                        Console.WriteLine("This range of calories is perfect for lunch options, as \r\n" +
+                                                          "this is on the lower end of the calorie spectrum and are \r\n" +
+                                                          "suitable for those who prefer a lighter midday meal. This \r\n" +
+                                                          "can include choices like a small salad with lean protein, \r\n" +
+                                                          "a cup of soup with whole-grain crackers, a small sandwich \r\n" +
+                                                          "with turkey or chicken, a small wrap with vegetarian \r\n" +
+                                                          "fillings, or a small sushi roll.");
+                                        break;
+                                    case double n when (n > 750 && n <= 1000):
+                                        Console.WriteLine("Range: 750 - 1000 calories");
+                                        Console.WriteLine("This range of calories is perfect for dinner options, as \r\n" +
+                                                          "this is on the lower end of the calorie spectrum and are \r\n" +
+                                                          "suitable for those who prefer a lighter evening meal. This \r\n" +
+                                                          "can include choices like a vegetable stir-fry with tofu, a \r\n" +
+                                                          "small serving of fish or chicken with steamed vegetables, a \r\n" +
+                                                          "small portion of vegetarian curry with whole-grain rice, a \r\n" +
+                                                          "small bowl of soup with added protein and vegetables, or a \r\n" +
+                                                          "vegetable-based pasta dish with a light sauce.");
+                                        break;
+                                    default:
+                                        Console.WriteLine("Range: exceeding 1000 calories");
+                                        Console.WriteLine("This can include a generous serving of protein such as steak, \r\n" +
+                                                          "salmon, or chicken, cooked with flavorful seasonings. \r\n" +
+                                                          "Accompany it with a larger portion of whole grains like \r\n" +
+                                                          "quinoa or brown rice, and a variety of roasted or steamed \r\n" +
+                                                          "vegetables. This combination provides a balanced mix of \r\n" +
+                                                          "macronutrients and micronutrients to support muscle recovery \r\n" +
+                                                          "and overall health.");
+                                        break;
+
+
+                                };
 
                                 reloop = true; // Valid input, exit the loop
                             }
@@ -1258,4 +1278,4 @@ namespace PROG6221_POE_ST10029256
 
         } 
     }
-}
+}//----------------------------------------------------END OF FILE------------------------------------------------------------------//

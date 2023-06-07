@@ -8,7 +8,6 @@ namespace PROG6221_POE_ST10029256.Classes
 {
     public class Recipe_class
     {
-
         public List<Steps_class> stepsList  =new List<Steps_class>();
 
         public List<Ingredient_class> ingredientsList =  new List<Ingredient_class>();
@@ -22,13 +21,15 @@ namespace PROG6221_POE_ST10029256.Classes
         { 
             
         }
-
+//-------------------------------------------------------------------------------------------------------------------------//
         /// <summary>
         /// This method asks the user to enter a name for the recipe
         /// </summary>
         /// <returns></returns>
         public string GetRecipeName()
         {
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("---------------------------------------------------------");
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.Write("Enter name of recipe: ");
             string name = Console.ReadLine();
@@ -36,7 +37,6 @@ namespace PROG6221_POE_ST10029256.Classes
             bool reloop = false;
 
             //this do while loop will run until the user enters a valid string
-
             do
             {
                 try
@@ -71,4 +71,4 @@ namespace PROG6221_POE_ST10029256.Classes
             return this.RecipeName;
         }
     }
-}
+}//----------------------------------------------------END OF FILE------------------------------------------------------------------//
