@@ -1,12 +1,134 @@
 ﻿<UserControl x:Class="PROG_Part3.addRecipe"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:PROG_Part3"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="Black">
-            
-    </Grid>
+    <Viewbox Stretch="Uniform">
+        <Grid Background="Black" Height="442" VerticalAlignment="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Label Content="Add Recipe" FontSize="18" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
+
+            <Label Content="Recipe Name:" Foreground="White" Margin="10,16,709,90" Grid.Row="1" Grid.RowSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <TextBox Grid.Row="1" x:Name="RecipeNameTextBox" VerticalAlignment="Center" Margin="120,15,54,5"/>
+
+            <Label Content="Ingredient Name:" Foreground="White" Margin="10,20,718,41" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <TextBox Grid.Row="2" x:Name="IngredientNameTextBox" VerticalAlignment="Center" Margin="120,26,54,46"/>
+
+            <Label Content="Quantity:" Foreground="White" Margin="34,7,733,93" Grid.Row="4" RenderTransformOrigin="0.687,0.502" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <TextBox Grid.Row="4" x:Name="QuantityTextBox" VerticalAlignment="Center" Margin="34,0,0,0" Height="32" HorizontalAlignment="Left" Width="58"/>
+
+            <Label Content="Unit Of Measurement:" Foreground="White" Margin="135,6,577,100" Grid.Row="4"/>
+            <ComboBox Grid.Row="4" x:Name="UnitOfMeasurementComboBox" VerticalAlignment="Center" Margin="153,0,0,0" SelectionChanged="ComboBox_SelectionChanged" Height="32" HorizontalAlignment="Left" Width="90">
+                <ComboBox.Items>
+                    <ComboBoxItem Content="l"/>
+                    <ComboBoxItem Content="ml"/>
+                    <ComboBoxItem Content="teaspoons"/>
+                    <ComboBoxItem Content="tablespoons"/>
+                    <ComboBoxItem Content="cups"/>
+                    <ComboBoxItem Content="gallons"/>
+                </ComboBox.Items>
+            </ComboBox>
+
+            <Label Content="Calories:" Foreground="White" Margin="325,7,457,94" Grid.Row="4"/>
+            <TextBox Grid.Row="4" x:Name="CaloriesTextBox" VerticalAlignment="Center" Margin="302,0,0,0" Height="28" HorizontalAlignment="Left" Width="103"/>
+
+            <Label Content="Food Group:" Foreground="White" Margin="516,7,240,96" Grid.Row="4"/>
+            <ComboBox Grid.Row="4" x:Name="FoodGroupComboBox" VerticalAlignment="Center" Margin="456,0,0,0" SelectionChanged="ComboBox_SelectionChanged_1" Height="28" HorizontalAlignment="Left" Width="200">
+                <ComboBox.Items>
+                    <ComboBoxItem Content="Starchy foods"/>
+                    <ComboBoxItem Content="Vegetables and fruits"/>
+                    <ComboBoxItem Content="Dry beans, peas, lentils and soya"/>
+                    <ComboBoxItem Content="Chicken, fish, meat and eggs"/>
+                    <ComboBoxItem Content="Milk and dairy products"/>
+                    <ComboBoxItem Content="Fats and oil"/>
+                    <ComboBoxItem Content="Water"/>
+                </ComboBox.Items>
+            </ComboBox>
+
+            <Button Content="Add" HorizontalAlignment="Left" Margin="716,52,0,0" Grid.Row="4" VerticalAlignment="Top" Height="30" Width="99" Click="Button_Click"/>
+
+            <Label Content="Ingredients" FontSize="16" FontWeight="Bold" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="357,111,0,0" Grid.Row="4" Grid.RowSpan="2"/>
+
+            <DataGrid Grid.Row="6" Margin="11,10,4,10" Background="White" AutoGenerateColumns="False" ItemsSource="{Binding Ingredients}" RenderTransformOrigin="0.5,0.5">
+                <DataGrid.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="0.166"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </DataGrid.RenderTransform>
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Recipe Name" Binding="{Binding RecipeName}" Width="150">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Ingredient Name" Binding="{Binding IngredientName}" Width="150">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" Width="100">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Unit Of Measurement" Binding="{Binding UnitOfMeasurement}" Width="150">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Calories" Binding="{Binding Calories}" Width="100">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Food Group" Binding="{Binding FoodGroup}" Width="150">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTemplateColumn Width="Auto">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Delete Ingredient" HorizontalAlignment="Center" Margin="5" VerticalAlignment="Center" Width="150" Click="DeleteButton_Click"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button Content="Add New Recipe" HorizontalAlignment="Center" Margin="0,10,0,0" Grid.Row="7" VerticalAlignment="Top" Height="32" Width="106" Click="AddNewRecipe_Click"/>
+        </Grid>
+    </Viewbox>
 </UserControl>

@@ -11,18 +11,22 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace PROG_Part3
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
         }
+
+        private void AddRecipeMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            // Redirect to the addRecipe.xaml page
+            addRecipe addRecipeWindow = new addRecipe();
+            Content = addRecipeWindow;
+        }
+
     }
 }
