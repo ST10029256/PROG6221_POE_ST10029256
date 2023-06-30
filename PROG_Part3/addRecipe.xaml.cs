@@ -55,17 +55,6 @@ namespace PROG_Part3
             }
         }
 
-        private void AddNewRecipe_Click(object sender, RoutedEventArgs e)
-        {
-            // Add new recipe button click logic here
-            RecipeNameTextBox.Clear();
-            IngredientNameTextBox.Clear();
-            QuantityTextBox.Clear();
-            UnitOfMeasurementComboBox.SelectedIndex = -1;
-            CaloriesTextBox.Clear();
-            FoodGroupComboBox.SelectedIndex = -1;
-        }
-
         private void UnitOfMeasurementComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // UnitOfMeasurementComboBox selection changed logic here

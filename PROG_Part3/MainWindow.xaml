@@ -37,6 +37,19 @@
                     <MenuItem Header="Add Recipe" Click="AddRecipeMenuItem_Click"/>
                 </ContextMenu>
             </Button.ContextMenu>
+            <Button.Triggers>
+                <EventTrigger RoutedEvent="Button.Click">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="ContextMenu.IsOpen">
+                                    <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="True" />
+                                </BooleanAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+            </Button.Triggers>
         </Button>
 
         <Popup x:Name="DropDownPopup" PlacementTarget="{Binding ElementName=DropDownButton}" IsOpen="False" StaysOpen="False" AllowsTransparency="True" Grid.ColumnSpan="6" Margin="0,0,0,2">
