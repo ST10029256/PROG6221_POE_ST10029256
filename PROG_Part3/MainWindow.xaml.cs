@@ -27,6 +27,24 @@ namespace PROG_Part3
             addRecipe addRecipeWindow = new addRecipe();
             Content = addRecipeWindow;
         }
+        public void ToggleFullscreen()
+        {
+            if (WindowState == WindowState.Normal)
+            {
+                WindowState = WindowState.Maximized;
+                WindowStyle = WindowStyle.None;
+                ResizeMode = ResizeMode.NoResize;
+            }
+            else
+            {
+                WindowState = WindowState.Normal;
+                WindowStyle = WindowStyle.SingleBorderWindow;
+                ResizeMode = ResizeMode.CanResize;
+            }
+        }
+
+
+
 
     }
 }

@@ -55,6 +55,21 @@ namespace PROG_Part3
             }
         }
 
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainWindow = new MainWindow();
+
+            Window currentWindow = Window.GetWindow(this);
+            WindowState windowState = currentWindow.WindowState; // Store the current window state
+
+            currentWindow.Close(); // Close the currentWindow instead of hiding it
+
+            mainWindow.WindowState = windowState; // Set the window state of the mainWindow to the stored state
+            mainWindow.Show();
+        }
+
+
+
         private void UnitOfMeasurementComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // UnitOfMeasurementComboBox selection changed logic here
