@@ -1,31 +1,38 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Navigation;
 
 namespace PROG_Part3
 {
-    public partial class addRecipe : UserControl
+    public partial class AddRecipe : UserControl
     {
-        public ObservableCollection<Ingredient> Ingredients { get; set; }
+        public static NavigationService NavigationService { get; set; }
+        public ObservableCollection<Ingredient> Recipes { get; set; }
 
-        public addRecipe()
+        public ICommand DeleteCommand { get; set; }
+
+        public AddRecipe()
         {
             InitializeComponent();
-            Ingredients = new ObservableCollection<Ingredient>();
+            Recipes = new ObservableCollection<Ingredient>();
             DataContext = this;
+
+            DeleteCommand = new RelayCommand(DeleteIngredient);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            // Add button click logic here
             string recipeName = RecipeNameTextBox.Text;
             string ingredientName = IngredientNameTextBox.Text;
             string quantity = QuantityTextBox.Text;
-            string unitOfMeasurement = (UnitOfMeasurementComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
+            string unitOfMeasurement = ((ComboBoxItem)UnitOfMeasurementComboBox.SelectedItem)?.Content.ToString();
             string calories = CaloriesTextBox.Text;
-            string foodGroup = (FoodGroupComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
+            string foodGroup = ((ComboBoxItem)FoodGroupComboBox.SelectedItem)?.Content.ToString();
 
-            Ingredient ingredient = new Ingredient()
+            Ingredient ingredient = new Ingredient
             {
                 RecipeName = recipeName,
                 IngredientName = ingredientName,
@@ -35,59 +42,64 @@ namespace PROG_Part3
                 FoodGroup = foodGroup
             };
 
-            Ingredients.Add(ingredient);
+            Recipes.Add(ingredient);
 
             // Clear input fields
             RecipeNameTextBox.Clear();
             IngredientNameTextBox.Clear();
             QuantityTextBox.Clear();
-            UnitOfMeasurementComboBox.SelectedIndex = -1;
+            UnitOfMeasurementComboBox.SelectedItem = null;
             CaloriesTextBox.Clear();
-            FoodGroupComboBox.SelectedIndex = -1;
+            FoodGroupComboBox.SelectedItem = null;
         }
 
-        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        public void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            // Delete ingredient button click logic here
-            if (sender is Button button && button.DataContext is Ingredient ingredient)
+            
+        }
+
+        private void DeleteIngredient(object parameter)
+        {
+            if (parameter is Ingredient ingredient)
             {
-                Ingredients.Remove(ingredient);
+                Recipes.Remove(ingredient);
             }
         }
 
-        private void BackButton_Click(object sender, RoutedEventArgs e)
-        {
-            MainWindow mainWindow = new MainWindow();
-
-            Window currentWindow = Window.GetWindow(this);
-            WindowState windowState = currentWindow.WindowState; // Store the current window state
-
-            currentWindow.Close(); // Close the currentWindow instead of hiding it
-
-            mainWindow.WindowState = windowState; // Set the window state of the mainWindow to the stored state
-            mainWindow.Show();
-        }
-
-
-
         private void UnitOfMeasurementComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // UnitOfMeasurementComboBox selection changed logic here
+            // Handle selection changed event
         }
 
         private void FoodGroupComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // FoodGroupComboBox selection changed logic here
+            // Handle selection changed event
         }
 
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void StepsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // Handle the selection changed event for the first ComboBox
+            // Handle selection changed event
         }
 
-        private void ComboBox_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        private void AddStep_Click(object sender, RoutedEventArgs e)
         {
-            // Handle the selection changed event for the second ComboBox
+            string stepText = StepsTextBox.Text;
+
+            if (!string.IsNullOrEmpty(stepText))
+            {
+                StepsListBox.Items.Add(stepText);
+                StepsTextBox.Clear();
+            }
+        }
+
+        public void SaveRecipeButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RemoveIngredientButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 
@@ -99,5 +111,34 @@ namespace PROG_Part3
         public string UnitOfMeasurement { get; set; }
         public string Calories { get; set; }
         public string FoodGroup { get; set; }
+    }
+
+    public class RelayCommand : ICommand
+    {
+        private readonly Action<object> execute;
+        private readonly Predicate<object> canExecute;
+
+        public event EventHandler CanExecuteChanged;
+
+        public RelayCommand(Action<object> execute, Predicate<object> canExecute = null)
+        {
+            this.execute = execute ?? throw new ArgumentNullException(nameof(execute));
+            this.canExecute = canExecute;
+        }
+
+        public bool CanExecute(object parameter)
+        {
+            return canExecute?.Invoke(parameter) ?? true;
+        }
+
+        public void Execute(object parameter)
+        {
+            execute(parameter);
+        }
+
+        public void RaiseCanExecuteChanged()
+        {
+            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+        }
     }
 }

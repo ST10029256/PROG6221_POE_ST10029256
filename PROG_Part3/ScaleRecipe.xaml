@@ -1,0 +1,117 @@
+﻿<UserControl x:Class="PROG_Part3.ScaleRecipe"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:PROG_Part3"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Viewbox Stretch="Uniform" Margin="0,0,0,-93">
+        <Grid Background="Black" Height="551" VerticalAlignment="Top" Width="1256" HorizontalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Label Content="Scale Recipe" FontSize="25" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0" FontFamily="Segoe Script"/>
+
+            <Label Content="Recipe Name:" FontSize="20" Foreground="White" Margin="191,10,0,0" Grid.Row="1" Grid.RowSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe Script"/>
+
+            <Label Content="Scale Factor:"  FontSize="20" Foreground="White" Margin="203,23,0,0" Grid.Row="7" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.145,0.724" FontFamily="Segoe Script"/>
+
+            <Label Content="Recipe List" FontSize="25" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,67,0,0" Grid.Row="7" FontFamily="Segoe Script"/>
+
+            <DataGrid x:Name="dataGrid" Grid.Row="7" Margin="10,117,8,208" Background="White" AutoGenerateColumns="False" ItemsSource="{Binding Recipes}" SelectionChanged="dataGrid_SelectionChanged" FontFamily="Palatino Linotype">
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Recipe Name" Binding="{Binding RecipeName}" Width="*">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Ingredient Name" Binding="{Binding IngredientName}" Width="*">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" Width="100">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Unit Of Measurement" Binding="{Binding UnitOfMeasurement}" Width="*">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Calories" Binding="{Binding Calories}" Width="*">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Food Group" Binding="{Binding FoodGroup}" Width="300">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTemplateColumn Width="Auto">
+                        <DataGridTemplateColumn.Header>
+                            <TextBlock Text="Delete Ingredient" HorizontalAlignment="Center"/>
+                        </DataGridTemplateColumn.Header>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Delete Ingredient" Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType={x:Type local:SearchForRecipe}}}" CommandParameter="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Grid>
+                                                <Rectangle Fill="Red" RadiusX="5" RadiusY="5"/>
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Grid>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <Label Content="Steps" FontSize="25" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,237,0,0" Grid.Row="7" FontFamily="Segoe Script" RenderTransformOrigin="0.5,0.733"/>
+
+            <Button x:Name="BackButton" Content="Back" HorizontalAlignment="Right" VerticalAlignment="Top" Width="75" Margin="0,22,1164,0" Click="BackButton_Click" FontFamily="Segoe Script"/>
+
+            <ComboBox HorizontalAlignment="Left" Margin="370,19,0,0" Grid.Row="2" VerticalAlignment="Top" Width="707" Height="27" SelectionChanged="ComboBox_SelectionChanged"/>
+
+            <ComboBox HorizontalAlignment="Left" Margin="370,74,0,0" Grid.Row="2" VerticalAlignment="Top" Width="707" Height="27" SelectionChanged="ComboBox_SelectionChanged_1" Grid.RowSpan="6">
+                <ComboBox.Items>
+                    <ComboBoxItem Content="Half"/>
+                    <ComboBoxItem Content="Double"/>
+                    <ComboBoxItem Content="Triple"/>
+                </ComboBox.Items>
+            </ComboBox>
+            <ListBox Grid.Row="7" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,286,10,17" FontFamily="Segoe Print"/>
+        </Grid>
+    </Viewbox>
+</UserControl>

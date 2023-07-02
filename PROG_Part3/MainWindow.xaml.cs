@@ -1,16 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 
 namespace PROG_Part3
 {
@@ -23,10 +13,47 @@ namespace PROG_Part3
 
         private void AddRecipeMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            // Redirect to the addRecipe.xaml page
-            addRecipe addRecipeWindow = new addRecipe();
+            // Redirect to the AddRecipe.xaml page
+            AddRecipe addRecipeWindow = new AddRecipe();
+            Content = addRecipeWindow;
+
+        }
+
+        private void SearchRecipesMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            // Redirect to the SearchForRecipe.xaml page
+            SearchForRecipe searchRecipeWindow = new SearchForRecipe();
+            Content = searchRecipeWindow;
+        }
+
+        private void ScaleRecipeMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            // Redirect to the ScaleRecipe.xaml page
+            ScaleRecipe scaleRecipeWindow = new ScaleRecipe();
+            Content = scaleRecipeWindow;
+        }
+
+        private void AddRecipeButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Redirect to the AddRecipe.xaml page
+            AddRecipe addRecipeWindow = new AddRecipe();
             Content = addRecipeWindow;
         }
+
+        private void SearchRecipesButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Redirect to the SearchForRecipe.xaml page
+            SearchForRecipe searchRecipeWindow = new SearchForRecipe();
+            Content = searchRecipeWindow;
+        }
+
+        private void ScaleRecipeButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Redirect to the ScaleRecipe.xaml page
+            ScaleRecipe scaleRecipeWindow = new ScaleRecipe();
+            Content = scaleRecipeWindow;
+        }
+
         public void ToggleFullscreen()
         {
             if (WindowState == WindowState.Normal)
@@ -42,9 +69,5 @@ namespace PROG_Part3
                 ResizeMode = ResizeMode.CanResize;
             }
         }
-
-
-
-
     }
 }
