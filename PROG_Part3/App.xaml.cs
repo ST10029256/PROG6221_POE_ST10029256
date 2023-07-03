@@ -13,5 +13,6 @@ namespace PROG_Part3
     /// </summary>
     public partial class App : Application
     {
+
     }
 }

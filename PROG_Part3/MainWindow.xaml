@@ -63,7 +63,7 @@
                 </StackPanel>
             </Border>
         </Popup>
-        
+
         <TextBlock Grid.Column="7" Text="GoodGoodFood" FontSize="18" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Margin="247,18,0,0" Grid.RowSpan="2" FontFamily="Segoe Print"/>
 
         <ScrollViewer Grid.Row="1" Grid.ColumnSpan="7" Margin="0,62,10,20" Background="White" BorderBrush="#FFD9D9D9" BorderThickness="1" Grid.Column="1">
@@ -75,4 +75,5 @@
             </StackPanel>
         </ScrollViewer>
     </Grid>
+
 </Window>

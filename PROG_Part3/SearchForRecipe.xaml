@@ -19,16 +19,16 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Label Content="Search Ingredients" FontSize="25" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,-2,0,0" FontFamily="Segoe Script"/>
+            <Label Content="Search Recipe" FontSize="25" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,-2,0,0" FontFamily="Segoe Script"/>
 
             <Label Content="Ingredient Name:" Foreground="White" Margin="113,8,0,0" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe Script"/>
-            <TextBox Grid.Row="4" x:Name="IngredientName2TextBox" VerticalAlignment="Top" Margin="68,39,901,0" Height="18"/>
+            <TextBox Grid.Row="4" x:Name="IngredientName2TextBox" VerticalAlignment="Top" Margin="68,39,901,0" Height="25"/>
 
-            <Label Content="Calories:" Foreground="White" Margin="550,8,540,80" Grid.Row="4" RenderTransformOrigin="-1.028,0.035" FontFamily="Segoe Script"/>
-            <TextBox Grid.Row="4" x:Name="Calories2TextBox" VerticalAlignment="Top" Height="18" HorizontalAlignment="Center" Width="103" Margin="0,39,0,0" TextChanged="Calories2TextBox_TextChanged"/>
+            <Label Content="Max Calories:" Foreground="White" Margin="530,8,530,80" Grid.Row="4" RenderTransformOrigin="-1.028,0.035" FontFamily="Segoe Script"/>
+            <TextBox Grid.Row="4" x:Name="Calories2TextBox" VerticalAlignment="Top" Height="25" HorizontalAlignment="Center" Width="103" Margin="0,39,0,0" TextChanged="Calories2TextBox_TextChanged"/>
 
             <Label Content="Food Group:" Foreground="White" Margin="968,8,99,76" Grid.Row="4" RenderTransformOrigin="0.471,0.585" FontFamily="Segoe Script"/>
-            <ComboBox Grid.Row="4" x:Name="FoodGroup2ComboBox" VerticalAlignment="Top" SelectionChanged="ComboBox_SelectionChanged_1" Height="18" HorizontalAlignment="Left" Width="200" Margin="913,39,0,0">
+            <ComboBox Grid.Row="4" x:Name="FoodGroup2ComboBox" VerticalAlignment="Top" SelectionChanged="ComboBox_SelectionChanged_1" Height="25" HorizontalAlignment="Left" Width="200" Margin="913,39,0,0">
                 <ComboBox.Items>
                     <ComboBoxItem Content="Starchy foods"/>
                     <ComboBoxItem Content="Vegetables and fruits"/>
@@ -46,11 +46,11 @@
 
             <Button Content="Search" HorizontalAlignment="Left" Margin="964,74,0,0" Grid.Row="4" VerticalAlignment="Top" Height="30" Width="98" Click="FoodGroupSearch_Click" FontFamily="Segoe Script"/>
 
-            <Label Content="Ingredients" FontSize="25" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,17,0,0" Grid.Row="7" FontFamily="Segoe Script"/>
+            <Label Content="Recipes" FontSize="25" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,17,0,0" Grid.Row="7" FontFamily="Segoe Script"/>
 
             <Label Content="Steps" FontSize="25" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,248,0,0" Grid.Row="7" FontFamily="Segoe Script"/>
 
-            <DataGrid x:Name ="dataGrid" Grid.Row="7" Margin="10,76,10,210" Background="White" AutoGenerateColumns="False" ItemsSource="{Binding Recipes}" FontFamily="Palatino Linotype">
+            <DataGrid x:Name ="dataGrid" Grid.Row="7" Margin="10,76,10,210" Background="White" AutoGenerateColumns="False" ItemsSource="{Binding Recipes}" FontFamily="Palatino Linotype" SelectionChanged="dataGrid_SelectionChanged">
                 <DataGrid.ColumnHeaderStyle>
                     <Style TargetType="DataGridColumnHeader">
                         <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -120,8 +120,13 @@
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
-            <ListBox Grid.Row="7" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,303,10,10" FontFamily="Segoe Print"/>
-            <Button x:Name="BackButton" Content="Back" HorizontalAlignment="Left" Margin="10,13,0,0" VerticalAlignment="Top" Width="73" Height="18" Click="BackButton_Click_1" FontFamily="Segoe Script"/>
+            <ListBox Grid.Row="7"
+                x:Name="StepsListBox"
+                    Margin="14,297,10,19"
+                    FontFamily="Segoe Print"
+                SelectionChanged="StepsListBox_SelectionChanged">
+            </ListBox>
+            <Button x:Name="BackButton" Content="Back" HorizontalAlignment="Left" Margin="10,13,0,0" VerticalAlignment="Top" Width="73" Height="18" Click="BackButton_Click" FontFamily="Segoe Script"/>
         </Grid>
     </Viewbox>
 </UserControl>

@@ -51,16 +51,30 @@ namespace PROG_Part3
             // Add your code to handle the selected item or perform any other actions
         }
 
-        private void BackButton_Click(object sender, RoutedEventArgs e)
+        private void BackButton_Click(object sender, EventArgs e)
         {
-            // Handle the click event of the BackButton here
-            // Add your code to navigate back or perform any other actions
+            MainWindow mainWindow = new MainWindow();
+
+            // Retrieve the stored window state
+            WindowState windowState = Window.GetWindow(this)?.WindowState ?? WindowState.Normal;
+
+            // Pass the window state to the MainWindow
+            mainWindow.WindowState = windowState;
+
+            Application.Current.MainWindow = mainWindow;
+            Window.GetWindow(this)?.Close();
+            mainWindow.Show();
         }
 
         private void ComboBox_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
             // Handle the selection changed event of the ComboBox here
             // Add your code to handle the selected item or perform any other actions
+        }
+
+        private void StepsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

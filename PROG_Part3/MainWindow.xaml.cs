@@ -53,21 +53,5 @@ namespace PROG_Part3
             ScaleRecipe scaleRecipeWindow = new ScaleRecipe();
             Content = scaleRecipeWindow;
         }
-
-        public void ToggleFullscreen()
-        {
-            if (WindowState == WindowState.Normal)
-            {
-                WindowState = WindowState.Maximized;
-                WindowStyle = WindowStyle.None;
-                ResizeMode = ResizeMode.NoResize;
-            }
-            else
-            {
-                WindowState = WindowState.Normal;
-                WindowStyle = WindowStyle.SingleBorderWindow;
-                ResizeMode = ResizeMode.CanResize;
-            }
-        }
     }
 }

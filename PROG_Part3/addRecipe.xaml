@@ -7,7 +7,7 @@
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
     <Viewbox Stretch="Uniform">
-        <Grid Background="Black" Height="678" VerticalAlignment="Center" Width="1252" HorizontalAlignment="Center">
+        <Grid x:Name="datagrid" Background="Black" Height="678" VerticalAlignment="Center" Width="1255" HorizontalAlignment="Center">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -22,138 +22,75 @@
             <Label Content="Add Recipe" FontSize="25" FontWeight="Bold" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Segoe Script" Margin="547,0,0,0"/>
 
             <Label Content="Recipe Name:" Foreground="White" Margin="214,10,0,42" Grid.Row="1" HorizontalAlignment="Left" Grid.RowSpan="2" FontFamily="Segoe Script"/>
-            <TextBox Grid.Row="1" x:Name="RecipeNameTextBox" VerticalAlignment="Top" Margin="328,17,214,0" Grid.RowSpan="2"/>
+            <TextBox Grid.Row="1" x:Name="RecipeNameTextBox" VerticalAlignment="Top" Margin="328,17,214,0" Grid.RowSpan="2" TextChanged="RecipeNameTextBox_TextChanged"/>
 
             <Label Content="Ingredient Name:" Foreground="White" Margin="192,0,0,0" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Segoe Script"/>
             <TextBox Grid.Row="2" x:Name="IngredientNameTextBox" VerticalAlignment="Center" Margin="328,0,214,0"/>
 
-            <Label Content="Quantity:" Foreground="White" Margin="34,7,733,93" Grid.Row="4" RenderTransformOrigin="0.687,0.502" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe Script"/>
-            <TextBox Grid.Row="4" x:Name="QuantityTextBox" VerticalAlignment="Center" Margin="34,0,0,0" Height="32" HorizontalAlignment="Left" Width="58"/>
+            <Label Content="Quantity:" Foreground="White" Margin="27,25,0,0" Grid.Row="4" RenderTransformOrigin="0.687,0.502" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe Script"/>
+            <TextBox Grid.Row="4" x:Name="QuantityTextBox" VerticalAlignment="Center" Margin="34,0,0,0" Height="32" HorizontalAlignment="Left" Width="58" TextChanged="QuantityTextBox_TextChanged"/>
 
-            <Label Content="Unit Of Measurement:" Foreground="White" Margin="205,7,891,115" Grid.Row="4" FontFamily="Segoe Script"/>
+            <Label Content="Unit Of Measurement:" Foreground="White" Margin="205,25,891,97" Grid.Row="4" FontFamily="Segoe Script"/>
             <ComboBox Grid.Row="4" x:Name="UnitOfMeasurementComboBox" VerticalAlignment="Center" Margin="238,0,0,0" SelectionChanged="UnitOfMeasurementComboBox_SelectionChanged" Height="32" HorizontalAlignment="Left" Width="90">
-                <ComboBox.Items>
-                    <ComboBoxItem Content="l"/>
-                    <ComboBoxItem Content="ml"/>
-                    <ComboBoxItem Content="teaspoons"/>
-                    <ComboBoxItem Content="tablespoons"/>
-                    <ComboBoxItem Content="cups"/>
-                    <ComboBoxItem Content="gallons"/>
-                </ComboBox.Items>
+                <ComboBoxItem Content="l"/>
+                <ComboBoxItem Content="ml"/>
+                <ComboBoxItem Content="teaspoon"/>
+                <ComboBoxItem Content="teaspoons"/>
+                <ComboBoxItem Content="tablespoon"/>
+                <ComboBoxItem Content="tablespoons"/>
+                <ComboBoxItem Content="cup"/>
+                <ComboBoxItem Content="cups"/>
+                <ComboBoxItem Content="gallon"/>
+                <ComboBoxItem Content="gallons"/>
             </ComboBox>
 
-            <Label Content="Calories:" Foreground="White" Margin="483,7,709,113" Grid.Row="4" FontFamily="Segoe Script"/>
-            <TextBox Grid.Row="4" x:Name="CaloriesTextBox" VerticalAlignment="Top" Margin="462,58,0,0" Height="28" HorizontalAlignment="Left" Width="102"/>
+            <Label Content="Calories:" Foreground="White" Margin="483,25,709,95" Grid.Row="4" FontFamily="Segoe Script"/>
+            <TextBox Grid.Row="4" x:Name="CaloriesTextBox" VerticalAlignment="Top" Margin="462,58,0,0" Height="28" HorizontalAlignment="Left" Width="102" TextChanged="CaloriesTextBox_TextChanged"/>
 
-            <Label Content="Food Group:" Foreground="White" Margin="819,7,344,113" Grid.Row="4" FontFamily="Segoe Script"/>
+            <Label Content="Food Group:" Foreground="White" Margin="819,24,344,96" Grid.Row="4" FontFamily="Segoe Script"/>
             <ComboBox Grid.Row="4" x:Name="FoodGroupComboBox" VerticalAlignment="Top" Margin="721,60,0,0" SelectionChanged="FoodGroupComboBox_SelectionChanged" Height="28" HorizontalAlignment="Left" Width="285">
-                <ComboBox.Items>
-                    <ComboBoxItem Content="Fruits"/>
-                    <ComboBoxItem Content="Vegetables"/>
-                    <ComboBoxItem Content="Grains, Beans, and Nuts"/>
-                    <ComboBoxItem Content="Meat and Poultry"/>
-                    <ComboBoxItem Content="Fish and Seafood"/>
-                    <ComboBoxItem Content="Dairy"/>
-                    <ComboBoxItem Content="Oils and Fats"/>
-                    <ComboBoxItem Content="Sweets and Snacks"/>
-                </ComboBox.Items>
+                <ComboBoxItem Content="Starchy foods"/>
+                <ComboBoxItem Content="Vegetables and fruits"/>
+                <ComboBoxItem Content="Dry beans, peas, lentils and soya"/>
+                <ComboBoxItem Content="Chicken, fish, meat and eggs"/>
+                <ComboBoxItem Content="Milk and dairy products"/>
+                <ComboBoxItem Content="Fats and oily"/>
+                <ComboBoxItem Content="Water"/>
             </ComboBox>
 
             <Button Grid.Row="4" x:Name="AddButton" Content="Add Ingredient" HorizontalAlignment="Left" VerticalAlignment="Center" Width="113" Margin="1125,0,0,0" Click="AddButton_Click" Height="32" FontFamily="Segoe Script"/>
 
             <Label Content="Ingredients" FontSize="25" FontWeight="Bold" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="552,118,0,0" Grid.Row="4" Grid.RowSpan="4" FontFamily="Segoe Script"/>
 
-            <DataGrid x:Name="dataGrid" Grid.Row="7" Margin="14,21,14,280" Background="White" AutoGenerateColumns="False" ItemsSource="{Binding Recipes}" FontFamily="Palatino Linotype">
-                <DataGrid.ColumnHeaderStyle>
-                    <Style TargetType="DataGridColumnHeader">
-                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                    </Style>
-                </DataGrid.ColumnHeaderStyle>
+            <DataGrid x:Name="dataGrid" AutoGenerateColumns="False" Margin="14,16,10,282" Grid.Row="7" SelectionChanged="dataGrid_SelectionChanged" ItemsSource="{Binding Ingredients}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Recipe Name" Binding="{Binding RecipeName}" Width="*">
-                        <DataGridTextColumn.ElementStyle>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="HorizontalAlignment" Value="Center"/>
-                            </Style>
-                        </DataGridTextColumn.ElementStyle>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Header="Ingredient Name" Binding="{Binding IngredientName}" Width="*">
-                        <DataGridTextColumn.ElementStyle>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="HorizontalAlignment" Value="Center"/>
-                            </Style>
-                        </DataGridTextColumn.ElementStyle>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" Width="*">
-                        <DataGridTextColumn.ElementStyle>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="HorizontalAlignment" Value="Center"/>
-                            </Style>
-                        </DataGridTextColumn.ElementStyle>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Header="Unit Of Measurement" Binding="{Binding UnitOfMeasurement}" Width="*">
-                        <DataGridTextColumn.ElementStyle>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="HorizontalAlignment" Value="Center"/>
-                            </Style>
-                        </DataGridTextColumn.ElementStyle>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Header="Calories" Binding="{Binding Calories}" Width="*">
-                        <DataGridTextColumn.ElementStyle>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="HorizontalAlignment" Value="Center"/>
-                            </Style>
-                        </DataGridTextColumn.ElementStyle>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Header="Food Group" Binding="{Binding FoodGroup}" Width="300">
-                        <DataGridTextColumn.ElementStyle>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="HorizontalAlignment" Value="Center"/>
-                            </Style>
-                        </DataGridTextColumn.ElementStyle>
-                    </DataGridTextColumn>
-                    <DataGridTemplateColumn Width="Auto">
-                        <DataGridTemplateColumn.Header>
-                            <TextBlock Text="Delete Ingredient" HorizontalAlignment="Center"/>
-                        </DataGridTemplateColumn.Header>
+                    <DataGridTextColumn Header="Ingredient Name" Binding="{Binding IngredientName}" Width="*" />
+                    <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" Width="*"/>
+                    <DataGridTextColumn Header="Unit of Measurement" Binding="{Binding UnitOfMeasurement}" Width="150"/>
+                    <DataGridTextColumn Header="Calories" Binding="{Binding Calories}" Width="150"/>
+                    <DataGridTextColumn Header="Food Group" Binding="{Binding FoodGroup}" Width="*"/>
+                    <DataGridTemplateColumn Header="Delete Ingredient">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="Delete Ingredient"
-                            Command="{Binding DeleteCommand, RelativeSource={RelativeSource AncestorType={x:Type local:AddRecipe}}}"
-                            CommandParameter="{Binding}">
-                                    <Button.Template>
-                                        <ControlTemplate TargetType="Button">
-                                            <Grid>
-                                                <Rectangle Fill="Red" RadiusX="5" RadiusY="5"/>
-                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                            </Grid>
-                                        </ControlTemplate>
-                                    </Button.Template>
-                                </Button>
+                                <Button Content="DeleteIngredient" Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                                        CommandParameter="{Binding}" Margin="5"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
 
-            <Label Content="Steps" FontSize="25" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,127,0,0" Grid.Row="7" FontFamily="Segoe Script"/>
+            <Label Content="Steps" FontSize="25" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,132,0,0" Grid.Row="7" FontFamily="Segoe Script"/>
 
             <Button x:Name="BackButton" Content="Back" HorizontalAlignment="Left" VerticalAlignment="Center" Width="75" Margin="14,0,0,0" Click="BackButton_Click" FontFamily="Segoe Script"/>
 
-            <TextBox Grid.Row="7" x:Name="StepsTextBox" VerticalAlignment="Top" Margin="14,182,135,0" Height="27"/>
+            <TextBox Grid.Row="7" x:Name="StepsTextBox" VerticalAlignment="Top" Margin="14,182,135,0" Height="27" TextChanged="StepsTextBox_TextChanged"/>
 
-            <Button Grid.Row="7" x:Name="AddStepsButton" Content="Add" HorizontalAlignment="Left" VerticalAlignment="Top" Width="98" Margin="1140,182,0,0" Click="AddStep_Click" Height="27" FontFamily="Segoe Script"/>
+            <Button Grid.Row="7" x:Name="AddStepsButton" Content="Add" HorizontalAlignment="Left" VerticalAlignment="Top" Width="98" Margin="1147,181,0,0" Click="AddStep_Click" Height="27" FontFamily="Segoe Script"/>
 
-            <Button Grid.Row="7" x:Name="RemoveIngredientButton" Content="Remove Ingredient" HorizontalAlignment="Left" VerticalAlignment="Top" Width="149" Margin="14,343,0,0" Click="RemoveIngredientButton_Click" Height="43" FontFamily="Segoe Print"/>
+            <Button Grid.Row="7" x:Name="SaveRecipeButton" Content="Save Recipe" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Margin="554,343,0,0" Click="SaveRecipeButton_Click" Height="43" FontFamily="Segoe Print"/>
 
-            <Button Grid.Row="7" x:Name="SaveRecipeButton" Content="Save Recipe" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Margin="1092,343,0,0" Click="SaveRecipeButton_Click" Height="43" FontFamily="Segoe Print"/>
-
-            <ListBox Grid.Row="7"
-         x:Name="StepsListBox"
-         Margin="14,223,10,69"
-         FontFamily="Segoe Print"
-         SelectionChanged="StepsListBox_SelectionChanged">
-               
+            <ListBox Grid.Row="7" x:Name="StepsListBox" Margin="14,223,10,69" FontFamily="Segoe Print" SelectionChanged="StepsListBox_SelectionChanged">
             </ListBox>
         </Grid>
     </Viewbox>

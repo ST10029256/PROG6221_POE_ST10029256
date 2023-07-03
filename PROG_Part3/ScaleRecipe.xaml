@@ -34,13 +34,6 @@
                     </Style>
                 </DataGrid.ColumnHeaderStyle>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Recipe Name" Binding="{Binding RecipeName}" Width="*">
-                        <DataGridTextColumn.ElementStyle>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="HorizontalAlignment" Value="Center"/>
-                            </Style>
-                        </DataGridTextColumn.ElementStyle>
-                    </DataGridTextColumn>
                     <DataGridTextColumn Header="Ingredient Name" Binding="{Binding IngredientName}" Width="*">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
@@ -62,14 +55,14 @@
                             </Style>
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Calories" Binding="{Binding Calories}" Width="*">
+                    <DataGridTextColumn Header="Calories" Binding="{Binding Calories}" Width="200">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
                                 <Setter Property="HorizontalAlignment" Value="Center"/>
                             </Style>
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Food Group" Binding="{Binding FoodGroup}" Width="300">
+                    <DataGridTextColumn Header="Food Group" Binding="{Binding FoodGroup}" Width="*">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
                                 <Setter Property="HorizontalAlignment" Value="Center"/>
@@ -78,11 +71,11 @@
                     </DataGridTextColumn>
                     <DataGridTemplateColumn Width="Auto">
                         <DataGridTemplateColumn.Header>
-                            <TextBlock Text="Delete Ingredient" HorizontalAlignment="Center"/>
+                            <TextBlock Text="Delete Recipe" HorizontalAlignment="Center"/>
                         </DataGridTemplateColumn.Header>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="Delete Ingredient" Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType={x:Type local:SearchForRecipe}}}" CommandParameter="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Button Content="Delete Recipe" Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType={x:Type local:SearchForRecipe}}}" CommandParameter="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center">
                                     <Button.Template>
                                         <ControlTemplate TargetType="Button">
                                             <Grid>
@@ -98,7 +91,7 @@
                 </DataGrid.Columns>
             </DataGrid>
 
-            <Label Content="Steps" FontSize="25" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,237,0,0" Grid.Row="7" FontFamily="Segoe Script" RenderTransformOrigin="0.5,0.733"/>
+            <Label Content="Steps" FontSize="25" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,265,0,0" Grid.Row="7" FontFamily="Segoe Script" RenderTransformOrigin="0.5,0.733"/>
 
             <Button x:Name="BackButton" Content="Back" HorizontalAlignment="Right" VerticalAlignment="Top" Width="75" Margin="0,22,1164,0" Click="BackButton_Click" FontFamily="Segoe Script"/>
 
@@ -109,9 +102,15 @@
                     <ComboBoxItem Content="Half"/>
                     <ComboBoxItem Content="Double"/>
                     <ComboBoxItem Content="Triple"/>
+                    <ComboBoxItem Content="Reset"/>
                 </ComboBox.Items>
             </ComboBox>
-            <ListBox Grid.Row="7" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,286,10,17" FontFamily="Segoe Print"/>
+            <ListBox Grid.Row="7"
+                x:Name="StepsListBox"
+                    Margin="14,319,10,10"
+                    FontFamily="Segoe Print"
+                SelectionChanged="StepsListBox_SelectionChanged">
+            </ListBox>
         </Grid>
     </Viewbox>
 </UserControl>

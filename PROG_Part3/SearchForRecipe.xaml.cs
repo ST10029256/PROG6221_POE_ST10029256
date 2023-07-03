@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Collections.ObjectModel;
+using PROG_Part3;
 
 namespace PROG_Part3
 {
@@ -71,16 +72,18 @@ namespace PROG_Part3
             Recipes.Add(new Recipe { RecipeName = "Recipe 4", IngredientName = "Ingredient D", Calories = 150, FoodGroup = "Group 3" });
         }
 
-        private void BackButton_Click(object sender, RoutedEventArgs e)
+        private void BackButton_Click(object sender, EventArgs e)
         {
             MainWindow mainWindow = new MainWindow();
 
-            Window currentWindow = Window.GetWindow(this);
-            WindowState windowState = currentWindow.WindowState; // Store the current window state
+            // Retrieve the stored window state
+            WindowState windowState = Window.GetWindow(this)?.WindowState ?? WindowState.Normal;
 
-            currentWindow.Close(); // Close the currentWindow instead of hiding it
+            // Pass the window state to the MainWindow
+            mainWindow.WindowState = windowState;
 
-            mainWindow.WindowState = windowState; // Set the window state of the mainWindow to the stored state
+            Application.Current.MainWindow = mainWindow;
+            Window.GetWindow(this)?.Close();
             mainWindow.Show();
         }
 
@@ -101,7 +104,15 @@ namespace PROG_Part3
             // Add your code to handle the selected item or perform any other actions
         }
 
+        private void StepsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
 
+        }
+
+        private void dataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 
     public class Recipe
