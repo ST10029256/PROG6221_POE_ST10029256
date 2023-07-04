@@ -66,3 +66,13 @@ The following is the process of installing the application:
 7. I lost marks for my ReadMe file, I dont agree with this statement as the feedback said "excellent" but 3 marks were deducted.
 8. I lost marks for logical classes. I dont agree with this, as I made use of a step classto retrieve the steps, ingredient class to retrieve the ingredient details and worker class where all the calculations and displays are coded.
 9. I lost marks by making use of gallons, I disagree, as why I made use of gallons is to convert the unit of measurement one step further. (12 teaspoons) x 2 = (8 tablespoons) x 2 = (1 Cup), but if the user enters (8 Cups) x 2 = (1 gallon).
+
+## Feedback Part2 Changes and why
+
+1. Be able to capture unlimimited number of everything. No need to ask the user how many elements to capture when using the generic collections , enter till stop, I could have implemented this better to make the user experience better.
+2. Display all list details in alphabetic order , the chose to display one must work as it is. When displaying all, don’t just show the names, As a coder, it is crucial for the user to have the functionality to view all the details of a list in alphabetical order, while also being able to choose to display a single item in its entirety, rather than just showing the name when viewing all the items.
+3. The 300-calorie notification is excellently implemented using a delegate. The program flow continues smoothly after the notification, 9/10 was given and from the feedback I am confused to why 9/10 and not full marks?
+4. An excellent readme file is included that explains all the required details about running the app, same here 8/10 credited but excellent Readme file is implemented and app is running smoothly.
+
+
+
