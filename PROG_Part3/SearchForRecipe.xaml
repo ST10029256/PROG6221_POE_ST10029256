@@ -24,15 +24,15 @@
 
             <!-- Ingredient Name Label and TextBox -->
             <Label Content="Ingredient Name:" Foreground="White" Margin="113,8,0,0" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe Script"/>
-            <TextBox Grid.Row="4" x:Name="IngredientName2TextBox" VerticalAlignment="Top" Margin="68,39,901,0" Height="25"/>
+            <TextBox Grid.Row="4" x:Name="IngredientNameTextBox" VerticalAlignment="Top" Margin="68,39,901,0" Height="25" TextChanged="IngredientNameTextBox_TextChanged"/>
 
             <!-- Max Calories Label and TextBox -->
             <Label Content="Max Calories:" Foreground="White" Margin="530,8,530,80" Grid.Row="4" RenderTransformOrigin="-1.028,0.035" FontFamily="Segoe Script"/>
-            <TextBox Grid.Row="4" x:Name="Calories2TextBox" VerticalAlignment="Top" Height="25" HorizontalAlignment="Center" Width="103" Margin="0,39,0,0" TextChanged="Calories2TextBox_TextChanged"/>
+            <TextBox Grid.Row="4" x:Name="CaloriesTextBox" VerticalAlignment="Top" Height="25" HorizontalAlignment="Center" Width="103" Margin="0,39,0,0" TextChanged="CaloriesTextBox_TextChanged"/>
 
             <!-- Food Group Label and ComboBox -->
             <Label Content="Food Group:" Foreground="White" Margin="968,8,99,76" Grid.Row="4" RenderTransformOrigin="0.471,0.585" FontFamily="Segoe Script"/>
-            <ComboBox Grid.Row="4" x:Name="FoodGroup2ComboBox" VerticalAlignment="Top" SelectionChanged="ComboBox_SelectionChanged_1" Height="25" HorizontalAlignment="Left" Width="200" Margin="913,39,0,0">
+            <ComboBox Grid.Row="4" x:Name="FoodGroupComboBox" VerticalAlignment="Top" SelectionChanged="FoodGroupComboBox_SelectionChanged" Height="25" HorizontalAlignment="Left" Width="200" Margin="913,39,0,0">
                 <ComboBox.Items>
                     <ComboBoxItem Content="Starchy foods"/>
                     <ComboBoxItem Content="Vegetables and fruits"/>
@@ -44,10 +44,9 @@
                 </ComboBox.Items>
             </ComboBox>
 
-            <!-- Search buttons -->
-            <Button Content="Search" HorizontalAlignment="Left" Margin="112,74,0,0" Grid.Row="4" VerticalAlignment="Top" Height="30" Width="100" Click="IngredientNameSearch_Click" FontFamily="Segoe Script"/>
-            <Button Content="Search" HorizontalAlignment="Center" Margin="0,74,0,0" Grid.Row="4" VerticalAlignment="Top" Width="99" Height="30" Click="CaloriesSearch_Click" FontFamily="Segoe Script"/>
-            <Button Content="Search" HorizontalAlignment="Left" Margin="964,74,0,0" Grid.Row="4" VerticalAlignment="Top" Height="30" Width="98" Click="FoodGroupSearch_Click" FontFamily="Segoe Script"/>
+            <!-- Search button -->
+            <Button Content="Search" HorizontalAlignment="Left" Margin="531,98,0,0" Grid.Row="4" VerticalAlignment="Top" Width="99" Height="30" Click="Search_Click" FontFamily="Segoe Script" Grid.RowSpan="4"/>
+            
 
             <!-- Recipes Label -->
             <Label Content="Recipes" FontSize="25" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,17,0,0" Grid.Row="7" FontFamily="Segoe Script"/>
@@ -111,26 +110,6 @@
                             </Style>
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
-                    <!-- Delete Ingredient Button Column -->
-                    <DataGridTemplateColumn Width="Auto">
-                        <DataGridTemplateColumn.Header>
-                            <TextBlock Text="Delete Ingredient" HorizontalAlignment="Center"/>
-                        </DataGridTemplateColumn.Header>
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button Content="Delete Ingredient" Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType={x:Type local:SearchForRecipe}}}" CommandParameter="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <Button.Template>
-                                        <ControlTemplate TargetType="Button">
-                                            <Grid>
-                                                <Rectangle Fill="Red" RadiusX="5" RadiusY="5"/>
-                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                            </Grid>
-                                        </ControlTemplate>
-                                    </Button.Template>
-                                </Button>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
             <!-- ListBox for displaying recipe steps -->

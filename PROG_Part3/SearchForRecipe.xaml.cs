@@ -21,45 +21,6 @@ namespace PROG_Part3
             UpdateDataGrid();  // Update the data grid with the recipes
         }
 
-        // Event handler for IngredientNameSearch button click
-        private void IngredientNameSearch_Click(object sender, RoutedEventArgs e)
-        {
-            string ingredientName = IngredientName2TextBox.Text;
-            List<Recipe> filteredRecipes = Recipes.Where(r => r.IngredientName.Contains(ingredientName)).ToList();  // Filter recipes based on the ingredient name
-            UpdateDataGrid(filteredRecipes);  // Update the data grid with the filtered recipes
-        }
-
-        // Event handler for FoodGroupComboBox selection changed event
-        private void FoodGroupComboBox_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
-        {
-            // No implementation provided
-        }
-
-        // Event handler for CaloriesSearch button click
-        private void CaloriesSearch_Click(object sender, RoutedEventArgs e)
-        {
-            if (int.TryParse(Calories2TextBox.Text, out int calories))
-            {
-                List<Recipe> filteredRecipes = Recipes.Where(r => r.Calories <= calories).ToList();  // Filter recipes based on calories
-                UpdateDataGrid(filteredRecipes);  // Update the data grid with the filtered recipes
-            }
-            else
-            {
-                MessageBox.Show("Please enter a valid integer for Calories.");  // Show error message for invalid input
-            }
-        }
-
-        // Event handler for FoodGroupSearch button click
-        private void FoodGroupSearch_Click(object sender, RoutedEventArgs e)
-        {
-            string selectedFoodGroup = ((ComboBoxItem)FoodGroup2ComboBox.SelectedItem)?.Content.ToString();
-            if (selectedFoodGroup != null)
-            {
-                List<Recipe> filteredRecipes = Recipes.Where(r => r.FoodGroup == selectedFoodGroup).ToList();  // Filter recipes based on selected food group
-                UpdateDataGrid(filteredRecipes);  // Update the data grid with the filtered recipes
-            }
-        }
-
         // Method to update the data grid with the provided recipes
         private void UpdateDataGrid(List<Recipe> recipes = null)
         {
@@ -91,12 +52,12 @@ namespace PROG_Part3
             mainWindow.Show();
         }
 
-        private void Calories2TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void CaloriesTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
 
-        private void ComboBox_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        private void FoodGroupComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }
@@ -110,14 +71,64 @@ namespace PROG_Part3
         {
 
         }
+
+        public Dictionary<string, RecipeClass> Search_Click(bool caloriesFilter, double maximumCalories, bool ingredientFilter, string ingredientName, bool foodGroupFilter, string foodGroup)
+        {
+            Dictionary<string, RecipeClass> filteredRecipes = new Dictionary<string, RecipeClass>();
+
+            foreach (var recipe in Recipes)
+            {
+                bool meetsCriteria = true;
+
+                // Apply calorie filter if enabled
+                if (caloriesFilter)
+                {
+                    double recipeCalories = recipe.CalcCalorieTotal();
+                    if (recipeCalories > maximumCalories)
+                    {
+                        meetsCriteria = false; // Exclude recipe if calorie limit exceeded
+                    }
+                }
+
+                // Apply ingredient filter if enabled
+                if (ingredientFilter && meetsCriteria)
+                {
+                    if (!recipe.Ingredients.Any(i => i.Name.Equals(ingredientName, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        meetsCriteria = false; // Exclude recipe if ingredient not found
+                    }
+                }
+
+                // Apply food group filter if enabled
+                if (foodGroupFilter && meetsCriteria)
+                {
+                    if (!recipe.Ingredients.Any(i => i.FoodGroup.Equals(foodGroup, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        meetsCriteria = false; // Exclude recipe if food group not found
+                    }
+                }
+
+                if (meetsCriteria)
+                {
+                    filteredRecipes.Add(recipe.RecipeName, recipe); // Add recipe to filtered dictionary if it meets all criteria
+                }
+            }
+
+            return filteredRecipes;
+        }
     }
 
-    // Class representing a recipe
-    public class Recipe
+
+
+        // Class representing a recipe
+        public class Recipe
     {
         public string RecipeName { get; set; }
         public string IngredientName { get; set; }
+
         public int Calories { get; set; }
         public string FoodGroup { get; set; }
     }
+
 }
+

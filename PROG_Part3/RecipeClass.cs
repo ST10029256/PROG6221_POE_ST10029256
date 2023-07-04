@@ -10,8 +10,7 @@ namespace PROG_Part3
     public class RecipeClass
     {
         //public event calorieLimitExceed caloriesExceeded;
-
-        private List<IngredientClass> ingredients;  // Private field to store the list of ingredients
+        private List<IngredientClass> ingredientsClass;  // Private field to store the list of ingredients
 
         private List<string> steps { get; set; }  // Private property to store the list of steps
 
@@ -21,13 +20,15 @@ namespace PROG_Part3
 
         public double Scale { get => scale; set => scale = value; }  // Public property to access and modify the scale of the recipe
 
-        public List<Ingredient> IngredientsList { get; set; }  // Public property to access and modify the list of ingredients
-
         public List<string> StepsList { get; set; }  // Public property to access and modify the list of steps
 
         public string RecipeName { get; set; }  // Public property to store the name of the recipe
 
         public List<Ingredient> Ingredients { get; set; }  // Public property to access and modify the list of ingredients
+
+        public int Calories { get; set; }
+
+        public string FoodGroup { get; set; }
 
 
         public RecipeClass(string recipeName)
@@ -37,9 +38,9 @@ namespace PROG_Part3
             Steps = new List<string>();  // Initialize the list of steps
         }
 
-        public RecipeClass(List<IngredientClass> ingredients, List<string> steps, double scale)
+        public RecipeClass(List<IngredientClass> ingredientsClass, List<string> steps, double scale)
         {
-            this.ingredients = ingredients;  // Set the private field 'ingredients' to the provided list of ingredients
+            this.ingredientsClass = ingredientsClass;  // Set the private field 'ingredients' to the provided list of ingredients
             this.steps = steps;  // Set the private property 'steps' to the provided list of steps
             this.scale = scale;  // Set the private field 'scale' to the provided scale
         }
@@ -48,29 +49,29 @@ namespace PROG_Part3
         {
             double prevSize = this.scale;
 
-            foreach (IngredientClass scaledIngredient in this.ingredients)
+            foreach (IngredientClass scaledIngredient in this.ingredientsClass)
             {
                 scaledIngredient.resetIngredientValues(prevSize);  // Reset the values of each ingredient based on the previous scale
             }
         }
 
-        public double calcCalorieTotal(List<IngredientClass> ingredients)
+        public double calcCalorieTotal(List<IngredientClass> ingredient)
         {
-            if (ingredients == null || ingredients.Count == 0)
+            if (ingredient == null || ingredient.Count == 0)
             {
                 return -1;  // If the list of ingredients is empty or null, return -1
             }
 
             double totalCalories = 0;
 
-            foreach (var ingredient in ingredients)
+            foreach (var I in ingredientsClass)
             {
-                if (ingredient.Calories <= 0)
+                if (I.Calories <= 0)
                 {
                     return -1;  // If any ingredient has negative or zero calories, return -1
                 }
 
-                totalCalories += ingredient.Calories;  // Calculate the total calories by summing the calories of each ingredient
+                totalCalories += I.Calories;  // Calculate the total calories by summing the calories of each ingredient
             }
 
             return totalCalories;
@@ -130,7 +131,7 @@ namespace PROG_Part3
 
         public void scaleRecipe(double multiplier)
         {
-            foreach (IngredientClass originalIngredient in this.ingredients)
+            foreach (IngredientClass originalIngredient in this.ingredientsClass)
             {
                 originalIngredient.scaleIngredientValues(multiplier);  // Scale the values of each ingredient based on the multiplier
             }

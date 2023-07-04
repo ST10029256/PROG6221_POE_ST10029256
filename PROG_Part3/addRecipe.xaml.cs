@@ -12,8 +12,10 @@ namespace PROG_Part3
     public partial class AddRecipe : UserControl
     {
         public Dictionary<string, RecipeClass> Recipes { get; set; }
+
         private Validate validate;
         public ICommand DeleteCommand { get; set; }
+
         private ManageMyRecipes manageMyRecipes;
 
         public AddRecipe()
@@ -64,6 +66,8 @@ namespace PROG_Part3
             // Create a new Ingredient instance
             Ingredient ingredient = new Ingredient(ingredientName, ingredientQuantity, unitOfMeasurement, ingredientCalories, foodGroup);
 
+            
+
             // Get the RecipeClass object for "Recipe 1"
             RecipeClass recipe = manageMyRecipes.GetRecipe("Recipe 1");
 
@@ -72,16 +76,6 @@ namespace PROG_Part3
 
             // Update the Recipes dictionary with the modified recipe
             Recipes["Recipe 1"] = recipe;
-
-            // Clear input fields
-            IngredientNameTextBox.Clear();
-            QuantityTextBox.Clear();
-            UnitOfMeasurementComboBox.SelectedItem = null;
-            CaloriesTextBox.Clear();
-            FoodGroupComboBox.SelectedItem = null;
-
-            // Refresh the DataGrid with the modified recipe
-            RefreshDataGrid(recipe);
 
             // Access the ingredients from the DataGrid and their properties
             if (dataGrid.ItemsSource is ObservableCollection<Ingredient> ingredients)
@@ -95,9 +89,19 @@ namespace PROG_Part3
                     double ingCalories = ing.Calories;
                     string ingFoodGroup = ing.FoodGroup;
 
-                    // Process the ingredients as needed
                 }
             }
+
+            // Refresh the DataGrid with the modified recipe
+            RefreshDataGrid(recipe);
+            // Clear input fields
+
+            IngredientNameTextBox.Clear();
+            QuantityTextBox.Clear();
+            UnitOfMeasurementComboBox.SelectedItem = null;
+            CaloriesTextBox.Clear();
+            FoodGroupComboBox.SelectedItem = null;
+
         }
 
         private void RefreshDataGrid(RecipeClass recipe)
