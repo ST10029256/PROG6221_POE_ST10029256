@@ -33,7 +33,7 @@
             <Label Content="Recipe List" FontSize="25" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,67,0,0" Grid.Row="7" FontFamily="Segoe Script"/>
 
             <!-- DataGrid to display recipes -->
-            <DataGrid x:Name="dataGrid" Grid.Row="7" Margin="10,117,8,208" Background="White" AutoGenerateColumns="False" ItemsSource="{Binding Recipes}" SelectionChanged="dataGrid_SelectionChanged" FontFamily="Palatino Linotype">
+            <DataGrid x:Name="dataGrid" Grid.Row="7" Margin="10,117,8,208" Background="White" AutoGenerateColumns="False" ItemsSource="{Binding Recipes}" SelectionChanged="DataGrid_SelectionChanged" FontFamily="Palatino Linotype">
                 <DataGrid.ColumnHeaderStyle>
                     <Style TargetType="DataGridColumnHeader">
                         <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -86,10 +86,10 @@
             <Button x:Name="BackButton" Content="Back" HorizontalAlignment="Right" VerticalAlignment="Top" Width="75" Margin="0,22,1164,0" Click="BackButton_Click" FontFamily="Segoe Script"/>
 
             <!-- ComboBox for recipe selection -->
-            <ComboBox HorizontalAlignment="Left" Margin="370,19,0,0" Grid.Row="2" VerticalAlignment="Top" Width="707" Height="27" SelectionChanged="ComboBox_SelectionChanged"/>
+            <ComboBox x:Name="RecipeNameComboBox" HorizontalAlignment="Left" Margin="370,19,0,0" Grid.Row="2" VerticalAlignment="Top" Width="707" Height="27" SelectionChanged="RecipeNameComboBox_SelectionChanged"/>
 
             <!-- ComboBox for scale factor selection -->
-            <ComboBox HorizontalAlignment="Left" Margin="370,74,0,0" Grid.Row="2" VerticalAlignment="Top" Width="707" Height="27" SelectionChanged="ComboBox_SelectionChanged_1" Grid.RowSpan="6">
+            <ComboBox x:Name="ScaleFactorComboBox" HorizontalAlignment="Left" Margin="370,74,0,0" Grid.Row="2" VerticalAlignment="Top" Width="707" Height="27" SelectionChanged="ScaleFactorComboBox_SelectionChanged" Grid.RowSpan="6">
                 <ComboBox.Items>
                     <ComboBoxItem Content="Half"/>
                     <ComboBoxItem Content="Double"/>

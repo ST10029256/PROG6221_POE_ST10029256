@@ -83,7 +83,7 @@ namespace PROG_Part3
                 // Apply calorie filter if enabled
                 if (caloriesFilter)
                 {
-                    double recipeCalories = recipe.CalcCalorieTotal();
+                    double recipeCalories = recipe.calcCalorieTotal(recipe.ingredientsClass);
                     if (recipeCalories > maximumCalories)
                     {
                         meetsCriteria = false; // Exclude recipe if calorie limit exceeded
@@ -93,7 +93,7 @@ namespace PROG_Part3
                 // Apply ingredient filter if enabled
                 if (ingredientFilter && meetsCriteria)
                 {
-                    if (!recipe.Ingredients.Any(i => i.Name.Equals(ingredientName, StringComparison.OrdinalIgnoreCase)))
+                    if (!recipe.ingredientsClass.Any(i => i.Name.Equals(ingredientName, StringComparison.OrdinalIgnoreCase)))
                     {
                         meetsCriteria = false; // Exclude recipe if ingredient not found
                     }
@@ -102,7 +102,7 @@ namespace PROG_Part3
                 // Apply food group filter if enabled
                 if (foodGroupFilter && meetsCriteria)
                 {
-                    if (!recipe.Ingredients.Any(i => i.FoodGroup.Equals(foodGroup, StringComparison.OrdinalIgnoreCase)))
+                    if (!recipe.ingredientsClass.Any(i => i.FoodGroup.Equals(foodGroup, StringComparison.OrdinalIgnoreCase)))
                     {
                         meetsCriteria = false; // Exclude recipe if food group not found
                     }
@@ -110,18 +110,26 @@ namespace PROG_Part3
 
                 if (meetsCriteria)
                 {
-                    filteredRecipes.Add(recipe.RecipeName, recipe); // Add recipe to filtered dictionary if it meets all criteria
+                    filteredRecipes.Add(recipe.RecipeName, recipe);
                 }
             }
 
             return filteredRecipes;
         }
+
+        private void IngredientNameTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void Search_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 
-
-
-        // Class representing a recipe
-        public class Recipe
+    // Class representing a recipe
+    public class Recipe
     {
         public string RecipeName { get; set; }
         public string IngredientName { get; set; }

@@ -66,8 +66,6 @@ namespace PROG_Part3
             // Create a new Ingredient instance
             Ingredient ingredient = new Ingredient(ingredientName, ingredientQuantity, unitOfMeasurement, ingredientCalories, foodGroup);
 
-            
-
             // Get the RecipeClass object for "Recipe 1"
             RecipeClass recipe = manageMyRecipes.GetRecipe("Recipe 1");
 

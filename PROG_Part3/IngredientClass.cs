@@ -33,12 +33,6 @@ namespace PROG_Part3
         // Property for accessing and modifying the calorie value
         public double Calories { get => calories; set => calories = value; }
 
-        // Override the ToString() method to provide a formatted string representation of the ingredient
-        public override string ToString()
-        {
-            return $"{quantity} {unit} of {name}. ({calories} calories of {foodGroup})";
-        }
-
         // Convert the unit of measurement to a standard format
         private string convertUnitToStandardFormat(string unit)
         {

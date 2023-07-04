@@ -9,7 +9,6 @@ namespace PROG_Part3
 {
     public class RecipeClass
     {
-        //public event calorieLimitExceed caloriesExceeded;
         private List<IngredientClass> ingredientsClass;  // Private field to store the list of ingredients
 
         private List<string> steps { get; set; }  // Private property to store the list of steps
@@ -25,11 +24,6 @@ namespace PROG_Part3
         public string RecipeName { get; set; }  // Public property to store the name of the recipe
 
         public List<Ingredient> Ingredients { get; set; }  // Public property to access and modify the list of ingredients
-
-        public int Calories { get; set; }
-
-        public string FoodGroup { get; set; }
-
 
         public RecipeClass(string recipeName)
         {
@@ -54,6 +48,7 @@ namespace PROG_Part3
                 scaledIngredient.resetIngredientValues(prevSize);  // Reset the values of each ingredient based on the previous scale
             }
         }
+
 
         public double calcCalorieTotal(List<IngredientClass> ingredient)
         {
@@ -115,7 +110,7 @@ namespace PROG_Part3
           { "Greater than 750 calories", "This range of calories is perfect for dinner options, as\nthis is on the lower end of the calorie spectrum and are\nsuitable for those who prefer a lighter evening meal. This\ncan include choices like a vegetable stir-fry with tofu, a\nsmall serving of fish or chicken with steamed vegetables,\nsmall portion of vegetarian curry with whole-grain rice, a\nsmall bowl of soup with added protein and vegetables, or a\nvegetable-based pasta dish with a light sauce." }
         };
 
-        public void changeSize(double newScale)
+        public void Size(double newScale)
         {
             if (newScale == 1)
             {
