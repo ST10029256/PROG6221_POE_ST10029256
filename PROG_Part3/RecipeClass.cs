@@ -10,40 +10,38 @@ namespace PROG_Part3
     public class RecipeClass
     {
         //public event calorieLimitExceed caloriesExceeded;
-        
-        private List<IngredientClass> ingredients;
 
-        private List<string> steps { get; set; }
+        private List<IngredientClass> ingredients;  // Private field to store the list of ingredients
 
-        private double scale = 1;
+        private List<string> steps { get; set; }  // Private property to store the list of steps
 
-        public List<string> Steps { get; set; }
+        private double scale = 1;  // Private field to store the scale of the recipe
 
-        //public List<string> Steps { get => steps; set => steps = value; }
+        public List<string> Steps { get; set; }  // Public property to access the list of steps
 
-        public double Scale { get => scale; set => scale = value; }
+        public double Scale { get => scale; set => scale = value; }  // Public property to access and modify the scale of the recipe
 
-        //public List<IngredientClass> Ingredients { get => ingredients; set => ingredients = value; }
+        public List<Ingredient> IngredientsList { get; set; }  // Public property to access and modify the list of ingredients
 
-        public List<Ingredient> IngredientsList { get; set; }
-        public List<string> StepsList { get; set; }
+        public List<string> StepsList { get; set; }  // Public property to access and modify the list of steps
 
-        public string RecipeName { get; set; }
-        public List<Ingredient> Ingredients { get; set; }
+        public string RecipeName { get; set; }  // Public property to store the name of the recipe
+
+        public List<Ingredient> Ingredients { get; set; }  // Public property to access and modify the list of ingredients
 
 
         public RecipeClass(string recipeName)
         {
             RecipeName = recipeName;
-            Ingredients = new List<Ingredient>();
-            Steps = new List<string>();
+            Ingredients = new List<Ingredient>();  // Initialize the list of ingredients
+            Steps = new List<string>();  // Initialize the list of steps
         }
 
         public RecipeClass(List<IngredientClass> ingredients, List<string> steps, double scale)
         {
-            this.ingredients = ingredients;
-            this.steps = steps;
-            this.scale = scale;
+            this.ingredients = ingredients;  // Set the private field 'ingredients' to the provided list of ingredients
+            this.steps = steps;  // Set the private property 'steps' to the provided list of steps
+            this.scale = scale;  // Set the private field 'scale' to the provided scale
         }
 
         public void resetToOriginalSize()
@@ -52,7 +50,7 @@ namespace PROG_Part3
 
             foreach (IngredientClass scaledIngredient in this.ingredients)
             {
-                scaledIngredient.resetIngredientValues(prevSize);
+                scaledIngredient.resetIngredientValues(prevSize);  // Reset the values of each ingredient based on the previous scale
             }
         }
 
@@ -60,7 +58,7 @@ namespace PROG_Part3
         {
             if (ingredients == null || ingredients.Count == 0)
             {
-                return -1;
+                return -1;  // If the list of ingredients is empty or null, return -1
             }
 
             double totalCalories = 0;
@@ -69,14 +67,15 @@ namespace PROG_Part3
             {
                 if (ingredient.Calories <= 0)
                 {
-                    return -1;
+                    return -1;  // If any ingredient has negative or zero calories, return -1
                 }
 
-                totalCalories += ingredient.Calories;
+                totalCalories += ingredient.Calories;  // Calculate the total calories by summing the calories of each ingredient
             }
 
             return totalCalories;
         }
+
         public string calcCalorieRange(double totalCalories)
         {
             string selectedRange = "";
@@ -93,7 +92,7 @@ namespace PROG_Part3
             {
                 selectedRange = "450-750 calories";
             }
-            else 
+            else
             {
                 selectedRange = "greater than 750 calories";
             }
@@ -103,9 +102,10 @@ namespace PROG_Part3
 
         public string neatCalorieInfoFormat(double totalCalories, string range)
         {
-            return $"{range}\n{calorieRanges[range]}";
+            return $"{range}\n{calorieRanges[range]}";  // Return a formatted string with the selected calorie range and its corresponding information
         }
 
+        // A dictionary that maps calorie ranges to their information
         private readonly Dictionary<string, string> calorieRanges = new Dictionary<string, string>
         {
           { "0 - 150 calories", "This range of calories is perfect for snacks, as this is\nlow in calories and are often comprised of light, nutrient\ndense foods such as fruits, vegetables and low-fat dairy\nproducts. This is suitable for those who are closely\nmonitoring their calorie intake or looking for minimal\ncalorie options." },
@@ -120,22 +120,20 @@ namespace PROG_Part3
             {
                 this.resetToOriginalSize();
             }
-            else 
+            else
             {
                 this.scaleRecipe(newScale);
             }
 
-            this.Scale = newScale;
+            this.Scale = newScale;  // Update the scale property with the new scale value
         }
 
         public void scaleRecipe(double multiplier)
         {
             foreach (IngredientClass originalIngredient in this.ingredients)
             {
-                originalIngredient.scaleIngredientValues(multiplier);
+                originalIngredient.scaleIngredientValues(multiplier);  // Scale the values of each ingredient based on the multiplier
             }
-
         }
     }
 }
-

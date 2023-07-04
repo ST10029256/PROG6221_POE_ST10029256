@@ -19,14 +19,18 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
+            <!-- Search Recipe Label -->
             <Label Content="Search Recipe" FontSize="25" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,-2,0,0" FontFamily="Segoe Script"/>
 
+            <!-- Ingredient Name Label and TextBox -->
             <Label Content="Ingredient Name:" Foreground="White" Margin="113,8,0,0" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe Script"/>
             <TextBox Grid.Row="4" x:Name="IngredientName2TextBox" VerticalAlignment="Top" Margin="68,39,901,0" Height="25"/>
 
+            <!-- Max Calories Label and TextBox -->
             <Label Content="Max Calories:" Foreground="White" Margin="530,8,530,80" Grid.Row="4" RenderTransformOrigin="-1.028,0.035" FontFamily="Segoe Script"/>
             <TextBox Grid.Row="4" x:Name="Calories2TextBox" VerticalAlignment="Top" Height="25" HorizontalAlignment="Center" Width="103" Margin="0,39,0,0" TextChanged="Calories2TextBox_TextChanged"/>
 
+            <!-- Food Group Label and ComboBox -->
             <Label Content="Food Group:" Foreground="White" Margin="968,8,99,76" Grid.Row="4" RenderTransformOrigin="0.471,0.585" FontFamily="Segoe Script"/>
             <ComboBox Grid.Row="4" x:Name="FoodGroup2ComboBox" VerticalAlignment="Top" SelectionChanged="ComboBox_SelectionChanged_1" Height="25" HorizontalAlignment="Left" Width="200" Margin="913,39,0,0">
                 <ComboBox.Items>
@@ -40,23 +44,26 @@
                 </ComboBox.Items>
             </ComboBox>
 
+            <!-- Search buttons -->
             <Button Content="Search" HorizontalAlignment="Left" Margin="112,74,0,0" Grid.Row="4" VerticalAlignment="Top" Height="30" Width="100" Click="IngredientNameSearch_Click" FontFamily="Segoe Script"/>
-
             <Button Content="Search" HorizontalAlignment="Center" Margin="0,74,0,0" Grid.Row="4" VerticalAlignment="Top" Width="99" Height="30" Click="CaloriesSearch_Click" FontFamily="Segoe Script"/>
-
             <Button Content="Search" HorizontalAlignment="Left" Margin="964,74,0,0" Grid.Row="4" VerticalAlignment="Top" Height="30" Width="98" Click="FoodGroupSearch_Click" FontFamily="Segoe Script"/>
 
+            <!-- Recipes Label -->
             <Label Content="Recipes" FontSize="25" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,17,0,0" Grid.Row="7" FontFamily="Segoe Script"/>
 
+            <!-- Steps Label -->
             <Label Content="Steps" FontSize="25" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,248,0,0" Grid.Row="7" FontFamily="Segoe Script"/>
 
-            <DataGrid x:Name ="dataGrid" Grid.Row="7" Margin="10,76,10,210" Background="White" AutoGenerateColumns="False" ItemsSource="{Binding Recipes}" FontFamily="Palatino Linotype" SelectionChanged="dataGrid_SelectionChanged">
+            <!-- DataGrid for displaying recipe information -->
+            <DataGrid x:Name="dataGrid" Grid.Row="7" Margin="10,76,10,210" Background="White" AutoGenerateColumns="False" ItemsSource="{Binding Recipes}" FontFamily="Palatino Linotype" SelectionChanged="dataGrid_SelectionChanged">
                 <DataGrid.ColumnHeaderStyle>
                     <Style TargetType="DataGridColumnHeader">
                         <Setter Property="HorizontalContentAlignment" Value="Center"/>
                     </Style>
                 </DataGrid.ColumnHeaderStyle>
                 <DataGrid.Columns>
+                    <!-- Recipe Name Column -->
                     <DataGridTextColumn Header="Recipe Name" Binding="{Binding RecipeName}" Width="*">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
@@ -64,6 +71,7 @@
                             </Style>
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
+                    <!-- Ingredient Name Column -->
                     <DataGridTextColumn Header="Ingredient Name" Binding="{Binding IngredientName}" Width="*">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
@@ -71,6 +79,7 @@
                             </Style>
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
+                    <!-- Quantity Column -->
                     <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" Width="*">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
@@ -78,6 +87,7 @@
                             </Style>
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
+                    <!-- Unit Of Measurement Column -->
                     <DataGridTextColumn Header="Unit Of Measurement" Binding="{Binding UnitOfMeasurement}" Width="*">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
@@ -85,6 +95,7 @@
                             </Style>
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
+                    <!-- Calories Column -->
                     <DataGridTextColumn Header="Calories" Binding="{Binding Calories}" Width="*">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
@@ -92,6 +103,7 @@
                             </Style>
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
+                    <!-- Food Group Column -->
                     <DataGridTextColumn Header="Food Group" Binding="{Binding FoodGroup}" Width="300">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
@@ -99,6 +111,7 @@
                             </Style>
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
+                    <!-- Delete Ingredient Button Column -->
                     <DataGridTemplateColumn Width="Auto">
                         <DataGridTemplateColumn.Header>
                             <TextBlock Text="Delete Ingredient" HorizontalAlignment="Center"/>
@@ -120,12 +133,10 @@
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
-            <ListBox Grid.Row="7"
-                x:Name="StepsListBox"
-                    Margin="14,297,10,19"
-                    FontFamily="Segoe Print"
-                SelectionChanged="StepsListBox_SelectionChanged">
+            <!-- ListBox for displaying recipe steps -->
+            <ListBox Grid.Row="7" x:Name="StepsListBox" Margin="14,297,10,19" FontFamily="Segoe Print" SelectionChanged="StepsListBox_SelectionChanged">
             </ListBox>
+            <!-- Back Button -->
             <Button x:Name="BackButton" Content="Back" HorizontalAlignment="Left" Margin="10,13,0,0" VerticalAlignment="Top" Width="73" Height="18" Click="BackButton_Click" FontFamily="Segoe Script"/>
         </Grid>
     </Viewbox>

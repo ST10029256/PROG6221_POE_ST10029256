@@ -8,6 +8,8 @@ namespace PROG_Part3
 {
     public static class MyRecipes
     {
+        // Singleton instance of ManageMyRecipes class
         public static ManageMyRecipes manageMyRecipes { get; } = new ManageMyRecipes();
     }
 }
+

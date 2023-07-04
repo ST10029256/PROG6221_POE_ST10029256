@@ -23,32 +23,27 @@ namespace PROG_Part3
 
         private void RecipeNameComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // Handle the selection changed event of the RecipeNameComboBox here
-            // Add your code to handle the selected item or perform any other actions
+            
         }
 
         private void ScaleFactorComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // Handle the selection changed event of the ScaleFactorComboBox here
-            // Add your code to handle the selected item or perform any other actions
+            
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // Handle the selection changed event of the ComboBox here
-            // Add your code to handle the selected item or perform any other actions
+            
         }
 
         private void ComboBox_SelectionChanged1(object sender, SelectionChangedEventArgs e)
         {
-            // Handle the selection changed event of the ComboBox here
-            // Add your code to handle the selected item or perform any other actions
+           
         }
 
         private void dataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // Handle the selection changed event of the DataGrid here
-            // Add your code to handle the selected item or perform any other actions
+            
         }
 
         private void BackButton_Click(object sender, EventArgs e)
@@ -68,8 +63,7 @@ namespace PROG_Part3
 
         private void ComboBox_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
-            // Handle the selection changed event of the ComboBox here
-            // Add your code to handle the selected item or perform any other actions
+            
         }
 
         private void StepsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
